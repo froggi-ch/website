@@ -1,0 +1,16 @@
+{
+  "name": "froggi-website",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "prebuild": "cp ../core/frontend/assets/images/app-icon.png public/app-icon.png && cp ../core/frontend/assets/images/favicon.png public/favicon.png",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.16.0",
+    "@astrojs/tailwind": "^5.1.3",
+    "tailwindcss": "^3.4.17"
+  }
+}

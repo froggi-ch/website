@@ -1,0 +1,78 @@
+---
+import FeatureCard from './FeatureCard.astro';
+
+const features = [
+  {
+    title: 'Report Module',
+    description: 'Configurable, template-based data collection forms. Standardise how staff record observations, assessments, and care events.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />',
+  },
+  {
+    title: 'Timeline Module',
+    description: 'Chronological event log with powerful filtering by date, category, and staff member. Ideal for handovers and incident reviews.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />',
+  },
+  {
+    title: 'Graphs Module',
+    description: 'Turn collected report data into trend charts and dashboards. Spot patterns early without exporting to spreadsheets.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />',
+  },
+  {
+    title: 'Medical / Medication',
+    description: 'Track medication schedules, dosages, and administration records per patient. Reduce errors with structured medication workflows.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />',
+  },
+  {
+    title: 'Audit Trail',
+    description: 'Every write operation is logged, timestamped, and linked in an immutable hash chain. Meets regulatory compliance requirements out of the box.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />',
+  },
+  {
+    title: 'Reminders',
+    description: 'Configure period-based reminders — daily, weekly, or custom intervals — so nothing falls through the cracks.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />',
+  },
+  {
+    title: 'Multi-platform',
+    description: 'One product, every device. Full-featured web application, native iOS and Android apps — all from a single codebase.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />',
+  },
+  {
+    title: 'NFC Authentication',
+    description: 'Tap a registered NFC device to authenticate instantly. No password typing in clinical settings — fast, secure, hands-free.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />',
+  },
+  {
+    title: 'Multi-language',
+    description: 'Fully localised in English, German, Italian, French, and Romanian. Every user works in their preferred language.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />',
+  },
+  {
+    title: 'Role-Based Access',
+    description: 'Fine-grained RBAC for every team role. Administrators, nurses, doctors — each sees only what they need.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />',
+  },
+  {
+    title: 'Cloud-Native',
+    description: 'Kubernetes-native deployment. Scale horizontally, deploy with zero downtime, run on your own infrastructure or ours.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />',
+  },
+];
+---
+
+<section id="features" class="py-24 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block text-brand-emerald text-sm font-semibold uppercase tracking-widest mb-3">Features</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-text">Everything your team needs</h2>
+      <p class="mt-4 text-brand-muted max-w-xl mx-auto">
+        A comprehensive suite of modules built for the demands of modern healthcare facilities.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {features.map((f) => (
+        <FeatureCard title={f.title} description={f.description} icon={f.icon} />
+      ))}
+    </div>
+  </div>
+</section>
