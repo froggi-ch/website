@@ -1,92 +1,61 @@
 ---
+import TasksMock from './mock/TasksMock.astro';
+import Icon from './Icon.astro';
+
+const sectors = [
+  { label: 'Pflege & Betreuung', icon: 'heart' },
+  { label: 'Liegenschaftsverwaltung', icon: 'building' },
+  { label: 'Hauswartung & Facility', icon: 'wrench' },
+  { label: 'Reinigung & Unterhalt', icon: 'broom' },
+];
 ---
 
-<section
-  id="hero"
-  class="relative min-h-screen flex items-center justify-center overflow-hidden pt-[72px]"
->
-  <!-- Subtle grid background -->
+<section class="relative overflow-hidden pt-28 md:pt-36 pb-20">
   <div
-    class="absolute inset-0 opacity-[0.04]"
-    style="background-image: linear-gradient(#10B981 1px, transparent 1px), linear-gradient(to right, #10B981 1px, transparent 1px); background-size: 48px 48px;"
+    class="absolute inset-x-0 top-0 h-[640px] pointer-events-none"
+    style="background: radial-gradient(60% 55% at 50% 0%, #e1efe5 0%, rgba(246,249,247,0) 100%);"
   ></div>
 
-  <!-- Emerald radial glow -->
-  <div
-    class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
-    style="background: radial-gradient(circle, #10B981 0%, transparent 70%);"
-  ></div>
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <a href="#templates" class="inline-flex items-center gap-2 rounded-full border border-brand-sage/70 bg-white/70 px-3 py-1 text-xs font-medium text-brand-accent hover:bg-white transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent"></span>
+        Neu: Vorlagen-Marktplatz, Aufgaben &amp; Alarme
+        <Icon name="arrow" class="w-3.5 h-3.5" />
+      </a>
 
-  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-    <!-- App icon -->
-    <div class="flex justify-center mb-8">
-      <div
-        class="relative w-24 h-24 rounded-2xl overflow-hidden ring-2 ring-brand-emerald/40 shadow-lg"
-        style="box-shadow: 0 0 40px rgba(16,185,129,0.25);"
-      >
-        <img src="/app-icon.png" alt="Froggi" width="96" height="96" class="w-full h-full object-cover" />
+      <h1 class="mt-6 text-[2.3rem] leading-[1.08] sm:text-6xl md:text-[4.25rem] font-bold tracking-tight text-brand-ink">
+        Dokumentieren, was&nbsp;zählt.<br />
+        <span class="text-brand-accent">Sehen, was fällig&nbsp;ist.</span>
+      </h1>
+
+      <p class="mt-6 text-lg md:text-xl text-brand-muted leading-relaxed max-w-2xl mx-auto">
+        Froggi ist die Dokumentationsplattform für Teams im Einsatz. Ihre eigenen Formulare,
+        erfasst im Browser oder offline auf dem Handy – mit lückenlosem Verlauf und Aufgaben pro Objekt.
+      </p>
+
+      <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-accent text-white font-semibold hover:bg-brand-accent-dark transition-colors shadow-[0_6px_20px_-6px_rgba(67,107,78,0.55)]">
+          Demo anfragen <Icon name="arrow" class="w-4 h-4" stroke={2} />
+        </a>
+        <a href="#product" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-brand-border bg-white text-brand-ink font-medium hover:border-brand-sage transition-colors">
+          So funktioniert's
+        </a>
       </div>
     </div>
 
-    <!-- Headline -->
-    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6">
-      Gesundheitsmanagement.<br />
-      <span class="text-brand-emerald">Vereinfacht.</span>
-    </h1>
-
-    <!-- Subheadline -->
-    <p class="text-lg md:text-xl text-brand-muted max-w-2xl mx-auto mb-10 leading-relaxed">
-      Froggi ist die modulare Plattform für Pflegeteams – Berichte, Zeitachsen,
-      Medikamente, Audit-Trail und mehr. Auf jedem Gerät, in jeder Sprache.
-    </p>
-
-    <!-- CTAs -->
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a
-        href="#contact"
-        class="inline-flex items-center px-8 py-3.5 rounded-xl bg-brand-emerald text-white text-base font-semibold hover:bg-brand-emerald-dark transition-colors shadow-lg"
-        style="box-shadow: 0 4px 24px rgba(16,185,129,0.30);"
-      >
-        Demo anfragen
-        <svg class="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </a>
-      <a
-        href="#features"
-        class="inline-flex items-center px-8 py-3.5 rounded-xl border border-brand-border text-brand-muted text-base font-medium hover:text-brand-text hover:border-brand-emerald/50 transition-colors"
-      >
-        Funktionen entdecken
-        <svg class="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </a>
+    <div class="relative mt-16 md:mt-20 max-w-5xl mx-auto">
+      <TasksMock />
     </div>
 
-    <!-- Platform badges -->
-    <div class="mt-12 flex items-center justify-center gap-6 text-brand-muted text-sm">
-      <!-- Web -->
-      <div class="flex items-center gap-2">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-        </svg>
-        <span>Web</span>
-      </div>
-      <span class="text-brand-border">·</span>
-      <!-- iOS -->
-      <div class="flex items-center gap-2">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.15-2.18 1.27-2.16 3.8.03 3.02 2.65 4.03 2.68 4.04l-.07.28zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-        </svg>
-        <span>iOS</span>
-      </div>
-      <span class="text-brand-border">·</span>
-      <!-- Android -->
-      <div class="flex items-center gap-2">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.523 15.341a.99.99 0 01-.98.98.99.99 0 01-.98-.98.99.99 0 01.98-.98.99.99 0 01.98.98zm-9.066 0a.99.99 0 01-.98.98.99.99 0 01-.98-.98.99.99 0 01.98-.98.99.99 0 01.98.98zM17.69 9.5H6.31L4.907 6.696a.5.5 0 01.197-.68l3.39-1.956.65 1.126L6.36 6.5h11.28l-2.784-1.314.65-1.126 3.39 1.956a.5.5 0 01.197.68L17.69 9.5zm.81 1v5.5a1.5 1.5 0 01-1.5 1.5h-9a1.5 1.5 0 01-1.5-1.5V10.5h12z"/>
-        </svg>
-        <span>Android</span>
+    <div class="mt-14 text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-brand-muted mb-5">Gebaut für</p>
+      <div class="flex flex-wrap justify-center gap-2.5">
+        {sectors.map((s) => (
+          <span class="inline-flex items-center gap-2 rounded-full bg-white border border-brand-border px-4 py-2 text-sm text-brand-ink">
+            <Icon name={s.icon} class="w-4 h-4 text-brand-accent" /> {s.label}
+          </span>
+        ))}
       </div>
     </div>
   </div>

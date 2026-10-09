@@ -1,0 +1,56 @@
+---
+import Icon from './Icon.astro';
+
+// Figures from corev2/templates/immobilienbewirtschaftung.json (see its README).
+const stats = [
+  { n: '4', label: 'Objektstrukturen' },
+  { n: '6', label: 'Kategorien' },
+  { n: '19', label: 'Aktionen' },
+  { n: '227', label: 'Felder' },
+];
+---
+
+<section id="templates" class="py-24 md:py-32 bg-brand-ink text-white relative overflow-hidden">
+  <div class="absolute -right-40 -top-40 w-[520px] h-[520px] rounded-full opacity-[0.08]" style="background: radial-gradient(circle, #a2cdab, transparent 70%);"></div>
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+    <div>
+      <span class="inline-block text-brand-sage text-xs font-semibold uppercase tracking-[0.16em] mb-3">Vorlagen-Marktplatz</span>
+      <h2 class="text-3xl md:text-[2.5rem] md:leading-[1.15] font-bold tracking-tight">Am ersten Tag startklar.</h2>
+      <p class="mt-4 text-lg text-white/70 leading-relaxed">
+        Niemand will ein Dokumentationsvokabular von Grund auf entwerfen. Installieren Sie eine fertige Branchenvorlage
+        direkt aus Froggi heraus – mit Vorschau als Probelauf, bevor sich etwas ändert.
+      </p>
+      <ul class="mt-8 space-y-3 text-sm text-white/85">
+        <li class="flex gap-3"><Icon name="shield" class="w-5 h-5 text-brand-sage shrink-0" />Vom Hersteller signiert – Sie sehen, woher eine Vorlage stammt.</li>
+        <li class="flex gap-3"><Icon name="sparkle" class="w-5 h-5 text-brand-sage shrink-0" />Updates werden angeboten, sobald eine Vorlage verbessert wird.</li>
+        <li class="flex gap-3"><Icon name="editor" class="w-5 h-5 text-brand-sage shrink-0" />Danach gehört sie Ihnen: anpassen, erweitern, übersetzen.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-2xl bg-white text-brand-ink p-6 shadow-2xl">
+      <div class="flex items-start gap-4">
+        <span class="w-12 h-12 rounded-xl bg-brand-soft text-brand-accent flex items-center justify-center shrink-0"><Icon name="building" class="w-6 h-6" /></span>
+        <div class="min-w-0 flex-1">
+          <div class="flex flex-wrap items-center gap-2">
+            <h3 class="font-semibold">Immobilienbewirtschaftung</h3>
+            <span class="text-[11px] px-1.5 py-0.5 rounded bg-brand-soft text-brand-accent font-semibold">CH</span>
+          </div>
+          <p class="text-sm text-brand-muted mt-1">Liegenschaftsverwaltung: Übergaben, Abnahmen, Unterhalt, Reinigung und technische Anlagen.</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-4 gap-2 mt-6">
+        {stats.map((s) => (
+          <div class="rounded-xl bg-brand-bg border border-brand-border py-3 text-center">
+            <div class="text-xl font-bold text-brand-accent">{s.n}</div>
+            <div class="text-[11px] text-brand-muted leading-tight mt-0.5">{s.label}</div>
+          </div>
+        ))}
+      </div>
+      <div class="flex items-center justify-between mt-6 pt-5 border-t border-brand-border">
+        <span class="text-xs text-brand-muted">DE · FR · IT · EN</span>
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-sm font-semibold">Installieren</span>
+      </div>
+      <p class="mt-5 text-xs text-brand-muted">Weitere Vorlagen – etwa für Pflege und Betreuung – folgen.</p>
+    </div>
+  </div>
+</section>

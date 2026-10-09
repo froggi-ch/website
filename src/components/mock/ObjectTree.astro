@@ -1,0 +1,42 @@
+---
+import Icon from '../Icon.astro';
+
+// The left rail every working view shares: the structure tree of objects.
+export interface Props {
+  selected?: string;
+}
+const { selected = 'Alle Objekte' } = Astro.props;
+
+const rows: { label: string; depth: number; icon?: string; group?: boolean }[] = [
+  { label: 'Alle Objekte', depth: 0 },
+  { label: 'Bahnhofstrasse 12', depth: 0, icon: 'building' },
+  { label: 'Mieteinheit', depth: 1, group: true },
+  { label: 'Whg. 201 – 3.5 Zi.', depth: 2, icon: 'door' },
+  { label: 'Whg. 302 – 4.5 Zi.', depth: 2, icon: 'door' },
+  { label: 'Allgemeinbereich', depth: 1, group: true },
+  { label: 'Treppenhaus A', depth: 2, icon: 'broom' },
+  { label: 'Waschküche UG', depth: 2, icon: 'broom' },
+  { label: 'Technische Anlage', depth: 1, group: true },
+  { label: 'Heizung – Gaskessel', depth: 2, icon: 'thermo' },
+];
+---
+
+<div class="rounded-xl bg-white border border-brand-border p-2.5">
+  <div class="text-[9px] font-semibold tracking-wider text-brand-muted px-1.5 mb-1.5">OBJEKTE</div>
+  <div class="flex items-center gap-1.5 h-7 rounded-md border border-brand-border px-2 text-[10px] text-brand-muted mb-1.5">
+    <Icon name="search" class="w-3 h-3" /> Objekt suchen…
+  </div>
+  {rows.map((r) => (
+    r.group ? (
+      <div class="text-[8.5px] font-semibold tracking-wider text-brand-muted uppercase py-1" style={`padding-left:${r.depth * 12 + 6}px`}>{r.label}</div>
+    ) : (
+      <div
+        class={`flex items-center gap-1.5 py-1 rounded-md text-[10.5px] ${r.label === selected ? 'bg-brand-soft font-semibold text-brand-ink' : 'text-brand-ink/90'}`}
+        style={`padding-left:${r.depth * 12 + 6}px`}
+      >
+        {r.icon && <Icon name={r.icon} class="w-3 h-3 text-brand-accent shrink-0" />}
+        <span class="truncate">{r.label}</span>
+      </div>
+    )
+  ))}
+</div>

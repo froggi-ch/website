@@ -1,0 +1,128 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+import EditorMock from './mock/EditorMock.astro';
+import ReportMock from './mock/ReportMock.astro';
+import HistoryMock from './mock/HistoryMock.astro';
+import PhoneMock from './mock/PhoneMock.astro';
+
+const steps = [
+  {
+    n: '01',
+    eyebrow: 'Reporteditor',
+    title: 'Ihr Vokabular, nicht unseres.',
+    text: 'Sie legen fest, was dokumentiert wird: Kategorien, Aktionen und Felder – ohne eine Zeile Code. Felder erscheinen nur, wenn sie gebraucht werden, und jede Änderung wird als neue Revision gespeichert. Bestehende Berichte bleiben, wie sie erfasst wurden.',
+    points: [
+      'Sieben Feldtypen: Auswahl, Mehrfachauswahl, Freitext, Zahl, Datum, Foto, Standort',
+      'Sichtbarkeitsregeln – auch auf Stammdaten des Objekts',
+      'Beschriftungen in jeder Sprache Ihrer Instanz',
+    ],
+    mock: 'editor',
+  },
+  {
+    n: '02',
+    eyebrow: 'Erfassen',
+    title: 'Objekt, Aktion, Details. Fertig.',
+    text: 'Drei Schritte, immer gleich: Worum geht es, was wurde gemacht, und die Einzelheiten. Es werden nur Aktionen angeboten, die zum Objekt passen. Fotos und Standort kommen direkt aus dem Gerät.',
+    points: [
+      'Geführter Ablauf statt endloser Formulare',
+      'Fotos und GPS-Standort direkt im Bericht',
+      'Erfassungszeit und Speicherzeit getrennt – auch nachträglich korrekt',
+    ],
+    mock: 'report',
+  },
+  {
+    n: '03',
+    eyebrow: 'Verlauf',
+    title: 'Jedes Objekt erzählt seine Geschichte.',
+    text: 'Alles, was erfasst wurde, chronologisch und durchsuchbar – für eine Wohnung, ein ganzes Gebäude oder eine Person. Filtern Sie nach Zeitraum, Objekt oder Stichwort und öffnen Sie jeden Bericht so, wie er abgelegt wurde.',
+    points: [
+      'Endlos scrollender Verlauf mit Volltextsuche',
+      'Objektbaum nach Ihren eigenen Strukturen',
+      'Ältere Einträge wandern automatisch ins Archiv',
+    ],
+    mock: 'history',
+  },
+];
+---
+
+<section id="product" class="py-24 md:py-32 border-t border-brand-border bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <SectionHeading
+      eyebrow="So funktioniert's"
+      title="Von der leeren Instanz zum gelebten Ablauf."
+      lead="Froggi gibt Ihnen kein fixes Formular vor. Sie beschreiben Ihre Arbeit einmal – danach erfasst Ihr Team sie in Sekunden."
+    />
+
+    <div class="space-y-24 md:space-y-32">
+      {steps.map((s, i) => (
+        <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+          <div class={i % 2 === 1 ? 'md:order-2' : ''}>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-sm font-bold text-brand-sage tabular-nums">{s.n}</span>
+              <span class="text-xs font-semibold uppercase tracking-[0.16em] text-brand-accent">{s.eyebrow}</span>
+            </div>
+            <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-brand-ink">{s.title}</h3>
+            <p class="mt-4 text-brand-muted leading-relaxed">{s.text}</p>
+            <ul class="mt-6 space-y-2.5">
+              {s.points.map((p) => (
+                <li class="flex gap-3 text-sm text-brand-ink">
+                  <span class="mt-0.5 w-5 h-5 shrink-0 rounded-full bg-brand-soft text-brand-accent flex items-center justify-center">
+                    <Icon name="check" class="w-3 h-3" stroke={2.5} />
+                  </span>
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class={i % 2 === 1 ? 'md:order-1' : ''}>
+            {s.mock === 'editor' && <EditorMock />}
+            {s.mock === 'report' && <ReportMock />}
+            {s.mock === 'history' && <HistoryMock />}
+          </div>
+        </div>
+      ))}
+
+      <!-- 04: tasks + the mobile app, the step that closes the loop -->
+      <div class="rounded-3xl bg-brand-bg border border-brand-border p-6 sm:p-10 md:p-14 grid md:grid-cols-[1fr_auto] gap-10 md:gap-16 items-center">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-sm font-bold text-brand-sage tabular-nums">04</span>
+            <span class="text-xs font-semibold uppercase tracking-[0.16em] text-brand-accent">Aufgaben</span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-brand-ink">Was fällig ist, landet von selbst auf der Liste.</h3>
+          <p class="mt-4 text-brand-muted leading-relaxed">
+            Eine Liste für alles, was offen ist – egal, wer es angestossen hat. Jede Aufgabe gehört zu einem Objekt
+            und führt mit einem Tipp direkt in den passenden Bericht.
+          </p>
+          <div class="mt-8 grid sm:grid-cols-3 gap-3">
+            <div class="rounded-xl bg-white border border-brand-border p-4">
+              <span class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center mb-3"><Icon name="bell" class="w-4 h-4" /></span>
+              <div class="text-sm font-semibold">Erinnerungen</div>
+              <p class="mt-1 text-xs text-brand-muted leading-relaxed">Nach Wochenplan, im Intervall seit der letzten Erledigung oder als Folge eines Berichts.</p>
+            </div>
+            <div class="rounded-xl bg-white border border-brand-border p-4">
+              <span class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center mb-3"><Icon name="alert" class="w-4 h-4" /></span>
+              <div class="text-sm font-semibold">Alarme</div>
+              <p class="mt-1 text-xs text-brand-muted leading-relaxed">Bei Grenzwerten, gehäuften Meldungen oder einer verpassten Erinnerung.</p>
+            </div>
+            <div class="rounded-xl bg-white border border-brand-border p-4">
+              <span class="w-8 h-8 rounded-lg bg-sky-50 text-sky-700 flex items-center justify-center mb-3"><Icon name="users" class="w-4 h-4" /></span>
+              <div class="text-sm font-semibold">Von Personen</div>
+              <p class="mt-1 text-xs text-brand-muted leading-relaxed">Kolleginnen und Kollegen erfassen Aufgaben mit Notizen und Teilschritten.</p>
+            </div>
+          </div>
+          <div class="mt-8 flex items-start gap-3 rounded-xl border border-brand-sage/60 bg-brand-soft/60 p-4">
+            <Icon name="offline" class="w-5 h-5 text-brand-accent shrink-0 mt-0.5" />
+            <p class="text-sm text-brand-ink leading-relaxed">
+              <strong class="font-semibold">Funktioniert auch im Keller.</strong>
+              Die App für iOS und Android erfasst offline. Berichte und Fotos warten sicher auf dem Gerät
+              und werden gesendet, sobald wieder Netz da ist – ohne Duplikate.
+            </p>
+          </div>
+        </div>
+        <div class="flex justify-center"><PhoneMock /></div>
+      </div>
+    </div>
+  </div>
+</section>
