@@ -1,0 +1,64 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+
+// Tiers and their contents mirror the license server's plan catalog
+// (corev2 dev/docker-compose.yml, Catalog__Plans__*). Prices are on request.
+const plans = [
+  {
+    name: 'Basic',
+    tagline: 'Zum Ausprobieren und für kleine Teams.',
+    price: 'Kostenlos',
+    features: ['Bis 10 Objekte', 'Bis 3 Benutzer', 'Web & App, offline', 'Erinnerungen & Alarme'],
+    cta: 'Kostenlos starten',
+  },
+  {
+    name: 'Pro',
+    tagline: 'Für eine wachsende Einrichtung oder Verwaltung.',
+    price: 'Auf Anfrage',
+    features: ['Bis 100 Objekte', 'Alles aus Basic', 'Vorlagen-Marktplatz', 'Import & Export', 'NFC-Anmeldung'],
+    cta: 'Demo anfragen',
+    highlight: true,
+  },
+  {
+    name: 'Enterprise',
+    tagline: 'Für Organisationen mit mehreren Standorten.',
+    price: 'Auf Anfrage',
+    features: ['Unbegrenzte Objekte & Benutzer', 'Alles aus Pro', 'Single Sign-on', 'API-Zugang', 'Archiv-Speicher', 'Eigenes Hosting möglich'],
+    cta: 'Kontakt aufnehmen',
+  },
+];
+---
+
+<section id="plans" class="py-24 md:py-32">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <SectionHeading
+      eyebrow="Pläne"
+      title="Klein anfangen, mitwachsen."
+      lead="Ein Wechsel auf einen grösseren Plan geht direkt in der App – und Ihre Daten bleiben bei jedem Wechsel unangetastet."
+    />
+    <div class="grid md:grid-cols-3 gap-4 items-stretch">
+      {plans.map((p) => (
+        <div class={`relative rounded-2xl p-7 flex flex-col ${p.highlight ? 'bg-white border-2 border-brand-accent shadow-window' : 'bg-white border border-brand-border'}`}>
+          {p.highlight && (
+            <span class="absolute -top-3 left-7 px-2.5 py-0.5 rounded-full bg-brand-accent text-white text-xs font-semibold">Beliebt</span>
+          )}
+          <h3 class="text-lg font-bold text-brand-ink">{p.name}</h3>
+          <p class="mt-1 text-sm text-brand-muted">{p.tagline}</p>
+          <div class="mt-6 text-2xl font-bold text-brand-ink">{p.price}</div>
+          <ul class="mt-6 space-y-2.5 flex-1">
+            {p.features.map((f) => (
+              <li class="flex gap-2.5 text-sm text-brand-ink">
+                <Icon name="check" class="w-4 h-4 text-brand-accent mt-0.5 shrink-0" stroke={2.2} /> {f}
+              </li>
+            ))}
+          </ul>
+          <a
+            href="#contact"
+            class={`mt-8 inline-flex justify-center px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${p.highlight ? 'bg-brand-accent text-white hover:bg-brand-accent-dark' : 'border border-brand-border text-brand-ink hover:border-brand-sage'}`}
+          >{p.cta}</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

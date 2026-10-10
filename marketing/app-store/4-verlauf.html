@@ -1,0 +1,61 @@
+<!doctype html>
+<!--
+  Starting point for every Froggi visual. Copy it into the working folder,
+  set --w/--h to the canvas size, and build inside <main class="canvas">.
+  Tailwind classes match the website (brand-* colours, shadow-window), so the
+  markup of src/components/mock/*.astro can be pasted in nearly as is.
+  The frog: copy public/froggi-frog.svg next to this file.
+-->
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              accent: '#436b4e', 'accent-dark': '#244733', sage: '#a2cdab', soft: '#eaf5ee',
+              ink: '#15231b', bg: '#f6f9f7', surface: '#ffffff', text: '#15231b',
+              muted: '#617567', border: '#e4ece7',
+            },
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          boxShadow: {
+            window: '0 1px 2px rgba(21,35,27,0.04), 0 12px 40px -8px rgba(21,35,27,0.14)',
+            lift: '0 2px 4px rgba(21,35,27,0.05), 0 30px 80px -20px rgba(21,35,27,0.28)',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    :root { --w: 1320px; --h: 2868px; }
+    html, body { margin: 0; padding: 0; }
+    body { width: var(--w); height: var(--h); overflow: hidden; font-family: 'Inter', system-ui, sans-serif;
+           -webkit-font-smoothing: antialiased; color: #15231b; }
+    .canvas { position: relative; width: var(--w); height: var(--h); overflow: hidden; }
+    /* The hero's soft sage glow, for backgrounds. */
+    .glow { background: radial-gradient(60% 55% at 50% 0%, #e1efe5 0%, rgba(246,249,247,0) 100%), #f6f9f7; }
+    h1, h2 { letter-spacing: -0.02em; }
+  </style>
+</head>
+<body>
+  <main class="canvas glow">
+    <div class="absolute inset-x-0 top-0 px-[110px] pt-[170px]">
+      
+      <h1 class="text-[112px] leading-[1.03] font-bold text-brand-ink">Jedes Objekt erzählt seine Geschichte.</h1>
+      <p class="mt-10 text-[50px] leading-[1.3] text-brand-muted">Alles Erfasste, chronologisch und durchsuchbar.</p>
+    </div>
+    <div class="absolute left-1/2 -translate-x-1/2" style="top:860px; width:1060px;">
+      <div class="rounded-[118px] bg-brand-ink p-[22px] shadow-lift">
+        <img src="raw/04-verlauf.png" alt="" class="block w-full rounded-[98px]"/>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

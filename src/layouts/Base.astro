@@ -5,8 +5,8 @@ export interface Props {
 }
 
 const {
-  title = 'Froggi — Plattform für Gesundheitsmanagement',
-  description = 'Froggi ist die modulare Plattform für Pflegeteams – Berichte, Zeitachsen, Medikamente, Audit-Trail und mehr. Auf jedem Gerät.',
+  title = 'Froggi — Dokumentation für Teams im Einsatz',
+  description = 'Froggi ist die Dokumentationsplattform für Pflege, Liegenschaften und Unterhalt: eigene Formulare, Erfassung im Web und offline auf dem Handy, Verlauf und Aufgaben pro Objekt.',
 } = Astro.props;
 ---
 
@@ -17,17 +17,15 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#f6f9f7" />
 
-    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/app-icon.png" />
+    <meta property="og:image" content="/froggi-frog.svg" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/froggi-frog.svg" />
 
-    <!-- Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -35,13 +33,17 @@ const {
       rel="stylesheet"
     />
 
-    <style>
+    <style is:global>
       html {
         font-family: 'Inter', system-ui, sans-serif;
       }
-      /* Smooth scroll offset for sticky nav */
+      /* Anchor targets clear the sticky nav. */
       :target {
-        scroll-margin-top: 72px;
+        scroll-margin-top: 80px;
+      }
+      ::selection {
+        background: #a2cdab;
+        color: #15231b;
       }
     </style>
   </head>

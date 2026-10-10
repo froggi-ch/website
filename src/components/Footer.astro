@@ -2,21 +2,17 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-brand-border py-10 px-6">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-    <!-- Logo & tagline -->
-    <div class="flex items-center gap-3">
-      <img src="/app-icon.png" alt="Froggi" width="28" height="28" class="rounded-md" />
-      <span class="text-sm font-semibold text-brand-text">Froggi</span>
-      <span class="text-brand-border text-sm">·</span>
-      <span class="text-sm text-brand-muted">Plattform für Gesundheitsmanagement</span>
+<footer class="py-10 px-4 sm:px-6 border-t border-brand-border">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
+    <div class="flex items-center gap-2.5">
+      <img src="/froggi-frog.svg" alt="" width="24" height="24" />
+      <span class="text-sm font-semibold text-brand-ink">Froggi</span>
+      <span class="text-sm text-brand-muted">· Dokumentation für Teams im Einsatz</span>
     </div>
-
-    <!-- Links -->
-    <div class="flex items-center gap-6 text-sm text-brand-muted">
-      <a href="/legal" class="hover:text-brand-text transition-colors">Rechtliches &amp; Datenschutz</a>
-      <a href="#contact" class="hover:text-brand-text transition-colors">Kontakt</a>
-      <span class="text-brand-border">&copy; {year} Froggi. Alle Rechte vorbehalten.</span>
+    <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm text-brand-muted">
+      <a href="/legal" class="hover:text-brand-ink transition-colors">Rechtliches &amp; Datenschutz</a>
+      <a href="/#contact" class="hover:text-brand-ink transition-colors">Kontakt</a>
+      <span>&copy; {year} Froggi · Schweiz</span>
     </div>
   </div>
 </footer>

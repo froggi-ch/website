@@ -1,77 +1,36 @@
 ---
-import FeatureCard from './FeatureCard.astro';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
 
 const features = [
-  {
-    title: 'Berichtsmodul',
-    description: 'Konfigurierbare, vorlagenbasierte Datenerfassungsformulare. Standardisieren Sie, wie Mitarbeitende Beobachtungen, Beurteilungen und Pflegeereignisse dokumentieren.',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />',
-  },
-  {
-    title: 'Zeitachsenmodul',
-    description: 'Chronologisches Ereignisprotokoll mit leistungsstarker Filterung nach Datum, Kategorie und Mitarbeitenden. Ideal für Übergaben und Vorfallsüberprüfungen.',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />',
-  },
-  {
-    title: 'Diagrammmodul',
-    description: 'Verwandeln Sie erfasste Berichtsdaten in Trenddiagramme und Dashboards. Erkennen Sie Muster frühzeitig – ohne Export in Tabellenprogramme.',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />',
-  },
-  {
-    title: 'Medikamentenmodul',
-    description: 'Verwalten Sie Medikamentenpläne, Dosierungen und Verabreichungsnachweise pro Patient. Strukturierte Arbeitsabläufe reduzieren Fehler.',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />',
-  },
-  {
-    title: 'Audit-Trail',
-    description: 'Jeder Schreibvorgang wird protokolliert, mit Zeitstempel versehen und in einer unveränderlichen Hash-Kette verknüpft. Erfüllt regulatorische Compliance-Anforderungen.',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />',
-  },
-  {
-    title: 'Erinnerungen',
-    description: 'Konfigurieren Sie periodenbasierte Erinnerungen – täglich, wöchentlich oder in benutzerdefinierten Intervallen – damit nichts in Vergessenheit gerät.',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />',
-  },
-  {
-    title: 'Multiplattform',
-    description: 'Ein Produkt, jedes Gerät. Vollständige Webanwendung, native iOS- und Android-Apps – alles aus einer einzigen Codebasis.',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />',
-  },
-  {
-    title: 'NFC-Authentifizierung',
-    description: 'Tippen Sie auf ein registriertes NFC-Gerät zur sofortigen Anmeldung. Keine Passworteingabe in der Pflegeumgebung – schnell, sicher und freihändig.',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />',
-  },
-  {
-    title: 'Mehrsprachigkeit',
-    description: 'Vollständig lokalisiert in Deutsch, Englisch, Italienisch, Französisch und Rumänisch. Jede Person arbeitet in ihrer bevorzugten Sprache.',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />',
-  },
-  {
-    title: 'Rollenbasierte Zugriffskontrolle',
-    description: 'Feingranulares RBAC für jede Teamrolle. Administrierende, Pflegepersonal, Ärztinnen und Ärzte – jede Person sieht nur das, was sie benötigt.',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />',
-  },
-  {
-    title: 'Cloud-nativ',
-    description: 'Kubernetes-native Bereitstellung. Horizontal skalierbar, Zero-Downtime-Deployments – auf Ihrer eigenen Infrastruktur oder bei uns.',
-    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />',
-  },
+  { icon: 'tree', title: 'Eigene Strukturen', text: 'Liegenschaft › Wohnung, Station › Zimmer, Team › Person – Objekte und Stammdaten so verschachtelt, wie Ihre Organisation tatsächlich ist.' },
+  { icon: 'phone', title: 'App für iOS & Android', text: 'Dieselben Formulare wie im Browser, mit Kamera, Standort und Offline-Erfassung. Eine Synchronisationsleiste zeigt, was noch wartet.' },
+  { icon: 'users', title: 'Gruppen & Berechtigungen', text: 'Wer welche Objekte sieht und was bearbeiten darf, über Gruppen und eine Berechtigungsmatrix. Sichtbarkeit folgt dem Objekt.' },
+  { icon: 'key', title: 'Single Sign-on', text: 'Anmeldung über Microsoft Entra ID, Google, Okta, Keycloak oder jeden OpenID-Connect-Anbieter.' },
+  { icon: 'nfc', title: 'NFC-Anmeldung', text: 'Badge ans Gerät halten und loslegen – ideal für geteilte Tablets auf der Station oder im Hauswartsbüro.' },
+  { icon: 'globe', title: 'Mehrsprachig', text: 'Oberfläche in Deutsch, Französisch, Italienisch und Englisch. Ihre Formulare übersetzen Sie in die Sprachen, die Ihr Team spricht.' },
+  { icon: 'scroll', title: 'Änderungsprotokoll', text: 'Wer hat einen Bericht erfasst, geändert oder gelöscht – und wann. Nur anfügend, auch dann noch lesbar, wenn das Dokument längst weg ist.' },
+  { icon: 'swap', title: 'Import & Export', text: 'Ihre gesamte Konfiguration als portable Datei. Mit Probelauf vor jedem Import und ohne bestehende Berichte anzutasten.' },
+  { icon: 'code', title: 'Offene API', text: 'Alles, was die App kann, geht auch per Schnittstelle – für Auswertungen, Umsysteme und eigene Automatisierungen.' },
 ];
 ---
 
-<section id="features" class="py-24 px-6">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16">
-      <span class="inline-block text-brand-emerald text-sm font-semibold uppercase tracking-widest mb-3">Funktionen</span>
-      <h2 class="text-3xl md:text-4xl font-bold text-brand-text">Alles, was Ihr Team braucht</h2>
-      <p class="mt-4 text-brand-muted max-w-xl mx-auto">
-        Eine umfassende Modulpalette, entwickelt für die Anforderungen moderner Gesundheitseinrichtungen.
-      </p>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<section id="features" class="py-24 md:py-32">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <SectionHeading
+      eyebrow="Funktionen"
+      title="Alles, was ein Team im Feld braucht."
+      lead="Vom ersten Bericht bis zur Anbindung an Ihre Umsysteme – in einer Plattform, auf jedem Gerät."
+    />
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px rounded-2xl overflow-hidden border border-brand-border bg-brand-border">
       {features.map((f) => (
-        <FeatureCard title={f.title} description={f.description} icon={f.icon} />
+        <div class="bg-white p-7 hover:bg-[#fbfdfb] transition-colors">
+          <span class="w-10 h-10 rounded-xl bg-brand-soft text-brand-accent flex items-center justify-center mb-5">
+            <Icon name={f.icon} class="w-5 h-5" />
+          </span>
+          <h3 class="font-semibold text-brand-ink">{f.title}</h3>
+          <p class="mt-2 text-sm text-brand-muted leading-relaxed">{f.text}</p>
+        </div>
       ))}
     </div>
   </div>

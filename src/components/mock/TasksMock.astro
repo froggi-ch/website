@@ -1,0 +1,64 @@
+---
+import AppWindow from './AppWindow.astro';
+import ObjectTree from './ObjectTree.astro';
+import Icon from '../Icon.astro';
+
+const counters = [
+  { n: 2, label: 'Überfällig', tone: 'text-red-600', chip: 'bg-red-50 text-red-600', icon: 'alert' },
+  { n: 3, label: 'Heute fällig', tone: 'text-amber-600', chip: 'bg-amber-50 text-amber-600', icon: 'bell' },
+  { n: 5, label: 'Diese Woche', tone: 'text-brand-ink', chip: 'bg-amber-50 text-amber-600', icon: 'tasks' },
+  { n: 12, label: 'Erledigt', tone: 'text-brand-ink', chip: 'bg-brand-soft text-brand-accent', icon: 'check' },
+];
+
+const tasks = [
+  { title: 'Heizung: Druck unter 1.2 bar', obj: 'Heizung – Gaskessel', source: 'Alarm', when: 'seit 2 Std.', tone: 'bg-red-50 text-red-600', icon: 'alert', overdue: true },
+  { title: 'Treppenhausreinigung', obj: 'Treppenhaus A', source: 'Erinnerung', when: 'heute, 10:00', tone: 'bg-amber-50 text-amber-700', icon: 'bell' },
+  { title: 'Wohnungsabnahme', obj: 'Whg. 302 – 4.5 Zi.', source: 'Erinnerung', when: 'heute, 14:30', tone: 'bg-amber-50 text-amber-700', icon: 'bell' },
+  { title: 'Schlüssel beim Hauswart abholen', obj: 'Whg. 201 – 3.5 Zi.', source: 'Von Personen', when: 'morgen', tone: 'bg-sky-50 text-sky-700', icon: 'users' },
+];
+---
+
+<AppWindow active="Aufgaben">
+  <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 p-3">
+    <div class="hidden sm:block"><ObjectTree /></div>
+    <div class="space-y-2.5 min-w-0">
+      <div class="flex gap-2">
+        <div class="flex-1 flex items-center gap-1.5 h-8 rounded-lg border border-brand-border bg-white px-2.5 text-[10.5px] text-brand-muted">
+          <Icon name="search" class="w-3.5 h-3.5" /> Aufgaben, Objekte, Aktionen suchen…
+        </div>
+        <div class="h-8 rounded-lg border border-brand-border bg-white px-2.5 text-[10.5px] flex items-center text-brand-ink">Nächste 7 Tage</div>
+      </div>
+      <div class="flex flex-wrap items-center gap-1 text-[10px]">
+        <span class="text-[8.5px] font-semibold tracking-wider text-brand-muted mr-1">QUELLE</span>
+        <span class="px-2 py-0.5 rounded-md bg-brand-soft text-brand-accent font-semibold border border-brand-sage/60">Alle</span>
+        <span class="px-2 py-0.5 rounded-md border border-brand-border bg-white">Erinnerungen</span>
+        <span class="px-2 py-0.5 rounded-md border border-brand-border bg-white">Alarme</span>
+        <span class="px-2 py-0.5 rounded-md border border-brand-border bg-white">Von Personen</span>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-2">
+        {counters.map((c) => (
+          <div class="flex items-center gap-2 rounded-lg bg-white border border-brand-border p-2">
+            <span class={`w-6 h-6 rounded-md flex items-center justify-center ${c.chip}`}><Icon name={c.icon} class="w-3.5 h-3.5" /></span>
+            <div class="leading-tight">
+              <div class={`text-[13px] font-bold ${c.tone}`}>{c.n}</div>
+              <div class="text-[9px] text-brand-muted">{c.label}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="rounded-lg bg-white border border-brand-border divide-y divide-brand-border">
+        {tasks.map((t) => (
+          <div class="flex items-center gap-2.5 px-2.5 py-2">
+            <span class={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 ${t.tone}`}><Icon name={t.icon} class="w-3.5 h-3.5" /></span>
+            <div class="min-w-0 flex-1 leading-tight">
+              <div class="text-[11px] font-semibold text-brand-ink truncate">{t.title}</div>
+              <div class="text-[9.5px] text-brand-muted truncate">{t.obj} · {t.source}</div>
+            </div>
+            <span class={`text-[9.5px] whitespace-nowrap ${t.overdue ? 'text-red-600 font-semibold' : 'text-brand-muted'}`}>{t.when}</span>
+            <span class="hidden md:inline text-[9.5px] px-2 py-0.5 rounded-md border border-brand-accent text-brand-accent">Übernehmen</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</AppWindow>

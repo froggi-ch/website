@@ -1,0 +1,16 @@
+---
+export interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  align?: 'center' | 'left';
+}
+const { eyebrow, title, lead, align = 'center' } = Astro.props;
+const center = align === 'center';
+---
+
+<div class={center ? 'text-center max-w-2xl mx-auto mb-14' : 'max-w-xl mb-8'}>
+  <span class="inline-block text-brand-accent text-xs font-semibold uppercase tracking-[0.16em] mb-3">{eyebrow}</span>
+  <h2 class="text-3xl md:text-[2.5rem] md:leading-[1.15] font-bold tracking-tight text-brand-ink">{title}</h2>
+  {lead && <p class="mt-4 text-brand-muted text-lg leading-relaxed">{lead}</p>}
+</div>
