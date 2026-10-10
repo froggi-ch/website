@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "prebuild": "cp ../corev2/branding/froggi-frog.svg public/froggi-frog.svg",
+    "prebuild": "[ -f ../corev2/branding/froggi-frog.svg ] && cp ../corev2/branding/froggi-frog.svg public/froggi-frog.svg || true",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview"

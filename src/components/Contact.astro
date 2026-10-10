@@ -1,6 +1,6 @@
 ---
-// Replace YOUR_FORM_ID with your actual Formspree form ID after signing up at formspree.io
-const FORMSPREE_ID = 'YOUR_FORM_ID';
+// Web3Forms access key (from web3forms.com). It is meant to be public, so it can live here.
+const WEB3FORMS_KEY = '624014d0-9d0b-4bcf-9f27-21cced8159e1';
 
 const field =
   'w-full px-3.5 py-2.5 rounded-lg bg-white border border-brand-border text-brand-ink placeholder-brand-muted/70 text-sm focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition';
@@ -21,7 +21,10 @@ const field =
       </p>
     </div>
 
-    <form action={`https://formspree.io/f/${FORMSPREE_ID}`} method="POST" class="rounded-2xl bg-brand-bg border border-brand-border p-6 sm:p-8 grid sm:grid-cols-2 gap-4">
+    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="rounded-2xl bg-brand-bg border border-brand-border p-6 sm:p-8 grid sm:grid-cols-2 gap-4">
+      <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+      <input type="hidden" name="subject" value="Neue Anfrage über froggi.ch" />
+      <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
       <div>
         <label for="name" class="block text-sm font-medium text-brand-ink mb-1.5">Name <span class="text-brand-accent">*</span></label>
         <input id="name" type="text" name="name" required placeholder="Maria Muster" class={field} />
@@ -41,6 +44,36 @@ const field =
       <button type="submit" class="sm:col-span-2 w-full py-3 rounded-xl bg-brand-accent text-white font-semibold text-sm hover:bg-brand-accent-dark transition-colors">
         Nachricht senden
       </button>
+      <p id="contact-status" class="sm:col-span-2 text-sm text-center hidden" role="status"></p>
     </form>
   </div>
 </section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('contact-status') as HTMLParagraphElement;
+  const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    button.disabled = true;
+    status.classList.add('hidden');
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message);
+      form.reset();
+      status.textContent = 'Danke! Wir melden uns in Kürze bei Ihnen.';
+      status.className = 'sm:col-span-2 text-sm text-center text-brand-accent font-semibold';
+    } catch {
+      status.textContent = 'Das hat leider nicht geklappt. Schreiben Sie uns bitte direkt an hello@froggi.ch.';
+      status.className = 'sm:col-span-2 text-sm text-center text-red-600';
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>
