@@ -1,22 +1,59 @@
 ---
 const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: 'Produkt',
+    links: [
+      { label: 'Übersicht', href: '/produkt' },
+      { label: 'Mobile App & Offline', href: '/produkt#app' },
+      { label: 'Funktionen & Sicherheit', href: '/funktionen' },
+      { label: 'Integrationen & KI', href: '/integrationen' },
+    ],
+  },
+  {
+    title: 'Branchen',
+    links: [
+      { label: 'Immobilienverwaltung & Hauswartung', href: '/branchen/hauswartung' },
+      { label: 'Weitere Einsatzbereiche', href: '/#branchen' },
+    ],
+  },
+  {
+    title: 'Preise & Kontakt',
+    links: [
+      { label: 'Preise', href: '/preise' },
+      { label: 'Demo anfragen', href: '/kontakt' },
+      { label: 'hello@froggi.ch', href: 'mailto:hello@froggi.ch' },
+    ],
+  },
+  {
+    title: 'Rechtliches',
+    links: [{ label: 'Impressum & Datenschutz', href: '/legal' }],
+  },
+];
 ---
 
-<footer class="py-10 px-4 sm:px-6 border-t border-brand-border bg-white">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
-    <div class="flex items-center gap-2.5">
-      <img src="/froggi-frog.svg" alt="" width="24" height="24" />
-      <span class="text-sm font-bold text-brand-accent-dark">Froggi</span>
-      <span class="text-sm text-brand-muted">· Dokumentation für Teams im Einsatz</span>
+<footer class="px-4 sm:px-6 border-t border-brand-border bg-white">
+  <div class="max-w-6xl mx-auto py-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_repeat(4,1fr)]">
+    <div>
+      <a href="/" class="inline-flex items-center gap-2 rounded-lg">
+        <img src="/froggi-frog.svg" alt="" width="26" height="26" />
+        <span class="font-bold text-brand-accent-dark">Froggi</span>
+      </a>
+      <p class="mt-3 text-sm text-brand-muted leading-relaxed max-w-[240px]">Dokumentation für Teams im Einsatz. Aus der Schweiz.</p>
     </div>
-    <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm text-brand-muted">
-      <a href="/legal" class="hover:text-brand-ink transition-colors">Rechtliches &amp; Datenschutz</a>
-      <a href="/produkt" class="hover:text-brand-ink transition-colors">Produkt</a>
-      <a href="/funktionen" class="hover:text-brand-ink transition-colors">Funktionen</a>
-      <a href="/ki" class="hover:text-brand-ink transition-colors">KI</a>
-      <a href="/preise" class="hover:text-brand-ink transition-colors">Preise</a>
-      <a href="/kontakt" class="hover:text-brand-ink transition-colors">Kontakt</a>
-      <span>&copy; {year} Froggi · Schweiz</span>
-    </div>
+    {columns.map((c) => (
+      <div>
+        <h2 class="text-[0.74rem] font-bold uppercase tracking-[0.06em] text-brand-muted">{c.title}</h2>
+        <ul class="mt-3 space-y-2">
+          {c.links.map((l) => (
+            <li><a href={l.href} class="text-sm text-brand-ink hover:text-brand-accent transition-colors rounded">{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  <div class="max-w-6xl mx-auto py-5 border-t border-brand-border text-xs text-brand-muted">
+    &copy; {year} Froggi · Schweiz
   </div>
 </footer>

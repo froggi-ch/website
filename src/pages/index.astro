@@ -2,17 +2,29 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
-import Overview from '../components/Overview.astro';
+import Problem from '../components/home/Problem.astro';
+import Steps from '../components/home/Steps.astro';
+import Walkthrough from '../components/Walkthrough.astro';
+import Industries from '../components/home/Industries.astro';
+import Differentiators from '../components/home/Differentiators.astro';
+import PricingPreview from '../components/home/PricingPreview.astro';
+import Trust from '../components/home/Trust.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Footer from '../components/Footer.astro';
 ---
 
 <Base>
   <Nav />
-  <main>
+  <main id="inhalt">
     <Hero />
-    <Overview />
-    <CtaBand text="Ab CHF 39 pro Monat. Wir zeigen Ihnen Froggi mit Ihren eigenen Abläufen – online oder vor Ort." />
+    <Problem />
+    <Steps />
+    <Walkthrough />
+    <Industries />
+    <Differentiators />
+    <PricingPreview />
+    <Trust />
+    <CtaBand />
   </main>
   <Footer />
 </Base>

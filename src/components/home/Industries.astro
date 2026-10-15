@@ -1,0 +1,59 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+import Icon from '../Icon.astro';
+
+// Property management first, with its live template; the other sectors say
+// honestly how they get started (corev2/templates: three published templates).
+const others = [
+  { icon: 'sparkle', tone: 'bg-tone-violet-bg text-tone-violet', title: 'Reinigung & Unterhalt', text: 'Qualitätskontrollen und Reklamationen mit Foto und Zeitstempel – eingerichtet nach Ihren Abläufen.', badge: 'Einrichtung nach Mass' },
+  { icon: 'heart', tone: 'bg-tone-red-bg text-tone-red', title: 'Pflege & Betreuung', text: 'Beobachtungen und Massnahmen pro Bewohnerin und Zimmer, mit Rechten pro Station.', badge: 'Vorlage in Planung' },
+  { icon: 'wrench', tone: 'bg-tone-amber-bg text-tone-amber', title: 'Technischer Kundendienst & IT', text: 'Anlagen, Geräte und Einsätze – mit Erinnerungen und Alarmen schon in der Vorlage.', badge: 'Vorlagen verfügbar' },
+];
+---
+
+<section id="branchen" class="py-24 md:py-28 border-t border-brand-border scroll-mt-14">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <SectionHeading
+      eyebrow="Branchen"
+      title="Gebaut für Arbeit an Objekten."
+      lead="Überall, wo Gebäude, Anlagen oder Menschen betreut werden und belegt sein muss, was gemacht wurde."
+    />
+
+    <a href="/branchen/hauswartung" class="group block rounded-[24px] bg-white border border-brand-border p-6 sm:p-8 md:p-10 hover:border-brand-sage hover:shadow-lift transition">
+      <div class="grid md:grid-cols-[1fr_auto] gap-8 items-center">
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="w-[42px] h-[42px] rounded-card bg-tone-blue-bg text-tone-blue flex items-center justify-center"><Icon name="building" class="w-5 h-5" /></span>
+            <span class="px-2.5 py-0.5 rounded-full bg-tone-green-bg text-tone-green text-[0.78rem] font-semibold">Vorlage für die Schweiz verfügbar</span>
+          </div>
+          <h3 class="mt-5 text-2xl font-bold tracking-[-0.02em] text-brand-ink">Immobilienverwaltung &amp; Hauswartung</h3>
+          <p class="mt-2 text-brand-muted leading-relaxed max-w-2xl">
+            Kontrollrundgänge, Schäden und Reparaturen, Wartungen, Mieterwechsel und Zählerablesungen –
+            direkt an der Liegenschaft, der Wohnung oder der Anlage dokumentiert.
+          </p>
+          <ul class="mt-5 flex flex-wrap gap-2 text-sm">
+            {['Rundgang Allgemeinbereiche', 'Heizungswartung', 'Wohnungsabnahme', 'Zählerablesung'].map((a) => (
+              <li class="px-3 py-1 rounded-card bg-brand-bg border border-brand-border text-brand-ink">{a}</li>
+            ))}
+          </ul>
+        </div>
+        <span class="inline-flex items-center gap-2 px-5 py-3 rounded-card bg-brand-accent text-white font-semibold group-hover:bg-brand-accent-dark transition-colors self-start md:self-center">
+          Zur Branchenseite <Icon name="arrow" class="w-4 h-4" stroke={2} />
+        </span>
+      </div>
+    </a>
+
+    <div class="mt-3 grid md:grid-cols-3 gap-3">
+      {others.map((o) => (
+        <div class="rounded-rail bg-white border border-brand-border p-6">
+          <div class="flex items-center justify-between gap-2">
+            <span class={`w-[42px] h-[42px] rounded-card flex items-center justify-center ${o.tone}`}><Icon name={o.icon} class="w-5 h-5" /></span>
+            <span class="px-2 py-0.5 rounded-full bg-tone-slate-bg text-tone-slate text-[0.75rem] font-semibold">{o.badge}</span>
+          </div>
+          <h3 class="mt-5 font-semibold text-brand-ink">{o.title}</h3>
+          <p class="mt-2 text-sm text-brand-muted leading-relaxed">{o.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -35,6 +35,11 @@ const {
       :target {
         scroll-margin-top: 80px;
       }
+      /* One visible focus ring for every link, button and field, keyboard only. */
+      :focus-visible {
+        outline: 2px solid #436b4e;
+        outline-offset: 2px;
+      }
       ::selection {
         background: #a2cdab;
         color: #15231b;
@@ -42,6 +47,7 @@ const {
     </style>
   </head>
   <body class="bg-brand-bg text-brand-text antialiased">
+    <a href="#inhalt" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-white focus:text-brand-ink focus:shadow-window">Zum Inhalt</a>
     <slot />
   </body>
 </html>

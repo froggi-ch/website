@@ -1,0 +1,37 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+
+// What connects Froggi to other systems. A plan is named only where the
+// launch pricing names it (Business: "Änderungsprotokoll und Schnittstellen").
+const items = [
+  { icon: 'code', tone: 'bg-tone-slate-bg text-tone-slate', title: 'Offene API', plan: 'Ab Business', text: 'Alles, was die App kann, geht auch per Schnittstelle – für Auswertungen, Ihre Verwaltungssoftware und eigene Automatisierungen.' },
+  { icon: 'key', tone: 'bg-tone-violet-bg text-tone-violet', title: 'Single Sign-on', text: 'Anmeldung über Microsoft Entra ID, Google, Okta, Keycloak oder jeden anderen OpenID-Connect-Anbieter. Ihr Team braucht kein weiteres Passwort.' },
+  { icon: 'swap', tone: 'bg-tone-green-bg text-tone-green', title: 'Import & Export', text: 'Ihre gesamte Konfiguration als portable Datei – mit Probelauf vor jedem Import und ohne bestehende Berichte anzutasten.' },
+];
+
+const { first = false } = Astro.props as { first?: boolean };
+---
+
+<section id="schnittstellen" class={`pb-20 md:pb-24 bg-white ${first ? 'pt-32 md:pt-40' : 'pt-24 md:pt-32 border-t border-brand-border'}`}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <SectionHeading
+      as={first ? 'h1' : 'h2'}
+      eyebrow="Integrationen & KI"
+      title="Passt zu den Systemen, die Sie schon haben."
+      lead="Froggi ersetzt keine Buchhaltung und keine Verwaltungssoftware. Es dokumentiert die Arbeit am Objekt – und gibt die Daten weiter, wohin Sie sie brauchen."
+    />
+    <div class="grid md:grid-cols-3 gap-3">
+      {items.map((i) => (
+        <div class="rounded-rail bg-brand-bg border border-brand-border p-6">
+          <div class="flex items-center justify-between">
+            <span class={`w-[42px] h-[42px] rounded-card flex items-center justify-center ${i.tone}`}><Icon name={i.icon} class="w-5 h-5" /></span>
+            {i.plan && <span class="px-2 py-0.5 rounded-full bg-brand-soft text-brand-accent text-[0.75rem] font-semibold">{i.plan}</span>}
+          </div>
+          <h3 class="mt-5 font-semibold text-brand-ink">{i.title}</h3>
+          <p class="mt-2 text-sm text-brand-muted leading-relaxed">{i.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

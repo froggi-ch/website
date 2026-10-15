@@ -1,36 +1,78 @@
 ---
+import Icon from './Icon.astro';
+
 // The app's top bar, as a website nav: white, the frog with its wordmark in
-// accent-dark, and pill links — the current page's pill filled, as the app
-// marks its active tab (corev2 .topbar nav a.active).
-const links = [
-  { label: 'Produkt', href: '/produkt' },
-  { label: 'Funktionen', href: '/funktionen' },
-  { label: 'KI', href: '/ki' },
-  { label: 'Preise', href: '/preise' },
+// accent-dark, and pill links — the current section's pill filled, as the app
+// marks its active tab (corev2 .topbar nav a.active). Two menus open on click
+// or keyboard; on a phone the same entries list flat, grouped by heading.
+type Item = { label: string; href: string; text?: string; icon?: string };
+type Group = { label: string; base: string[]; items: Item[] };
+
+const groups: Group[] = [
+  {
+    label: 'Produkt',
+    base: ['/produkt', '/funktionen', '/integrationen'],
+    items: [
+      { label: 'Übersicht', href: '/produkt', text: 'Reporteditor, Erfassen, Verlauf, Aufgaben', icon: 'clipboard' },
+      { label: 'Mobile App & Offline', href: '/produkt#app', text: 'Erfassen, auch ohne Netz', icon: 'offline' },
+      { label: 'Aufgaben & Erinnerungen', href: '/produkt#aufgaben', text: 'Was fällig ist, auf einen Blick', icon: 'tasks' },
+      { label: 'Funktionen & Sicherheit', href: '/funktionen', text: 'Strukturen, Rechte, Vorlagen, Betrieb', icon: 'shield' },
+      { label: 'Integrationen & KI', href: '/integrationen', text: 'API, Single Sign-on, MCP', icon: 'plug' },
+    ],
+  },
+  {
+    label: 'Branchen',
+    base: ['/branchen'],
+    items: [
+      { label: 'Immobilienverwaltung & Hauswartung', href: '/branchen/hauswartung', text: 'Kontrollgänge, Unterhalt, Mieterwechsel', icon: 'building' },
+      { label: 'Weitere Einsatzbereiche', href: '/#branchen', text: 'Reinigung, Pflege und mehr', icon: 'tree' },
+    ],
+  },
 ];
+
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const active = (href: string) => path === href;
+const inGroup = (g: Group) => g.base.some((b) => path === b || path.startsWith(b + '/'));
+const pill = 'px-3 py-1.5 rounded-lg text-[0.94rem] transition-colors';
+const on = 'bg-brand-soft text-brand-accent font-semibold';
+const off = 'text-brand-ink hover:bg-brand-soft hover:text-brand-accent';
 ---
 
-<nav class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-border">
+<nav aria-label="Hauptnavigation" class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-border">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 h-[54px] flex items-center justify-between gap-6">
-    <a href="/" class="flex items-center gap-2 text-[1.1rem] font-bold text-brand-accent-dark">
+    <a href="/" class="flex items-center gap-2 text-[1.1rem] font-bold text-brand-accent-dark rounded-lg">
       <img src="/froggi-frog.svg" alt="" width="26" height="26" />
       Froggi
     </a>
 
     <ul class="hidden md:flex items-center gap-1 mr-auto">
-      {links.map((l) => (
-        <li>
-          <a
-            href={l.href}
-            aria-current={active(l.href) ? 'page' : undefined}
-            class={`px-3 py-1.5 rounded-lg text-[0.94rem] transition-colors ${active(l.href) ? 'bg-brand-soft text-brand-accent font-semibold' : 'text-brand-ink hover:bg-brand-soft hover:text-brand-accent'}`}
+      {groups.map((g, gi) => (
+        <li class="relative" data-menu>
+          <button
+            type="button"
+            class={`${pill} inline-flex items-center gap-1 border-0 ${inGroup(g) ? on : `bg-transparent ${off}`}`}
+            aria-expanded="false"
+            aria-controls={`menu-${gi}`}
+            data-menu-button
           >
-            {l.label}
-          </a>
+            {g.label}
+            <Icon name="chevron" class="w-3.5 h-3.5 rotate-90 transition-transform" stroke={2.2} />
+          </button>
+          <div id={`menu-${gi}`} hidden data-menu-panel class="absolute left-0 top-[calc(100%+8px)] w-[330px] rounded-rail bg-white border border-brand-border shadow-window p-2">
+            {g.items.map((i) => (
+              <a href={i.href} class="flex items-start gap-3 rounded-card px-3 py-2.5 hover:bg-brand-bg focus-visible:bg-brand-bg">
+                <span class="w-8 h-8 rounded-lg bg-brand-soft text-brand-accent flex items-center justify-center shrink-0"><Icon name={i.icon ?? 'arrow'} class="w-4 h-4" /></span>
+                <span class="min-w-0">
+                  <span class="block text-sm font-semibold text-brand-ink">{i.label}</span>
+                  {i.text && <span class="block text-xs text-brand-muted mt-0.5">{i.text}</span>}
+                </span>
+              </a>
+            ))}
+          </div>
         </li>
       ))}
+      <li>
+        <a href="/preise" aria-current={path === '/preise' ? 'page' : undefined} class={`${pill} ${path === '/preise' ? on : off}`}>Preise</a>
+      </li>
     </ul>
 
     <a
@@ -40,20 +82,84 @@ const active = (href: string) => path === href;
       Demo anfragen
     </a>
 
-    <label for="nav-toggle" class="md:hidden cursor-pointer p-2 -mr-2 text-brand-muted hover:text-brand-ink" aria-label="Menü">
-      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <button
+      type="button"
+      class="md:hidden p-2 -mr-2 bg-transparent border-0 text-brand-muted hover:text-brand-ink rounded-lg"
+      aria-label="Menü öffnen"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-mobile-toggle
+    >
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
         <path d="M4 6h16M4 12h16M4 18h16" />
       </svg>
-    </label>
+    </button>
   </div>
 
-  <input type="checkbox" id="nav-toggle" class="hidden peer" />
-  <div class="peer-checked:flex hidden md:hidden flex-col gap-1 px-4 pb-4 border-t border-brand-border bg-white">
-    {links.map((l) => (
-      <a href={l.href} class={`py-2 px-2 rounded-lg text-sm ${active(l.href) ? 'bg-brand-soft text-brand-accent font-semibold' : 'font-medium text-brand-ink'}`}>{l.label}</a>
+  <div id="mobile-menu" hidden class="md:hidden max-h-[calc(100vh-54px)] overflow-y-auto px-4 pb-5 border-t border-brand-border bg-white">
+    {groups.map((g) => (
+      <div class="pt-4">
+        <div class="px-2 mb-1 text-[0.74rem] font-bold uppercase tracking-[0.06em] text-brand-muted">{g.label}</div>
+        {g.items.map((i) => (
+          <a href={i.href} class="block py-2 px-2 rounded-lg text-[0.95rem] font-medium text-brand-ink hover:bg-brand-soft">{i.label}</a>
+        ))}
+      </div>
     ))}
-    <a href="/kontakt" class="mt-2 inline-flex justify-center px-4 py-2 rounded-lg bg-brand-accent text-white text-sm font-semibold">
+    <a href="/preise" class={`block mt-4 py-2 px-2 rounded-lg text-[0.95rem] ${path === '/preise' ? on : 'font-medium text-brand-ink'}`}>Preise</a>
+    <a href="/kontakt" class="mt-4 flex justify-center px-4 py-2.5 rounded-lg bg-brand-accent text-white text-sm font-semibold">
       Demo anfragen
     </a>
   </div>
 </nav>
+
+<script>
+  // Desktop menus: one open at a time; Escape or a click elsewhere closes.
+  const menus = [...document.querySelectorAll<HTMLElement>('[data-menu]')];
+  const close = (except?: HTMLElement) => {
+    for (const m of menus) {
+      if (m === except) continue;
+      m.querySelector('[data-menu-button]')!.setAttribute('aria-expanded', 'false');
+      m.querySelector<HTMLElement>('[data-menu-panel]')!.hidden = true;
+      m.querySelector('svg')!.classList.remove('-rotate-90');
+    }
+  };
+  for (const m of menus) {
+    const button = m.querySelector<HTMLButtonElement>('[data-menu-button]')!;
+    const panel = m.querySelector<HTMLElement>('[data-menu-panel]')!;
+    button.addEventListener('click', () => {
+      const open = panel.hidden;
+      close(m);
+      panel.hidden = !open;
+      button.setAttribute('aria-expanded', String(open));
+      button.querySelector('svg')!.classList.toggle('-rotate-90', open);
+    });
+    m.addEventListener('focusout', (e) => {
+      if (!m.contains(e.relatedTarget as Node)) close();
+    });
+  }
+  document.addEventListener('click', (e) => {
+    if (!menus.some((m) => m.contains(e.target as Node))) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const open = menus.find((m) => !m.querySelector<HTMLElement>('[data-menu-panel]')!.hidden);
+    close();
+    open?.querySelector<HTMLButtonElement>('[data-menu-button]')!.focus();
+  });
+
+  // Phone menu.
+  const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]')!;
+  const mobile = document.getElementById('mobile-menu')!;
+  toggle.addEventListener('click', () => {
+    const open = mobile.hidden;
+    mobile.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Menü schliessen' : 'Menü öffnen');
+  });
+  mobile.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) {
+      mobile.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>

@@ -40,7 +40,7 @@ the offer e-mail before you start, so the credit isn't lost.
 | Budget | **CHF 10 / day** (~6 weeks) | Long enough to gather data |
 | Bidding | **Maximise clicks**, max. CPC limit **CHF 4** | No conversion data yet; switch to "Maximise conversions" after ~15 demo requests |
 | Schedule | Mon–Fri, 07:00–19:00 | Buyers search at work |
-| Landing pages | `/funktionen#vorlagen` (Übergabe), `/produkt#app` (Hauswartung) | Each ad lands on the page that answers its search; later a dedicated property-management page |
+| Landing page | `/branchen/hauswartung` | The industry page: workflows, real screenshots, object pricing example and FAQ |
 
 ---
 
@@ -72,7 +72,7 @@ Payment details you enter yourself; Google may review the ads for a day.
 
 ## Ad group 1 — Wohnungsübergabe & Abnahme
 
-Final URL: `https://froggi.ch/funktionen#vorlagen` · Display path: `froggi.ch/Bewirtschaftung/Uebergabe`
+Final URL: `https://froggi.ch/branchen/hauswartung` · Display path: `froggi.ch/Bewirtschaftung/Uebergabe`
 
 **Keywords** (phrase `"…"` = search contains the phrase; exact `[…]` = that search and close variants)
 
@@ -123,7 +123,7 @@ Starter ab CHF 39 pro Monat, exkl. MWST. Jetzt Demo mit Ihren Abläufen anfragen
 
 ## Ad group 2 — Hauswartung & Kontrollgänge
 
-Final URL: `https://froggi.ch/produkt#app` · Display path: `froggi.ch/Hauswartung`
+Final URL: `https://froggi.ch/branchen/hauswartung` · Display path: `froggi.ch/Hauswartung`
 
 **Keywords**
 

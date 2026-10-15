@@ -1,0 +1,210 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Icon from '../../components/Icon.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import PhoneMock from '../../components/mock/PhoneMock.astro';
+import Walkthrough from '../../components/Walkthrough.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Footer from '../../components/Footer.astro';
+
+// Every action named here is in corev2/templates/immobilienbewirtschaftung.json.
+// That template ships no reminder or alarm rules: those are set up per
+// customer, and the page says so ("Selbst einrichten").
+type Source = 'vorlage' | 'standard' | 'einrichten';
+const workflows: { icon: string; tone: string; title: string; text: string; actions?: string[]; source: Source }[] = [
+  { icon: 'search', tone: 'bg-tone-green-bg text-tone-green', title: 'Kontrollgänge & Rundgänge', text: 'Allgemeinbereiche, Umgebung und Technikräume nach festem Ablauf prüfen.', actions: ['Rundgang Allgemeinbereiche', 'Aussenanlage & Umgebung', 'Technikraum-Kontrolle'], source: 'vorlage' },
+  { icon: 'wrench', tone: 'bg-tone-red-bg text-tone-red', title: 'Schäden & technische Anlagen', text: 'Störungen melden, Reparaturen abschliessen, Wartungen und Prüfungen belegen.', actions: ['Schadenmeldung erfassen', 'Wasserschaden-Protokoll', 'Heizungswartung', 'Liftkontrolle', 'Brandschutzkontrolle'], source: 'vorlage' },
+  { icon: 'sparkle', tone: 'bg-tone-violet-bg text-tone-violet', title: 'Reinigung & Unterhalt', text: 'Reinigungen kontrollieren und Mängel mit Foto festhalten.', actions: ['Reinigungskontrolle'], source: 'vorlage' },
+  { icon: 'door', tone: 'bg-tone-blue-bg text-tone-blue', title: 'Mieterwechsel & Übergaben', text: 'Vorabnahme, Auszug und Einzug mit Fotos – jede Wohnung mit ihrer Geschichte.', actions: ['Vorabnahme', 'Wohnungsabnahme (Auszug)', 'Wohnungsübergabe (Einzug)'], source: 'vorlage' },
+  { icon: 'camera', tone: 'bg-tone-slate-bg text-tone-slate', title: 'Erledigte Arbeit belegen', text: 'Jeder Bericht mit Fotos, Standort und Erfassungszeit – auch wenn er erst später gespeichert wird.', source: 'standard' },
+  { icon: 'bell', tone: 'bg-tone-amber-bg text-tone-amber', title: 'Folgearbeiten & Erinnerungen', text: 'Wiederkehrende Kontrollen nach Wochenplan oder Intervall, Folgeaufgaben nach einem Bericht, Alarme bei Grenzwerten.', source: 'einrichten' },
+];
+
+const sourceBadge: Record<Source, [string, string]> = {
+  vorlage: ['In der Vorlage', 'bg-tone-green-bg text-tone-green'],
+  standard: ['Standard in Froggi', 'bg-brand-soft text-brand-accent'],
+  einrichten: ['Selbst einrichten', 'bg-tone-amber-bg text-tone-amber'],
+};
+
+const setup = [
+  { title: 'Vorlage installieren', text: 'Die Vorlage «Immobilienbewirtschaftung» direkt in Froggi installieren – mit Vorschau als Probelauf, bevor sich etwas ändert.' },
+  { title: 'Liegenschaften anlegen', text: 'Liegenschaft › Mieteinheit, Allgemeinbereich und Technische Anlage – so verschachtelt, wie Ihr Bestand ist.' },
+  { title: 'Erinnerungen festlegen', text: 'Rundgänge und Wartungen als Erinnerungen planen, Ihr Team einladen und den Objekten zuordnen.' },
+];
+
+const layers = [
+  { icon: 'store', title: 'Mit der Vorlage', text: '4 Objektstrukturen, 6 Kategorien, 19 Aktionen und 227 Felder – in Deutsch, Französisch, Italienisch und Englisch.' },
+  { icon: 'sliders', title: 'Selbst anpassen', text: 'Eigene Aktionen und Felder im Reporteditor, ohne Programmierung. Nach der Installation gehört die Vorlage Ihnen.' },
+  { icon: 'plug', title: 'Anbinden', text: 'Daten exportieren oder über die Schnittstelle an Ihre Verwaltungssoftware weitergeben (Schnittstelle ab Business).' },
+];
+
+const faq = [
+  { q: 'Müssen wir die Vorlage verwenden?', a: 'Nein. Die Vorlage ist ein Startpunkt. Nach der Installation passen Sie Aktionen und Felder im Reporteditor an – oder Sie beginnen ganz ohne Vorlage.' },
+  { q: 'Funktioniert Froggi im Keller ohne Empfang?', a: 'Ja. Die App erfasst offline. Berichte und Fotos warten auf dem Gerät und werden gesendet, sobald wieder Verbindung besteht – ohne Duplikate.' },
+  { q: 'Ersetzt Froggi unsere Verwaltungssoftware?', a: 'Nein. Froggi führt keine Mietzinse und keine Buchhaltung. Es dokumentiert die Arbeit an der Liegenschaft und gibt die Daten per Export oder Schnittstelle weiter.' },
+  { q: 'Wer sieht welche Liegenschaften?', a: 'Jede Person wird Objekten zugeordnet und sieht diese samt allem, was darunter liegt. Berechtigungen legen fest, was sie dort tun darf.' },
+  { q: 'Was zählt als Objekt?', a: 'Jedes Objekt, das Sie dokumentieren, auf jeder Ebene. Eine Liegenschaft mit acht Wohnungen, Treppenhaus, Waschküche und Heizung sind zwölf Objekte.' },
+  { q: 'Was passiert, wenn wir mehr Objekte brauchen?', a: 'Sie wechseln den Plan direkt in der App. Ist das Limit erreicht, können keine neuen Objekte angelegt werden – bestehende Daten bleiben vollständig erhalten.' },
+  { q: 'In welchen Sprachen arbeitet Froggi?', a: 'Oberfläche und Vorlage gibt es in Deutsch, Französisch, Italienisch und Englisch.' },
+];
+---
+
+<Base
+  title="Immobilienverwaltung & Hauswartung — Froggi"
+  description="Kontrollgänge, Schäden, Wartungen und Mieterwechsel direkt am Objekt dokumentieren. Mit fertiger Vorlage für die Schweiz, Erinnerungen und App mit Offline-Erfassung."
+>
+  <Nav />
+  <main id="inhalt">
+    <!-- Hero -->
+    <section class="relative overflow-hidden pt-28 md:pt-36 pb-20">
+      <div class="absolute inset-x-0 top-0 h-[620px] pointer-events-none" style="background: radial-gradient(60% 55% at 50% 0%, #e1efe5 0%, rgba(246,249,247,0) 100%);"></div>
+      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-[1.3fr_1fr] gap-12 items-center">
+        <div>
+          <span class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[0.78rem] font-semibold bg-brand-soft text-brand-accent">
+            <Icon name="building" class="w-3.5 h-3.5" /> Immobilienverwaltung &amp; Hauswartung
+          </span>
+          <h1 class="mt-6 text-[2.4rem] leading-[1.06] sm:text-[3.4rem] font-bold tracking-[-0.03em] text-brand-ink">
+            Weniger vergessen.<br /><span class="text-brand-accent">Alles dokumentiert.</span>
+          </h1>
+          <p class="mt-5 text-lg md:text-xl text-brand-ink leading-relaxed">
+            Dokumentation und wiederkehrende Arbeiten für Hauswartung und Immobilienverwaltung.
+          </p>
+          <p class="mt-3 text-brand-muted leading-relaxed max-w-xl">
+            Erfassen Sie Kontrollen, Störungen und Unterhalt direkt am Objekt. Froggi erinnert Ihr Team an fällige
+            Arbeiten und hält nachvollziehbar fest, was erledigt wurde.
+          </p>
+          <ul class="mt-6 flex flex-wrap gap-2">
+            {[['calendar', 'Wiederkehrende Kontrollen'], ['scroll', 'Nachvollziehbare Berichte'], ['offline', 'Mobil und offline']].map(([icon, label]) => (
+              <li class="inline-flex items-center gap-2 rounded-card bg-white border border-brand-border pl-1.5 pr-3.5 py-1.5 text-sm text-brand-ink">
+                <span class="w-7 h-7 rounded-lg bg-brand-soft text-brand-accent flex items-center justify-center"><Icon name={icon} class="w-4 h-4" /></span>{label}
+              </li>
+            ))}
+          </ul>
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href="/kontakt" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-card bg-brand-accent text-white font-semibold hover:bg-brand-accent-dark transition-colors shadow-glow">
+              Demo anfragen <Icon name="arrow" class="w-4 h-4" stroke={2} />
+            </a>
+            <a href="#demo" class="inline-flex items-center justify-center px-6 py-3 rounded-card border border-brand-border bg-white text-brand-ink font-medium hover:border-brand-sage transition-colors">
+              So funktioniert's
+            </a>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <PhoneMock screen="05-aufgaben" class="w-[260px]" alt="Die Froggi-App: fällige Aufgaben wie «Druck kontrollieren» an der Heizung und «Treppenhaus reinigen»" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Workflows -->
+    <section class="py-24 md:py-28 bg-white border-t border-brand-border">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <SectionHeading
+          eyebrow="Ihr Alltag"
+          title="Was Sie mit Froggi dokumentieren."
+          lead="Jede Karte sagt, woher es kommt: aus der Vorlage, aus Froggi selbst – oder was Sie für Ihren Ablauf einrichten."
+        />
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {workflows.map((w) => (
+            <div class="rounded-rail bg-brand-bg border border-brand-border p-6 flex flex-col">
+              <div class="flex items-center justify-between gap-2">
+                <span class={`w-[42px] h-[42px] rounded-card flex items-center justify-center ${w.tone}`}><Icon name={w.icon} class="w-5 h-5" /></span>
+                <span class={`px-2 py-0.5 rounded-full text-[0.75rem] font-semibold ${sourceBadge[w.source][1]}`}>{sourceBadge[w.source][0]}</span>
+              </div>
+              <h3 class="mt-5 font-semibold text-brand-ink">{w.title}</h3>
+              <p class="mt-2 text-sm text-brand-muted leading-relaxed flex-1">{w.text}</p>
+              {w.actions && (
+                <ul class="mt-4 flex flex-wrap gap-1.5">
+                  {w.actions.map((a) => <li class="px-2 py-0.5 rounded-md bg-white border border-brand-border text-xs text-brand-ink">{a}</li>)}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <Walkthrough eyebrow="So sieht es aus" title="Ein Rundgang in fünf Bildern." />
+
+    <!-- Setup -->
+    <section id="einrichten" class="py-24 md:py-28 border-t border-brand-border">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <SectionHeading
+          eyebrow="Einrichten"
+          title="Am ersten Tag startklar."
+          lead="Mit der fertigen Vorlage arbeiten Sie sofort – und passen sie danach an Ihre Abläufe an."
+        />
+        <ol class="grid md:grid-cols-3 gap-3">
+          {setup.map((s, i) => (
+            <li class="rounded-rail bg-white border border-brand-border p-6">
+              <span class="w-9 h-9 rounded-full bg-brand-accent text-white font-bold flex items-center justify-center">{i + 1}</span>
+              <h3 class="mt-4 font-semibold text-brand-ink">{s.title}</h3>
+              <p class="mt-2 text-sm text-brand-muted leading-relaxed">{s.text}</p>
+            </li>
+          ))}
+        </ol>
+        <div class="mt-10 grid md:grid-cols-3 gap-x-8 gap-y-6 rounded-[24px] bg-white border border-brand-border p-6 md:p-8">
+          {layers.map((l) => (
+            <div class="flex gap-3.5">
+              <span class="w-9 h-9 rounded-full bg-tone-green-bg text-tone-green flex items-center justify-center shrink-0"><Icon name={l.icon} class="w-[18px] h-[18px]" /></span>
+              <div>
+                <h3 class="font-semibold text-brand-ink">{l.title}</h3>
+                <p class="mt-1 text-sm text-brand-muted leading-relaxed">{l.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing example -->
+    <section class="py-20 bg-white border-t border-brand-border">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-[1.2fr_1fr] gap-10 items-center">
+        <div>
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-[0.78rem] font-semibold mb-4 bg-brand-soft text-brand-accent">Preise</span>
+          <h2 class="text-3xl font-bold tracking-[-0.02em] text-brand-ink">Bezahlt wird nach Objekten.</h2>
+          <p class="mt-3 text-brand-muted leading-relaxed">
+            Jede Ebene zählt: Eine Liegenschaft mit acht Wohnungen, Treppenhaus, Waschküche und Heizung sind
+            <strong class="text-brand-ink">zwölf Objekte</strong>. Der Plan Starter umfasst bis 100 Objekte.
+          </p>
+          <a href="/preise" class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent hover:underline">
+            Alle Pläne vergleichen <Icon name="arrow" class="w-4 h-4" stroke={2} />
+          </a>
+        </div>
+        <div class="rounded-rail bg-brand-bg border border-brand-border p-6" aria-label="Beispiel: zwölf Objekte">
+          <ul class="space-y-1.5 text-sm">
+            <li class="flex items-center gap-2 font-semibold"><Icon name="building" class="w-4 h-4 text-brand-accent" /> Bahnhofstrasse 12 <span class="ml-auto text-brand-muted font-normal">1</span></li>
+            <li class="flex items-center gap-2 pl-6"><Icon name="door" class="w-4 h-4 text-brand-muted" /> Wohnungen 101 – 402 <span class="ml-auto text-brand-muted">8</span></li>
+            <li class="flex items-center gap-2 pl-6"><Icon name="cube" class="w-4 h-4 text-brand-muted" /> Treppenhaus, Waschküche <span class="ml-auto text-brand-muted">2</span></li>
+            <li class="flex items-center gap-2 pl-6"><Icon name="thermo" class="w-4 h-4 text-brand-muted" /> Heizung <span class="ml-auto text-brand-muted">1</span></li>
+            <li class="flex items-center gap-2 pt-2 mt-2 border-t border-brand-border font-semibold">Total <span class="ml-auto">12 Objekte</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-24 md:py-28 border-t border-brand-border">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        <SectionHeading eyebrow="Häufige Fragen" title="Was Verwaltungen uns fragen." />
+        <div class="space-y-2">
+          {faq.map((f) => (
+            <details class="group rounded-card bg-white border border-brand-border open:border-brand-sage">
+              <summary class="flex items-center justify-between gap-4 cursor-pointer list-none px-5 py-4 font-semibold text-brand-ink rounded-card">
+                {f.q}
+                <Icon name="chevron" class="w-4 h-4 text-brand-muted shrink-0 rotate-90 group-open:-rotate-90 transition-transform" />
+              </summary>
+              <p class="px-5 pb-5 -mt-1 text-sm text-brand-muted leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CtaBand
+      title="Zeigen Sie uns eine Liegenschaft."
+      text="Wir zeigen Ihnen Froggi mit Ihren eigenen Objekten und Abläufen – online oder vor Ort."
+    />
+  </main>
+  <Footer />
+</Base>

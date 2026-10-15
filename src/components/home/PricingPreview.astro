@@ -1,0 +1,43 @@
+---
+import Icon from '../Icon.astro';
+
+// The four plans in one line each; the detail and the FAQ live on /preise.
+const plans = [
+  { name: 'Starter', price: 'CHF 39', limit: 'bis 100 Objekte' },
+  { name: 'Professional', price: 'CHF 99', limit: "bis 1'000 Objekte", highlight: true },
+  { name: 'Business', price: 'CHF 249', limit: "bis 5'000 Objekte" },
+  { name: 'Enterprise', price: 'Auf Anfrage', limit: 'individuell' },
+];
+---
+
+<section class="py-24 md:py-28 border-t border-brand-border">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-[1fr_1.4fr] gap-10 items-center">
+    <div>
+      <span class="inline-block px-2.5 py-0.5 rounded-full text-[0.78rem] font-semibold mb-4 bg-brand-soft text-brand-accent">Preise</span>
+      <h2 class="text-3xl md:text-[2.5rem] md:leading-[1.12] font-bold tracking-[-0.02em] text-brand-ink">Bezahlt wird nach Objekten.</h2>
+      <p class="mt-4 text-lg text-brand-muted leading-relaxed">
+        Ein Objekt ist alles, was Sie dokumentieren – eine Liegenschaft, eine Wohnung, eine Anlage.
+        Ein Wechsel auf einen grösseren Plan geht direkt in der App.
+      </p>
+      <a href="/preise" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent hover:underline">
+        Alle Pläne und was als Objekt zählt <Icon name="arrow" class="w-4 h-4" stroke={2} />
+      </a>
+    </div>
+    <ul class="grid sm:grid-cols-2 gap-3">
+      {plans.map((p) => (
+        <li class={`rounded-rail p-5 ${p.highlight ? 'bg-white border-2 border-brand-accent' : 'bg-white border border-brand-border'}`}>
+          <div class="flex items-center justify-between">
+            <span class="font-semibold text-brand-ink">{p.name}</span>
+            {p.highlight && <span class="px-2 py-0.5 rounded-full bg-brand-accent text-white text-[0.7rem] font-semibold">Empfohlen</span>}
+          </div>
+          <div class="mt-2 flex items-baseline gap-1">
+            <span class="text-2xl font-bold tracking-[-0.02em] text-brand-ink">{p.price}</span>
+            {p.price.startsWith('CHF') && <span class="text-sm text-brand-muted">/ Monat</span>}
+          </div>
+          <div class="mt-1 text-sm text-brand-muted">{p.limit}</div>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <p class="mt-6 text-center text-xs text-brand-muted px-4">Einführungspreise in CHF pro Monat, exkl. MWST.</p>
+</section>

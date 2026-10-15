@@ -1,0 +1,47 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+
+// Every answer here is either the launch plan list or the license rules in
+// corev2 docs/requirements/entitlements.md (REQ-E6, E14, E35). Questions the
+// business hasn't settled — annual billing, setup fees, onboarding, hosting
+// and backup commitments — are deliberately not answered here.
+const faq = [
+  { q: 'Was zählt als Objekt?', a: 'Alles, was Sie dokumentieren – eine Liegenschaft, eine Wohnung, ein Treppenhaus, eine Anlage, ein Zimmer. Jede Ebene zählt, gelöschte Objekte nicht.' },
+  { q: 'Sind Strukturen und Objektstufen anpassbar?', a: 'Ja. Starter umfasst eine konfigurierbare Struktur mit grundlegenden Objektstufen. Ab Professional legen Sie eigene Hierarchien an und konfigurieren Objektstufen und Felder selbst.' },
+  { q: 'Können wir mehrere Strukturen nebeneinander führen?', a: 'Ja, ab dem Plan Business – zum Beispiel Liegenschaften und eine eigene Struktur für Fahrzeuge oder Geräte.' },
+  { q: 'Was passiert, wenn das Objektlimit erreicht ist?', a: 'Neue Objekte lassen sich dann nicht mehr anlegen. Alles Bestehende bleibt, wie es ist: Sie erfassen weiter Berichte, und nichts wird gelöscht oder ausgeblendet. Für mehr Objekte wechseln Sie den Plan direkt in der App.' },
+  { q: 'Und bei einem Wechsel auf einen kleineren Plan?', a: 'Es wird nichts gelöscht. Liegen Sie danach über dem Limit, bleiben die zuletzt dokumentierten Objekte bis zum Limit bearbeitbar; die übrigen können Sie weiterhin ansehen, aber nicht mehr ändern.' },
+  { q: 'Wie viele Personen können mitarbeiten?', a: 'Im Plan Starter drei Benutzer, ab Professional unbegrenzt viele.' },
+  { q: 'Unsere Organisation passt in keinen Plan?', a: 'Für grosse Portfolios, höhere Objektlimiten und individuelle Integrationen gibt es Enterprise. Schreiben Sie uns, wir finden die passende Lösung.' },
+];
+---
+
+<section id="faq" class="py-24 md:py-28 border-t border-brand-border">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-[1fr_1.6fr] gap-10 lg:gap-16">
+    <div>
+      <SectionHeading align="left" eyebrow="Häufige Fragen" title="Was als Objekt zählt – und was beim Limit passiert." />
+      <div class="rounded-rail bg-white border border-brand-border p-5" aria-label="Beispiel: zwölf Objekte">
+        <div class="text-[0.74rem] font-bold uppercase tracking-[0.06em] text-brand-muted mb-3">Beispiel</div>
+        <ul class="space-y-1.5 text-sm">
+          <li class="flex items-center gap-2 font-semibold"><Icon name="building" class="w-4 h-4 text-brand-accent" /> Bahnhofstrasse 12 <span class="ml-auto text-brand-muted font-normal">1</span></li>
+          <li class="flex items-center gap-2 pl-6"><Icon name="door" class="w-4 h-4 text-brand-muted" /> 8 Wohnungen <span class="ml-auto text-brand-muted">8</span></li>
+          <li class="flex items-center gap-2 pl-6"><Icon name="cube" class="w-4 h-4 text-brand-muted" /> Treppenhaus, Waschküche <span class="ml-auto text-brand-muted">2</span></li>
+          <li class="flex items-center gap-2 pl-6"><Icon name="thermo" class="w-4 h-4 text-brand-muted" /> Heizung <span class="ml-auto text-brand-muted">1</span></li>
+          <li class="flex items-center gap-2 pt-2 mt-2 border-t border-brand-border font-semibold">Total <span class="ml-auto">12 Objekte</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="space-y-2">
+      {faq.map((f) => (
+        <details class="group rounded-card bg-white border border-brand-border open:border-brand-sage">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none px-5 py-4 font-semibold text-brand-ink rounded-card">
+            {f.q}
+            <Icon name="chevron" class="w-4 h-4 text-brand-muted shrink-0 rotate-90 group-open:-rotate-90 transition-transform" />
+          </summary>
+          <p class="px-5 pb-5 -mt-1 text-sm text-brand-muted leading-relaxed">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+import Icon from '../Icon.astro';
+
+// How Froggi works, in the order the app does it: Objekt › Aktion › Details,
+// then the report lands in the object's history and the next task follows.
+const steps = [
+  { n: 1, title: 'Objekt', text: 'Worum es geht – eine Liegenschaft, eine Wohnung, eine Anlage, eine Person.' },
+  { n: 2, title: 'Aktion', text: 'Was gemacht wurde. Es werden nur Aktionen angeboten, die zum Objekt passen.' },
+  { n: 3, title: 'Details', text: 'Ihre Felder, mit Fotos und Standort. Pflichtfelder sorgen für vollständige Berichte.' },
+  { n: 4, title: 'Verlauf & Folgearbeit', text: 'Der Bericht landet im Verlauf des Objekts. Erinnerungen und Alarme legen die nächste Aufgabe an.' },
+];
+---
+
+<section class="py-24 md:py-28 border-t border-brand-border">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <SectionHeading
+      eyebrow="So funktioniert's"
+      title="Objekt, Aktion, Details."
+      lead="Sie beschreiben Ihre Arbeit einmal – danach erfasst Ihr Team sie in drei Schritten, immer gleich."
+    />
+    <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      {steps.map((s, i) => (
+        <li class="rounded-rail bg-white border border-brand-border p-6">
+          <div class="flex items-center gap-3">
+            <span class={`w-9 h-9 rounded-full font-bold flex items-center justify-center ${i < 3 ? 'bg-brand-accent text-white' : 'bg-brand-soft text-brand-accent'}`}>{s.n}</span>
+            {i < 3 && <Icon name="chevron" class="hidden lg:block w-5 h-5 text-brand-sage ml-auto" />}
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-brand-ink">{s.title}</h3>
+          <p class="mt-2 text-sm text-brand-muted leading-relaxed">{s.text}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="mt-8 text-center">
+      <a href="/produkt" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent hover:underline">
+        Alle Schritte im Detail <Icon name="arrow" class="w-4 h-4" stroke={2} />
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+import Icon from '../Icon.astro';
+
+// The three places work gets lost, each with what Froggi does about it.
+const problems = [
+  {
+    icon: 'bell', tone: 'bg-tone-amber-bg text-tone-amber',
+    title: 'Kontrollen gehen vergessen.',
+    pain: 'Wann war der letzte Rundgang? Steht vielleicht in einem Heft, vielleicht in einer E-Mail.',
+    fix: 'Erinnerungen nach Wochenplan oder Intervall – was fällig ist, steht auf einer Liste.',
+  },
+  {
+    icon: 'archive', tone: 'bg-tone-blue-bg text-tone-blue',
+    title: 'Berichte sind verstreut.',
+    pain: 'Papier im Ordner, Tabellen auf dem Laufwerk, Fotos auf privaten Handys.',
+    fix: 'Ein durchsuchbarer Verlauf pro Objekt, jeder Bericht mit Fotos und Standort.',
+  },
+  {
+    icon: 'users', tone: 'bg-tone-red-bg text-tone-red',
+    title: 'Niemand weiss, wer zuständig ist.',
+    pain: 'Eine Störung ist gemeldet – aber hat sie jemand übernommen?',
+    fix: 'Jede Aufgabe zeigt, wer sie übernommen hat. Das Änderungsprotokoll zeigt, wer was wann erfasst hat.',
+  },
+];
+---
+
+<section class="py-24 md:py-28 bg-white border-t border-brand-border">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <SectionHeading eyebrow="Kennen Sie das?" title="Wo Arbeit verloren geht." />
+    <div class="grid md:grid-cols-3 gap-3">
+      {problems.map((p) => (
+        <div class="rounded-rail bg-brand-bg border border-brand-border p-6 flex flex-col">
+          <span class={`w-[42px] h-[42px] rounded-card flex items-center justify-center ${p.tone}`}><Icon name={p.icon} class="w-5 h-5" /></span>
+          <h3 class="mt-5 text-lg font-semibold text-brand-ink">{p.title}</h3>
+          <p class="mt-2 text-sm text-brand-muted leading-relaxed flex-1">{p.pain}</p>
+          <p class="mt-5 pt-4 border-t border-brand-border flex gap-2.5 text-sm text-brand-ink leading-relaxed">
+            <Icon name="check" class="w-4 h-4 text-brand-accent mt-0.5 shrink-0" stroke={2.4} />
+            <span>{p.fix}</span>
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

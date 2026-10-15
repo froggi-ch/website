@@ -2,12 +2,6 @@
 import TasksMock from './mock/TasksMock.astro';
 import Icon from './Icon.astro';
 
-const sectors = [
-  { label: 'Pflege & Betreuung', icon: 'heart', tone: 'bg-tone-red-bg text-tone-red' },
-  { label: 'Liegenschaftsverwaltung', icon: 'building', tone: 'bg-tone-blue-bg text-tone-blue' },
-  { label: 'Hauswartung & Facility', icon: 'wrench', tone: 'bg-tone-amber-bg text-tone-amber' },
-  { label: 'Reinigung & Unterhalt', icon: 'sparkle', tone: 'bg-tone-violet-bg text-tone-violet' },
-];
 ---
 
 <section class="relative overflow-hidden pt-28 md:pt-36 pb-20">
@@ -30,8 +24,9 @@ const sectors = [
       </h1>
 
       <p class="mt-6 text-lg md:text-xl text-brand-muted leading-relaxed max-w-2xl mx-auto">
-        Froggi ist die Dokumentationsplattform für Teams im Einsatz. Ihre eigenen Formulare,
-        erfasst im Browser oder offline auf dem Handy – mit lückenlosem Verlauf und Aufgaben pro Objekt.
+        Für Teams, die Gebäude, Anlagen und Menschen betreuen: Kontrollen, Störungen und erledigte Arbeit
+        direkt am Objekt erfassen – im Browser oder offline auf dem Handy. Froggi hält fest, was gemacht
+        wurde, und zeigt, was als Nächstes fällig ist.
       </p>
 
       <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -48,16 +43,5 @@ const sectors = [
       <TasksMock />
     </div>
 
-    <div class="mt-14 text-center">
-      <p class="text-[0.74rem] font-bold uppercase tracking-[0.06em] text-brand-muted mb-5">Gebaut für</p>
-      <div class="flex flex-wrap justify-center gap-2.5">
-        {sectors.map((s) => (
-          <span class="inline-flex items-center gap-2.5 rounded-card bg-white border border-brand-border pl-1.5 pr-4 py-1.5 text-[0.94rem] text-brand-ink">
-            <span class={`w-7 h-7 rounded-lg flex items-center justify-center ${s.tone}`}><Icon name={s.icon} class="w-4 h-4" /></span>
-            {s.label}
-          </span>
-        ))}
-      </div>
-    </div>
   </div>
 </section>

@@ -1,0 +1,45 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import PhoneMock from './mock/PhoneMock.astro';
+
+// One report from start to follow-up, in real screenshots of the app — no
+// drawn or simulated screens. Scrolls sideways on a phone.
+export interface Props {
+  eyebrow?: string;
+  title?: string;
+  lead?: string;
+  id?: string;
+}
+const {
+  eyebrow = 'Froggi in fünf Bildern',
+  title = 'Ein Rundgang, von Anfang bis Ende.',
+  lead = 'Echte Bildschirme aus der App: ein Rundgang in den Allgemeinbereichen einer Liegenschaft – erfasst, gespeichert und im Verlauf wiedergefunden.',
+  id = 'demo',
+} = Astro.props;
+
+const shots = [
+  { screen: '01-objekt', title: 'Objekt wählen', text: 'Liegenschaft, dann Wohnung, Bereich oder Anlage.' },
+  { screen: '02-aktion', title: 'Aktion wählen', text: 'Nur, was zu diesem Objekt passt.' },
+  { screen: '03-details', title: 'Erfassen & speichern', text: 'Antippen statt tippen, Fotos und Standort dazu.' },
+  { screen: '04-verlauf', title: 'Im Verlauf finden', text: 'Jeder Bericht, so wie er erfasst wurde.' },
+  { screen: '05-aufgaben', title: 'Folgearbeit erledigen', text: 'Was fällig ist, steht auf der Liste.' },
+] as const;
+---
+
+<section id={id} class="py-24 md:py-28 bg-white border-t border-brand-border scroll-mt-14">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <SectionHeading eyebrow={eyebrow} title={title} lead={lead} />
+  </div>
+  <ol class="flex lg:grid lg:grid-cols-5 gap-5 lg:gap-6 overflow-x-auto lg:overflow-visible snap-x snap-mandatory px-4 sm:px-6 lg:max-w-6xl lg:mx-auto pb-4">
+    {shots.map((s, i) => (
+      <li class="snap-center shrink-0 w-[200px] lg:w-auto flex flex-col items-center text-center">
+        <PhoneMock screen={s.screen} class="w-full max-w-[210px]" alt={`Schritt ${i + 1}: ${s.title} – Bildschirm der Froggi-App`} />
+        <div class="mt-5 flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full bg-brand-accent text-white text-xs font-bold flex items-center justify-center">{i + 1}</span>
+          <span class="font-semibold text-brand-ink text-[0.95rem]">{s.title}</span>
+        </div>
+        <p class="mt-1.5 text-sm text-brand-muted leading-relaxed">{s.text}</p>
+      </li>
+    ))}
+  </ol>
+</section>

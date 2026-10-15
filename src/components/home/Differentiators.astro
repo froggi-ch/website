@@ -1,0 +1,29 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+import Icon from '../Icon.astro';
+
+const items = [
+  { icon: 'sliders', tone: 'bg-tone-green-bg text-tone-green', title: 'An Ihre Abläufe angepasst', text: 'Strukturen, Aktionen und Felder legen Sie selbst fest – ohne Programmierung, mit Entwurf und Revisionen.', href: '/produkt', link: 'Reporteditor' },
+  { icon: 'offline', tone: 'bg-tone-amber-bg text-tone-amber', title: 'Mobil und offline', text: 'Dieselben Formulare auf dem Handy. Ohne Netz erfasst, später gesendet – ohne Duplikate.', href: '/produkt#app', link: 'Mobile App' },
+  { icon: 'scroll', tone: 'bg-tone-blue-bg text-tone-blue', title: 'Nachvollziehbar', text: 'Jeder Bericht bleibt, wie er erfasst wurde. Das Änderungsprotokoll zeigt, wer was wann getan hat.', href: '/funktionen', link: 'Funktionen' },
+  { icon: 'plug', tone: 'bg-tone-violet-bg text-tone-violet', title: 'Offen angebunden', text: 'Schnittstelle, Single Sign-on, Export – und Ihre eigene KI über MCP.', href: '/integrationen', link: 'Integrationen' },
+];
+---
+
+<section class="py-24 md:py-28 bg-white border-t border-brand-border">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <SectionHeading eyebrow="Warum Froggi" title="Ihr Vokabular, nicht unseres." />
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      {items.map((i) => (
+        <a href={i.href} class="group rounded-rail bg-brand-bg border border-brand-border p-6 flex flex-col hover:border-brand-sage hover:bg-white transition">
+          <span class={`w-[42px] h-[42px] rounded-card flex items-center justify-center ${i.tone}`}><Icon name={i.icon} class="w-5 h-5" /></span>
+          <h3 class="mt-5 font-semibold text-brand-ink">{i.title}</h3>
+          <p class="mt-2 text-sm text-brand-muted leading-relaxed flex-1">{i.text}</p>
+          <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent">
+            {i.link} <Icon name="arrow" class="w-4 h-4 transition-transform group-hover:translate-x-0.5" stroke={2} />
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

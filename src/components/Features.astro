@@ -7,12 +7,9 @@ import Icon from './Icon.astro';
 const features = [
   { icon: 'tree', tone: 'green', title: 'Eigene Strukturen', text: 'Liegenschaft › Wohnung, Station › Zimmer, Team › Person – Objekte und Stammdaten so verschachtelt, wie Ihre Organisation tatsächlich ist.' },
   { icon: 'users', tone: 'blue', title: 'Gruppen & Berechtigungen', text: 'Wer welche Objekte sieht und was bearbeiten darf, über Gruppen und eine Berechtigungsmatrix. Sichtbarkeit folgt dem Objekt.' },
-  { icon: 'key', tone: 'violet', title: 'Single Sign-on', text: 'Anmeldung über Microsoft Entra ID, Google, Okta, Keycloak oder jeden OpenID-Connect-Anbieter.' },
   { icon: 'help', tone: 'amber', title: 'Hilfe-Center & Touren', text: 'Durchsuchbare Anleitungen direkt in Froggi und geführte Touren über die echte Oberfläche – für jede neue Person im Team.' },
   { icon: 'globe', tone: 'blue', title: 'Mehrsprachig', text: 'Oberfläche in Deutsch, Französisch, Italienisch und Englisch. Ihre Formulare übersetzen Sie in die Sprachen, die Ihr Team spricht.' },
   { icon: 'scroll', tone: 'amber', title: 'Änderungsprotokoll', text: 'Wer hat einen Bericht erfasst, geändert oder gelöscht – und wann. Nur anfügend, auch dann noch lesbar, wenn das Dokument längst weg ist.' },
-  { icon: 'swap', tone: 'green', title: 'Import & Export', text: 'Ihre gesamte Konfiguration als portable Datei. Mit Probelauf vor jedem Import und ohne bestehende Berichte anzutasten.' },
-  { icon: 'code', tone: 'slate', title: 'Offene API', text: 'Alles, was die App kann, geht auch per Schnittstelle – für Auswertungen, Umsysteme und eigene Automatisierungen.' },
   { icon: 'nfc', tone: 'slate', title: 'NFC-Anmeldung', soon: true, text: 'Badge ans Gerät halten und loslegen – für geteilte Tablets auf der Station oder im Hauswartsbüro.' },
 ];
 
@@ -34,7 +31,7 @@ const { first = false } = Astro.props as { first?: boolean };
       as={first ? 'h1' : 'h2'}
       eyebrow="Funktionen"
       title="Alles, was ein Team im Feld braucht."
-      lead="Vom ersten Bericht bis zur Anbindung an Ihre Umsysteme – in einer Plattform, auf jedem Gerät."
+      lead="Vom ersten Bericht bis zum Nachweis gegenüber Aufsicht und Kunden – in einer Plattform, auf jedem Gerät."
     />
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
       {features.map((f) => (
@@ -50,5 +47,9 @@ const { first = false } = Astro.props as { first?: boolean };
         </div>
       ))}
     </div>
+    <p class="mt-8 text-center text-sm text-brand-muted">
+      Schnittstelle, Single Sign-on und Import &amp; Export finden Sie unter
+      <a href="/integrationen" class="text-brand-accent font-semibold hover:underline">Integrationen &amp; KI</a>.
+    </p>
   </div>
 </section>
