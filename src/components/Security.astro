@@ -8,11 +8,15 @@ const pillars = [
   { icon: 'shield', tone: 'bg-tone-green-bg text-tone-green', title: 'Gehärtet', text: 'Sitzungen in httpOnly-Cookies, widerrufbar bei Abmeldung und Passwortwechsel. Begrenzte Anmeldeversuche, strikte Sicherheits-Header.' },
   { icon: 'archive', tone: 'bg-tone-blue-bg text-tone-blue', title: 'Archiv eingebaut', text: 'Ältere Berichte und Fotos wandern automatisch in ein günstigeres Archiv – bleiben aber im Verlauf auffindbar.' },
 ];
+
+// Opens its own page: clears the fixed nav, heading becomes the h1.
+const { first = false } = Astro.props as { first?: boolean };
 ---
 
-<section id="security" class="py-24 md:py-32 border-t border-brand-border">
+<section id="sicherheit" class={`pb-24 md:pb-32 ${first ? 'pt-32 md:pt-40' : 'pt-24 md:pt-32 border-t border-brand-border'}`}>
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <SectionHeading
+      as={first ? 'h1' : 'h2'}
       eyebrow="Sicherheit & Betrieb"
       title="Gebaut für sensible Daten."
       lead="Ob Pflegedokumentation oder Mieterdaten: Froggi ist von Grund auf so gebaut, dass Sie es Ihrer Aufsicht und Ihrer IT erklären können."

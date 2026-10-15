@@ -23,11 +23,15 @@ const tones: Record<string, string> = {
   amber: 'bg-tone-amber-bg text-tone-amber',
   slate: 'bg-tone-slate-bg text-tone-slate',
 };
+
+// Opens its own page: clears the fixed nav, heading becomes the h1.
+const { first = false } = Astro.props as { first?: boolean };
 ---
 
-<section id="features" class="py-24 md:py-32 bg-white border-t border-brand-border">
+<section id="features" class={`pb-24 md:pb-32 bg-white ${first ? 'pt-32 md:pt-40' : 'pt-24 md:pt-32 border-t border-brand-border'}`}>
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <SectionHeading
+      as={first ? 'h1' : 'h2'}
       eyebrow="Funktionen"
       title="Alles, was ein Team im Feld braucht."
       lead="Vom ersten Bericht bis zur Anbindung an Ihre Umsysteme – in einer Plattform, auf jedem Gerät."

@@ -5,13 +5,15 @@ export interface Props {
   lead?: string;
   align?: 'center' | 'left';
   dark?: boolean;
+  /** h1 when the section opens its page, h2 otherwise. */
+  as?: 'h1' | 'h2';
 }
-const { eyebrow, title, lead, align = 'center', dark = false } = Astro.props;
+const { eyebrow, title, lead, align = 'center', dark = false, as: Tag = 'h2' } = Astro.props;
 const center = align === 'center';
 ---
 
 <div class={center ? 'text-center max-w-2xl mx-auto mb-14' : 'max-w-xl mb-8'}>
   <span class={`inline-block px-2.5 py-0.5 rounded-full text-[0.78rem] font-semibold mb-4 ${dark ? 'bg-white/10 text-brand-sage' : 'bg-brand-soft text-brand-accent'}`}>{eyebrow}</span>
-  <h2 class={`text-3xl md:text-[2.5rem] md:leading-[1.12] font-bold tracking-[-0.02em] ${dark ? 'text-white' : 'text-brand-ink'}`}>{title}</h2>
+  <Tag class={`text-3xl md:text-[2.5rem] md:leading-[1.12] font-bold tracking-[-0.02em] ${dark ? 'text-white' : 'text-brand-ink'}`}>{title}</Tag>
   {lead && <p class={`mt-4 text-lg leading-relaxed ${dark ? 'text-white/70' : 'text-brand-muted'}`}>{lead}</p>}
 </div>

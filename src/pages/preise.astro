@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Plans from '../components/Plans.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Preise — Froggi"
+  description="Starter ab CHF 39, Professional CHF 99, Business CHF 249 pro Monat, Enterprise auf Anfrage. Einführungspreise, exkl. MWST."
+>
+  <Nav />
+  <main>
+    <Plans first />
+    <CtaBand
+      title="Welcher Plan passt?"
+      text="Wir rechnen mit Ihnen durch, wie viele Objekte Sie haben – und zeigen Froggi mit Ihren eigenen Abläufen."
+      secondary={{ label: 'Alle Funktionen', href: '/funktionen' }}
+    />
+  </main>
+  <Footer />
+</Base>

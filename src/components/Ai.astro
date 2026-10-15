@@ -16,13 +16,17 @@ const changes = [
   ['Feld', 'Prüfpunkte', 'Auswahlliste'],
   ['Feld', 'Fotos', 'Bild'],
 ];
+
+// Opens its own page: clears the fixed nav, heading becomes the h1.
+const { first = false } = Astro.props as { first?: boolean };
 ---
 
-<section id="ai" class="py-24 md:py-32 bg-brand-ink text-white relative overflow-hidden">
+<section id="ai" class={`pb-24 md:pb-32 bg-brand-ink text-white relative overflow-hidden ${first ? 'pt-32 md:pt-40' : 'pt-24 md:pt-32'}`}>
   <div class="absolute -left-40 -bottom-40 w-[560px] h-[560px] rounded-full opacity-[0.08]" style="background: radial-gradient(circle, #a2cdab, transparent 70%);"></div>
   <div class="relative max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-[1fr_1.05fr] gap-12 md:gap-16 items-center">
     <div>
       <SectionHeading
+        as={first ? 'h1' : 'h2'}
         align="left"
         dark
         eyebrow="Neu · KI-Anbindung über MCP"

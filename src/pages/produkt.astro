@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Product from '../components/Product.astro';
+import MobileApp from '../components/MobileApp.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Produkt — Froggi"
+  description="So funktioniert Froggi: eigene Formulare im Reporteditor, Erfassen in drei Schritten, Verlauf pro Objekt und Aufgaben – im Browser und offline in der App."
+>
+  <Nav />
+  <main>
+    <Product first />
+    <MobileApp />
+    <CtaBand secondary={{ label: 'Alle Funktionen', href: '/funktionen' }} />
+  </main>
+  <Footer />
+</Base>

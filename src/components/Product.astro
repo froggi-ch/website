@@ -45,11 +45,15 @@ const steps = [
     mock: 'history',
   },
 ];
+
+// Opens its own page: clears the fixed nav, heading becomes the h1.
+const { first = false } = Astro.props as { first?: boolean };
 ---
 
-<section id="product" class="py-24 md:py-32 border-t border-brand-border bg-white">
+<section id="product" class={`pb-24 md:pb-32 bg-white ${first ? 'pt-32 md:pt-40' : 'pt-24 md:pt-32 border-t border-brand-border'}`}>
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <SectionHeading
+      as={first ? 'h1' : 'h2'}
       eyebrow="So funktioniert's"
       title="Von der leeren Instanz zum gelebten Ablauf."
       lead="Froggi gibt Ihnen kein fixes Formular vor. Sie beschreiben Ihre Arbeit einmal – danach erfasst Ihr Team sie in Sekunden."

@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Ai from '../components/Ai.astro';
+import AiConnect from '../components/AiConnect.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="KI-Anbindung — Froggi"
+  description="Verbinden Sie Claude, ChatGPT oder einen eigenen Agenten über MCP mit Froggi. Die KI sieht nur, was Sie sehen – jede Änderung ist ein Entwurf, den ein Mensch übernimmt."
+>
+  <Nav />
+  <main>
+    <Ai first />
+    <AiConnect />
+    <CtaBand />
+  </main>
+  <Footer />
+</Base>

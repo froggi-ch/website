@@ -16,11 +16,15 @@ const points = [
   { icon: 'cloud', text: 'Die Synchronisation zeigt jederzeit, was noch auf dem Gerät wartet.' },
   { icon: 'tasks', text: 'Aufgaben, Verlauf und Notizen wie im Browser – mit derselben Anmeldung.' },
 ];
+
+// Opens its own page: clears the fixed nav, heading becomes the h1.
+const { first = false } = Astro.props as { first?: boolean };
 ---
 
-<section id="app" class="py-24 md:py-32 border-t border-brand-border overflow-hidden">
+<section id="app" class={`pb-24 md:pb-32 overflow-hidden ${first ? 'pt-32 md:pt-40' : 'pt-24 md:pt-32 border-t border-brand-border'}`}>
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <SectionHeading
+      as={first ? 'h1' : 'h2'}
       eyebrow="App für iOS und Android"
       title="Dieselben Formulare, auch ohne Netz."
       lead="Im Heizungskeller, auf dem Dach oder im Zimmer am Ende des Gangs: Ihr Team erfasst in drei Schritten, ob mit Empfang oder ohne."

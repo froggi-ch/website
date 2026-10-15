@@ -39,11 +39,15 @@ const plans = [
     cta: 'Kontakt aufnehmen',
   },
 ];
+
+// Opens its own page: clears the fixed nav, heading becomes the h1.
+const { first = false } = Astro.props as { first?: boolean };
 ---
 
-<section id="plans" class="py-24 md:py-32 bg-white border-t border-brand-border">
+<section id="plans" class={`pb-24 md:pb-32 bg-white ${first ? 'pt-32 md:pt-40' : 'pt-24 md:pt-32 border-t border-brand-border'}`}>
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <SectionHeading
+      as={first ? 'h1' : 'h2'}
       eyebrow="Preise"
       title="Klein anfangen, mitwachsen."
       lead="Ein Wechsel auf einen grösseren Plan geht direkt in der App – und Ihre Daten bleiben bei jedem Wechsel unangetastet."
@@ -71,7 +75,7 @@ const plans = [
             ))}
           </ul>
           <a
-            href="#contact"
+            href="/kontakt"
             class={`mt-7 inline-flex justify-center px-4 py-2.5 rounded-card text-sm font-semibold transition-colors ${p.highlight ? 'bg-brand-accent text-white hover:bg-brand-accent-dark' : 'bg-white border border-brand-border text-brand-ink hover:border-brand-sage'}`}
           >{p.cta}</a>
         </div>

@@ -4,14 +4,18 @@ const WEB3FORMS_KEY = '624014d0-9d0b-4bcf-9f27-21cced8159e1';
 
 const field =
   'w-full px-3.5 py-2.5 rounded-lg bg-white border border-brand-border text-brand-ink placeholder-brand-muted/70 text-sm focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition';
+
+// Opens its own page: clears the fixed nav, heading becomes the h1.
+const { first = false } = Astro.props as { first?: boolean };
+const Heading = first ? 'h1' : 'h2';
 ---
 
-<section id="contact" class="py-24 md:py-32 bg-white border-t border-brand-border">
+<section id="contact" class={`pb-24 md:pb-32 bg-white ${first ? 'pt-32 md:pt-40' : 'pt-24 md:pt-32 border-t border-brand-border'}`}>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-[1fr_1.1fr] gap-12 md:gap-16">
     <div>
       <img src="/froggi-frog.svg" alt="" width="64" height="64" class="mb-6" />
       <span class="inline-block px-2.5 py-0.5 rounded-full text-[0.78rem] font-semibold mb-4 bg-brand-soft text-brand-accent">Kontakt</span>
-      <h2 class="text-3xl md:text-[2.5rem] md:leading-[1.15] font-bold tracking-[-0.02em] text-brand-ink">Mach den Sprung.</h2>
+      <Heading class="text-3xl md:text-[2.5rem] md:leading-[1.15] font-bold tracking-[-0.02em] text-brand-ink">Mach den Sprung.</Heading>
       <p class="mt-4 text-lg text-brand-muted leading-relaxed">
         Wir zeigen Ihnen Froggi mit Ihren eigenen Abläufen – online oder vor Ort.
       </p>

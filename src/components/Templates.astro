@@ -8,14 +8,18 @@ const stats = [
   { n: '19', label: 'Aktionen' },
   { n: '227', label: 'Felder' },
 ];
+
+// Opens its own page: clears the fixed nav, heading becomes the h1.
+const { first = false } = Astro.props as { first?: boolean };
+const Heading = first ? 'h1' : 'h2';
 ---
 
-<section id="templates" class="py-24 md:py-32 relative overflow-hidden">
+<section id="vorlagen" class={`pb-24 md:pb-32 relative overflow-hidden ${first ? 'pt-32 md:pt-40' : 'pt-24 md:pt-32'}`}>
   <div class="absolute -right-40 -top-40 w-[560px] h-[560px] rounded-full opacity-60 pointer-events-none" style="background: radial-gradient(circle, #e1efe5, transparent 70%);"></div>
   <div class="relative max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
     <div>
       <span class="inline-block px-2.5 py-0.5 rounded-full text-[0.78rem] font-semibold mb-4 bg-brand-soft text-brand-accent">Vorlagen-Marktplatz</span>
-      <h2 class="text-3xl md:text-[2.5rem] md:leading-[1.15] font-bold tracking-[-0.02em] text-brand-ink">Am ersten Tag startklar.</h2>
+      <Heading class="text-3xl md:text-[2.5rem] md:leading-[1.15] font-bold tracking-[-0.02em] text-brand-ink">Am ersten Tag startklar.</Heading>
       <p class="mt-4 text-lg text-brand-muted leading-relaxed">
         Niemand will ein Dokumentationsvokabular von Grund auf entwerfen. Installieren Sie eine fertige Branchenvorlage
         direkt aus Froggi heraus – mit Vorschau als Probelauf, bevor sich etwas ändert.

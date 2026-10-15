@@ -1,0 +1,38 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+
+// How a customer connects their AI (corev2 docs/requirements/mcp.md §2:
+// one endpoint per instance, per-user OAuth with a consent page, admins
+// decide who may connect in Settings › MCP).
+const steps = [
+  { icon: 'users', title: 'Freigeben', text: 'Unter Einstellungen › MCP legen Administratoren fest, wer KI-Apps mit Froggi verbinden darf.' },
+  { icon: 'plug', title: 'Verbinden', text: 'Die Adresse Ihrer Froggi-Instanz in der KI-App eintragen und mit dem eigenen Froggi-Konto anmelden. Sie bestätigen, was die App darf.' },
+  { icon: 'draft', title: 'Arbeiten', text: 'Fragen stellen, Definitionen erklären lassen, neue Aktionen entwerfen. Was sich ändert, prüfen Sie im Reporteditor und übernehmen es selbst.' },
+];
+---
+
+<section class="py-24 md:py-32">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <SectionHeading
+      eyebrow="In drei Schritten"
+      title="So verbinden Sie Ihre KI."
+      lead="Keine Installation, kein Zugang an Ihren Berechtigungen vorbei – eine Adresse, eine Anmeldung pro Person."
+    />
+    <ol class="grid md:grid-cols-3 gap-3">
+      {steps.map((s, i) => (
+        <li class="rounded-rail bg-white border border-brand-border p-6">
+          <div class="flex items-center gap-3">
+            <span class="w-[42px] h-[42px] rounded-card bg-tone-violet-bg text-tone-violet flex items-center justify-center"><Icon name={s.icon} class="w-5 h-5" /></span>
+            <span class="text-sm font-bold text-brand-muted tabular-nums">0{i + 1}</span>
+          </div>
+          <h3 class="mt-5 font-semibold text-brand-ink">{s.title}</h3>
+          <p class="mt-2 text-sm text-brand-muted leading-relaxed">{s.text}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="mt-8 text-center text-sm text-brand-muted">
+      Funktioniert mit KI-Apps, die das Model Context Protocol unterstützen. Ab dem Plan Professional.
+    </p>
+  </div>
+</section>

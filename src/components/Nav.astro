@@ -1,14 +1,15 @@
 ---
 // The app's top bar, as a website nav: white, the frog with its wordmark in
-// accent-dark, and pill links (corev2 .topbar).
+// accent-dark, and pill links — the current page's pill filled, as the app
+// marks its active tab (corev2 .topbar nav a.active).
 const links = [
-  { label: 'Produkt', href: '/#product' },
-  { label: 'App', href: '/#app' },
-  { label: 'Funktionen', href: '/#features' },
-  { label: 'KI', href: '/#ai' },
-  { label: 'Vorlagen', href: '/#templates' },
-  { label: 'Preise', href: '/#plans' },
+  { label: 'Produkt', href: '/produkt' },
+  { label: 'Funktionen', href: '/funktionen' },
+  { label: 'KI', href: '/ki' },
+  { label: 'Preise', href: '/preise' },
 ];
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const active = (href: string) => path === href;
 ---
 
 <nav class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-border">
@@ -21,7 +22,11 @@ const links = [
     <ul class="hidden md:flex items-center gap-1 mr-auto">
       {links.map((l) => (
         <li>
-          <a href={l.href} class="px-3 py-1.5 rounded-lg text-[0.94rem] text-brand-ink hover:bg-brand-soft hover:text-brand-accent transition-colors">
+          <a
+            href={l.href}
+            aria-current={active(l.href) ? 'page' : undefined}
+            class={`px-3 py-1.5 rounded-lg text-[0.94rem] transition-colors ${active(l.href) ? 'bg-brand-soft text-brand-accent font-semibold' : 'text-brand-ink hover:bg-brand-soft hover:text-brand-accent'}`}
+          >
             {l.label}
           </a>
         </li>
@@ -29,7 +34,7 @@ const links = [
     </ul>
 
     <a
-      href="/#contact"
+      href="/kontakt"
       class="hidden md:inline-flex items-center px-4 py-1.5 rounded-lg bg-brand-accent text-white text-[0.94rem] font-medium hover:bg-brand-accent-dark transition-colors"
     >
       Demo anfragen
@@ -45,9 +50,9 @@ const links = [
   <input type="checkbox" id="nav-toggle" class="hidden peer" />
   <div class="peer-checked:flex hidden md:hidden flex-col gap-1 px-4 pb-4 border-t border-brand-border bg-white">
     {links.map((l) => (
-      <a href={l.href} class="py-2 text-sm font-medium text-brand-ink">{l.label}</a>
+      <a href={l.href} class={`py-2 px-2 rounded-lg text-sm ${active(l.href) ? 'bg-brand-soft text-brand-accent font-semibold' : 'font-medium text-brand-ink'}`}>{l.label}</a>
     ))}
-    <a href="/#contact" class="mt-2 inline-flex justify-center px-4 py-2 rounded-lg bg-brand-accent text-white text-sm font-semibold">
+    <a href="/kontakt" class="mt-2 inline-flex justify-center px-4 py-2 rounded-lg bg-brand-accent text-white text-sm font-semibold">
       Demo anfragen
     </a>
   </div>
