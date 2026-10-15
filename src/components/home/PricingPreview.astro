@@ -1,7 +1,8 @@
 ---
 import Icon from '../Icon.astro';
 
-// The four plans in one line each; the detail and the FAQ live on /preise.
+// The four plans in one line each; each card opens its plan on /preise, where
+// the detail and the FAQ live.
 const plans = [
   { name: 'Starter', price: 'CHF 39', limit: 'bis 100 Objekte' },
   { name: 'Professional', price: 'CHF 99', limit: "bis 1'000 Objekte", highlight: true },
@@ -25,16 +26,23 @@ const plans = [
     </div>
     <ul class="grid sm:grid-cols-2 gap-3">
       {plans.map((p) => (
-        <li class={`rounded-rail p-5 ${p.highlight ? 'bg-white border-2 border-brand-accent' : 'bg-white border border-brand-border'}`}>
-          <div class="flex items-center justify-between">
-            <span class="font-semibold text-brand-ink">{p.name}</span>
-            {p.highlight && <span class="px-2 py-0.5 rounded-full bg-brand-accent text-white text-[0.7rem] font-semibold">Empfohlen</span>}
-          </div>
-          <div class="mt-2 flex items-baseline gap-1">
-            <span class="text-2xl font-bold tracking-[-0.02em] text-brand-ink">{p.price}</span>
-            {p.price.startsWith('CHF') && <span class="text-sm text-brand-muted">/ Monat</span>}
-          </div>
-          <div class="mt-1 text-sm text-brand-muted">{p.limit}</div>
+        <li>
+          <a
+            href={`/preise#plan-${p.name.toLowerCase()}`}
+            class={`group block h-full rounded-rail p-5 bg-white transition hover:shadow-lift ${p.highlight ? 'border-2 border-brand-accent' : 'border border-brand-border hover:border-brand-sage'}`}
+          >
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-brand-ink">{p.name}</span>
+              {p.highlight
+                ? <span class="px-2 py-0.5 rounded-full bg-brand-accent text-white text-[0.7rem] font-semibold">Empfohlen</span>
+                : <Icon name="arrow" class="w-4 h-4 text-brand-muted transition-transform group-hover:translate-x-0.5 group-hover:text-brand-accent" stroke={2} />}
+            </div>
+            <div class="mt-2 flex items-baseline gap-1">
+              <span class="text-2xl font-bold tracking-[-0.02em] text-brand-ink">{p.price}</span>
+              {p.price.startsWith('CHF') && <span class="text-sm text-brand-muted">/ Monat</span>}
+            </div>
+            <div class="mt-1 text-sm text-brand-muted">{p.limit}</div>
+          </a>
         </li>
       ))}
     </ul>

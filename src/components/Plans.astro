@@ -54,7 +54,7 @@ const { first = false } = Astro.props as { first?: boolean };
     />
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
       {plans.map((p) => (
-        <div class={`relative rounded-rail p-6 flex flex-col ${p.highlight ? 'bg-white border-2 border-brand-accent shadow-window' : 'bg-brand-bg border border-brand-border'}`}>
+        <div id={`plan-${p.name.toLowerCase()}`} class={`relative scroll-mt-24 rounded-rail p-6 flex flex-col target:ring-4 target:ring-brand-sage/60 ${p.highlight ? 'bg-white border-2 border-brand-accent shadow-window' : 'bg-brand-bg border border-brand-border'}`}>
           {p.highlight && (
             <span class="absolute -top-3 left-6 px-2.5 py-0.5 rounded-full bg-brand-accent text-white text-xs font-semibold">Empfohlen</span>
           )}
