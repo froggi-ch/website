@@ -85,7 +85,7 @@ Froggi imposes no fixed form. An organisation describes its work once — what k
 
 ### Languages (live)
 
-Interface in German, French, Italian and English; forms translated into whatever languages the team needs.
+Interface in German, French, Italian and English. Reports (categories, actions, fields, option values) can be translated into any ISO 639 language — say "jede Sprache nach ISO 639".
 
 ### Security and operations (live)
 
