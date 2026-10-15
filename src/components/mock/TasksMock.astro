@@ -3,62 +3,136 @@ import AppWindow from './AppWindow.astro';
 import ObjectTree from './ObjectTree.astro';
 import Icon from '../Icon.astro';
 
-const counters = [
-  { n: 2, label: 'Überfällig', tone: 'text-red-600', chip: 'bg-red-50 text-red-600', icon: 'alert' },
-  { n: 3, label: 'Heute fällig', tone: 'text-amber-600', chip: 'bg-amber-50 text-amber-600', icon: 'bell' },
-  { n: 5, label: 'Diese Woche', tone: 'text-brand-ink', chip: 'bg-amber-50 text-amber-600', icon: 'tasks' },
-  { n: 12, label: 'Erledigt', tone: 'text-brand-ink', chip: 'bg-brand-soft text-brand-accent', icon: 'check' },
+// The web app's Tasks view as v2 draws it (corev2 pages/tasks): filters, the
+// five counters, a pinned note, and the list as a timeline grouped by day.
+const stats = [
+  { n: 2, label: 'Überfällig', icon: 'overdue', tone: 'bg-tone-red-bg text-tone-red', num: 'text-tone-red' },
+  { n: 3, label: 'Heute fällig', icon: 'clock', tone: 'bg-tone-amber-bg text-tone-amber' },
+  { n: 5, label: 'Diese Woche fällig', icon: 'calendar', tone: 'bg-tone-amber-bg text-tone-amber' },
+  { n: 12, label: 'Erledigt', icon: 'check', tone: 'bg-tone-green-bg text-tone-green' },
+  { n: 1, label: 'Verworfen', icon: 'ban', tone: 'bg-tone-slate-bg text-tone-slate' },
 ];
 
-const tasks = [
-  { title: 'Heizung: Druck unter 1.2 bar', obj: 'Heizung – Gaskessel', source: 'Alarm', when: 'seit 2 Std.', tone: 'bg-red-50 text-red-600', icon: 'alert', overdue: true },
-  { title: 'Treppenhausreinigung', obj: 'Treppenhaus A', source: 'Erinnerung', when: 'heute, 10:00', tone: 'bg-amber-50 text-amber-700', icon: 'bell' },
-  { title: 'Wohnungsabnahme', obj: 'Whg. 302 – 4.5 Zi.', source: 'Erinnerung', when: 'heute, 14:30', tone: 'bg-amber-50 text-amber-700', icon: 'bell' },
-  { title: 'Schlüssel beim Hauswart abholen', obj: 'Whg. 201 – 3.5 Zi.', source: 'Von Personen', when: 'morgen', tone: 'bg-sky-50 text-sky-700', icon: 'users' },
+const groups = [
+  {
+    day: 'Überfällig (2)', icon: 'overdue', dayTone: 'bg-tone-red-bg text-tone-red',
+    items: [
+      { date: '15. Okt.', time: '08:10', title: 'Druck unter 1.2 bar', badges: [['Kritisch', 'red'], ['Überfällig seit 2 Std.', 'red']], meta: 'Alarm · Heizung – Gaskessel · Druck mit 1.1 bar dokumentiert', icon: 'thermo', tile: 'bg-tone-red-bg text-tone-red', card: 'bg-[#fdf6f6] border-[#f3d9d9]', dot: 'border-tone-red', timeTone: 'text-tone-red' },
+      { date: '15. Okt.', time: '07:00', title: 'Treppenhausreinigung', badges: [['Überfällig seit 3 Std.', 'red']], meta: 'Erinnerung · Treppenhaus A · Wochenplan · 1 von 2 erledigt', icon: 'sparkle', tile: 'bg-tone-violet-bg text-tone-violet', card: 'bg-[#fdf6f6] border-[#f3d9d9]', dot: 'border-tone-red', timeTone: 'text-tone-red', who: 'A. Rossi' },
+    ],
+  },
+  {
+    day: 'Heute — 15. Okt. (2)', icon: 'calendar', dayTone: 'bg-brand-soft text-brand-accent',
+    items: [
+      { date: '', time: '14:30', title: 'Wohnungsabnahme', badges: [['Heute fällig', 'amber']], meta: 'Erinnerung · Whg. 302 – 4.5 Zi. · Folge eines Berichts', icon: 'search', tile: 'bg-tone-amber-bg text-tone-amber', card: 'bg-[#fffaf3] border-[#f4e5cc]', dot: 'border-tone-amber', timeTone: 'text-tone-amber' },
+      { date: '', time: '16:00', title: 'Schlüssel beim Hauswart abholen', badges: [], meta: 'Von Personen erfasst · Whg. 201 – 3.5 Zi.', icon: 'key', tile: 'bg-tone-blue-bg text-tone-blue', card: 'bg-white border-brand-border', dot: 'border-brand-accent', timeTone: 'text-brand-muted' },
+    ],
+  },
 ];
+
+const badge: Record<string, string> = {
+  red: 'bg-tone-red-bg text-tone-red',
+  amber: 'bg-tone-amber-bg text-tone-amber',
+};
 ---
 
 <AppWindow active="Aufgaben">
-  <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-3 p-3">
-    <div class="hidden sm:block"><ObjectTree /></div>
-    <div class="space-y-2.5 min-w-0">
-      <div class="flex gap-2">
-        <div class="flex-1 flex items-center gap-1.5 h-8 rounded-lg border border-brand-border bg-white px-2.5 text-[10.5px] text-brand-muted">
-          <Icon name="search" class="w-3.5 h-3.5" /> Aufgaben, Objekte, Aktionen suchen…
+  <div class="grid grid-cols-1 md:grid-cols-[190px_1fr] gap-3 p-3.5">
+    <div class="hidden md:block">
+      <ObjectTree
+        primary="Neue Aufgabe"
+        links={[
+          { label: 'Aufgabenliste', icon: 'tasks', active: true },
+          { label: 'Erinnerungsregeln', icon: 'calendar' },
+          { label: 'Alarmregeln', icon: 'clock' },
+        ]}
+      />
+    </div>
+
+    <div class="min-w-0 space-y-2.5">
+      <div class="rounded-card bg-white border border-brand-border p-2.5 space-y-2">
+        <div class="flex gap-2">
+          <div class="flex-1 flex items-center gap-1.5 h-7 rounded-lg border border-brand-border px-2.5 text-[10.5px] text-brand-muted">
+            <Icon name="search" class="w-3 h-3" /> Aufgaben, Objekte, Aktionen suchen…
+          </div>
+          <div class="h-7 rounded-lg border border-brand-ink/70 px-2.5 text-[10.5px] flex items-center gap-1.5">
+            <Icon name="calendar" class="w-3 h-3" /> Nächste 7 Tage
+          </div>
         </div>
-        <div class="h-8 rounded-lg border border-brand-border bg-white px-2.5 text-[10.5px] flex items-center text-brand-ink">Nächste 7 Tage</div>
+        <div class="hidden sm:flex flex-wrap gap-x-5 gap-y-1.5 text-[10px]">
+          {[['Quelle', ['Alle', 'Erinnerungen', 'Alarme', 'Von Personen']], ['Zuständig', ['Alle', 'Ich', 'Andere', 'Niemand']]].map(([label, opts]) => (
+            <div class="flex items-center gap-2">
+              <span class="text-[8.5px] font-bold uppercase tracking-wider text-brand-muted">{label}</span>
+              <span class="inline-flex p-0.5 rounded-lg bg-brand-bg border border-brand-border">
+                {(opts as string[]).map((o, i) => (
+                  <span class={`px-2 py-0.5 rounded-md ${i === 0 ? 'bg-white shadow-sm font-semibold' : 'text-brand-muted'}`}>{o}</span>
+                ))}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
-      <div class="flex flex-wrap items-center gap-1 text-[10px]">
-        <span class="text-[8.5px] font-semibold tracking-wider text-brand-muted mr-1">QUELLE</span>
-        <span class="px-2 py-0.5 rounded-md bg-brand-soft text-brand-accent font-semibold border border-brand-sage/60">Alle</span>
-        <span class="px-2 py-0.5 rounded-md border border-brand-border bg-white">Erinnerungen</span>
-        <span class="px-2 py-0.5 rounded-md border border-brand-border bg-white">Alarme</span>
-        <span class="px-2 py-0.5 rounded-md border border-brand-border bg-white">Von Personen</span>
-      </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-2">
-        {counters.map((c) => (
-          <div class="flex items-center gap-2 rounded-lg bg-white border border-brand-border p-2">
-            <span class={`w-6 h-6 rounded-md flex items-center justify-center ${c.chip}`}><Icon name={c.icon} class="w-3.5 h-3.5" /></span>
-            <div class="leading-tight">
-              <div class={`text-[13px] font-bold ${c.tone}`}>{c.n}</div>
-              <div class="text-[9px] text-brand-muted">{c.label}</div>
+
+      <div class="grid grid-cols-3 lg:grid-cols-5 gap-1.5">
+        {stats.map((s, i) => (
+          <div class={`flex items-center gap-2 rounded-rail bg-white border border-brand-border px-2.5 py-2 ${i > 2 ? 'hidden lg:flex' : ''}`}>
+            <span class={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${s.tone}`}><Icon name={s.icon} class="w-3.5 h-3.5" /></span>
+            <div class="leading-tight min-w-0">
+              <div class={`text-[13px] font-bold tabular-nums ${s.num ?? ''}`}>{s.n}</div>
+              <div class={`text-[9px] truncate ${s.num ?? 'text-brand-muted'}`}>{s.label}</div>
             </div>
           </div>
         ))}
       </div>
-      <div class="rounded-lg bg-white border border-brand-border divide-y divide-brand-border">
-        {tasks.map((t) => (
-          <div class="flex items-center gap-2.5 px-2.5 py-2">
-            <span class={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 ${t.tone}`}><Icon name={t.icon} class="w-3.5 h-3.5" /></span>
-            <div class="min-w-0 flex-1 leading-tight">
-              <div class="text-[11px] font-semibold text-brand-ink truncate">{t.title}</div>
-              <div class="text-[9.5px] text-brand-muted truncate">{t.obj} · {t.source}</div>
-            </div>
-            <span class={`text-[9.5px] whitespace-nowrap ${t.overdue ? 'text-red-600 font-semibold' : 'text-brand-muted'}`}>{t.when}</span>
-            <span class="hidden md:inline text-[9.5px] px-2 py-0.5 rounded-md border border-brand-accent text-brand-accent">Übernehmen</span>
-          </div>
-        ))}
+
+      <div class="flex gap-2 rounded-card bg-tone-yellow-bg border border-[#efdfa8] px-2.5 py-2">
+        <Icon name="note" class="w-3.5 h-3.5 text-tone-yellow shrink-0 mt-px" />
+        <div class="min-w-0 flex-1 leading-snug">
+          <div class="text-[10.5px] font-semibold text-tone-yellow">Mieter in den Ferien — Whg. 201</div>
+          <div class="text-[10px] text-brand-ink">Schlüssel liegt beim Hauswart, Zugang nur nach Absprache.</div>
+          <div class="text-[9px] text-tone-yellow">M. Keller · sichtbar bis 18. Okt.</div>
+        </div>
+        <Icon name="x" class="w-3 h-3 text-tone-yellow" />
       </div>
+
+      {groups.map((g) => (
+        <div>
+          <div class="flex items-center gap-2 mt-3 mb-2 text-[11.5px] font-bold">
+            <span class={`w-5 h-5 rounded-md flex items-center justify-center ${g.dayTone}`}><Icon name={g.icon} class="w-3 h-3" /></span>
+            {g.day}
+          </div>
+          <div class="relative space-y-1.5">
+            <div class="absolute left-[9px] top-3 bottom-3 border-l-2 border-brand-border"></div>
+            {g.items.map((t) => (
+              <div class="relative grid grid-cols-[20px_42px_minmax(0,1fr)] gap-2 items-start">
+                <span class={`relative z-10 justify-self-center mt-[13px] w-2 h-2 rounded-full border-2 bg-white ring-[3px] ring-brand-bg ${t.dot}`}></span>
+                <div class="mt-2 text-[9.5px] leading-tight tabular-nums">
+                  {t.date && <div class="text-brand-muted">{t.date}</div>}
+                  <div class={`font-semibold ${t.timeTone}`}>{t.time}</div>
+                </div>
+                <div class={`flex items-center gap-2 rounded-card border px-2.5 py-2 ${t.card}`}>
+                  <span class={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${t.tile}`}><Icon name={t.icon} class="w-3.5 h-3.5" /></span>
+                  <div class="min-w-0 flex-1 leading-tight">
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                      <span class="text-[11px] font-semibold truncate">{t.title}</span>
+                      {t.badges.map(([label, tone]) => (
+                        <span class={`hidden sm:inline text-[8.5px] font-semibold px-1.5 py-px rounded-full ${badge[tone]}`}>{label}</span>
+                      ))}
+                    </div>
+                    <div class="mt-0.5 text-[9.5px] text-brand-muted truncate">{t.meta}</div>
+                  </div>
+                  {t.who && (
+                    <span class="hidden lg:inline-flex items-center gap-1 text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-tone-blue-bg text-tone-blue">
+                      <Icon name="user" class="w-2.5 h-2.5" /> {t.who}
+                    </span>
+                  )}
+                  <Icon name="chevron" class="w-3 h-3 text-brand-muted shrink-0" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   </div>
 </AppWindow>

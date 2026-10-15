@@ -1,28 +1,36 @@
 ---
+import Icon from '../Icon.astro';
+
 // A browser frame around the app's top bar, so each mock reads as the real web
-// app. The tab labels are the app's own (i18n/de.json nav.*).
+// app. Tab labels and their order are the app's own (corev2 App.tsx, the same
+// order as the phone's tab bar; i18n/de.json nav.*).
 export interface Props {
-  active?: 'Verlauf' | 'Aufgaben' | 'Erfassen' | 'Reporteditor' | 'Einstellungen';
+  active?: 'Erfassen' | 'Verlauf' | 'Aufgaben' | 'Reporteditor' | 'Einstellungen';
   class?: string;
 }
 const { active, class: className = '' } = Astro.props;
-const tabs = ['Verlauf', 'Aufgaben', 'Erfassen', 'Reporteditor', 'Einstellungen'];
+const tabs = ['Erfassen', 'Verlauf', 'Aufgaben', 'Reporteditor', 'Einstellungen'];
 ---
 
-<div class={`rounded-2xl border border-brand-border bg-white shadow-window overflow-hidden text-left select-none ${className}`} aria-hidden="true">
-  <div class="flex items-center gap-2 px-3.5 h-9 bg-[#eef3f0] border-b border-brand-border">
+<div class={`rounded-rail border border-brand-border bg-white shadow-window overflow-hidden text-left select-none ${className}`} aria-hidden="true">
+  <div class="flex items-center gap-2 px-3.5 h-8 bg-[#eef3f0] border-b border-brand-border">
     <span class="w-2.5 h-2.5 rounded-full bg-[#d6dfd9]"></span>
     <span class="w-2.5 h-2.5 rounded-full bg-[#d6dfd9]"></span>
     <span class="w-2.5 h-2.5 rounded-full bg-[#d6dfd9]"></span>
-    <span class="ml-3 flex-1 max-w-[260px] h-5 rounded-md bg-white/80 text-[10px] text-brand-muted flex items-center px-2">froggi.ch/app</span>
+    <span class="ml-3 flex-1 max-w-[260px] h-5 rounded-md bg-white/80 text-[10px] text-brand-muted flex items-center px-2">app.froggi.ch</span>
   </div>
-  <div class="flex items-center gap-1 px-3 h-11 border-b border-brand-border bg-white overflow-hidden">
-    <img src="/froggi-frog.svg" alt="" class="w-5 h-5 mr-1" />
-    <span class="text-[12px] font-bold text-brand-ink mr-2">Froggi</span>
-    {tabs.map((t) => (
-      <span class={`px-2 py-1 rounded-md text-[11px] whitespace-nowrap ${t === active ? 'bg-brand-soft text-brand-accent font-semibold' : 'text-brand-ink/80'} ${t === 'Reporteditor' || t === 'Einstellungen' ? 'hidden sm:inline' : ''}`}>{t}</span>
-    ))}
-    <span class="ml-auto hidden lg:inline text-[11px] text-brand-muted">m.keller</span>
+  <div class="flex items-center gap-3 px-3.5 h-11 border-b border-brand-border bg-white overflow-hidden">
+    <span class="flex items-center gap-1.5 text-[13px] font-bold text-brand-accent-dark">
+      <img src="/froggi-frog.svg" alt="" class="w-[18px] h-[18px]" /> Froggi
+    </span>
+    <span class="flex items-center gap-0.5">
+      {tabs.map((t) => (
+        <span class={`px-2.5 py-1 rounded-lg text-[11px] whitespace-nowrap ${t === active ? 'bg-brand-soft text-brand-accent font-semibold' : 'text-brand-ink'} ${t === 'Reporteditor' || t === 'Einstellungen' ? 'hidden sm:inline' : ''}`}>{t}</span>
+      ))}
+    </span>
+    <span class="ml-auto hidden lg:inline-flex items-center gap-1.5 text-[11px] text-brand-muted">
+      <Icon name="user" class="w-3.5 h-3.5" /> m.keller
+    </span>
   </div>
   <div class="bg-brand-bg">
     <slot />

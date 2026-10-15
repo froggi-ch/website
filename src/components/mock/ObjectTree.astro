@@ -1,42 +1,64 @@
 ---
 import Icon from '../Icon.astro';
 
-// The left rail every working view shares: the structure tree of objects.
+// The left rail every working view shares (corev2 .side-rail): the main action
+// on top, the object tree, and the view's configuration links at the foot.
 export interface Props {
   selected?: string;
+  primary?: string;
+  links?: { label: string; icon: string; active?: boolean }[];
 }
-const { selected = 'Alle Objekte' } = Astro.props;
+const { selected = 'Alle Objekte', primary, links = [] } = Astro.props;
 
-const rows: { label: string; depth: number; icon?: string; group?: boolean }[] = [
-  { label: 'Alle Objekte', depth: 0 },
-  { label: 'Bahnhofstrasse 12', depth: 0, icon: 'building' },
+const rows: { label: string; depth: number; count?: number; open?: boolean; group?: boolean }[] = [
+  { label: 'Alle Objekte', depth: 0, count: 6 },
+  { label: 'Bahnhofstrasse 12', depth: 0, count: 6, open: true },
   { label: 'Mieteinheit', depth: 1, group: true },
-  { label: 'Whg. 201 – 3.5 Zi.', depth: 2, icon: 'door' },
-  { label: 'Whg. 302 – 4.5 Zi.', depth: 2, icon: 'door' },
+  { label: 'Whg. 201 – 3.5 Zi.', depth: 2 },
+  { label: 'Whg. 302 – 4.5 Zi.', depth: 2 },
   { label: 'Allgemeinbereich', depth: 1, group: true },
-  { label: 'Treppenhaus A', depth: 2, icon: 'broom' },
-  { label: 'Waschküche UG', depth: 2, icon: 'broom' },
+  { label: 'Treppenhaus A', depth: 2 },
+  { label: 'Waschküche UG', depth: 2 },
   { label: 'Technische Anlage', depth: 1, group: true },
-  { label: 'Heizung – Gaskessel', depth: 2, icon: 'thermo' },
+  { label: 'Heizung – Gaskessel', depth: 2 },
 ];
 ---
 
-<div class="rounded-xl bg-white border border-brand-border p-2.5">
-  <div class="text-[9px] font-semibold tracking-wider text-brand-muted px-1.5 mb-1.5">OBJEKTE</div>
-  <div class="flex items-center gap-1.5 h-7 rounded-md border border-brand-border px-2 text-[10px] text-brand-muted mb-1.5">
-    <Icon name="search" class="w-3 h-3" /> Objekt suchen…
+<div class="rounded-rail bg-white border border-brand-border px-2.5 py-3">
+  {primary && (
+    <div class="flex items-center justify-center gap-1 h-7 mb-3 rounded-lg bg-brand-accent text-white text-[10.5px] font-medium">
+      <Icon name="plus" class="w-3 h-3" stroke={2.2} /> {primary}
+    </div>
+  )}
+  <div class="text-[8.5px] font-bold uppercase tracking-[0.06em] text-brand-muted px-1 mb-1.5">Objekte</div>
+  <div class="flex items-center gap-1.5 h-7 rounded-lg border border-brand-border px-2 text-[10px] text-brand-muted mb-1.5">
+    <Icon name="search" class="w-3 h-3" /> Objekte suchen…
   </div>
   {rows.map((r) => (
     r.group ? (
-      <div class="text-[8.5px] font-semibold tracking-wider text-brand-muted uppercase py-1" style={`padding-left:${r.depth * 12 + 6}px`}>{r.label}</div>
+      <div class="flex items-center gap-1 text-[8.5px] font-bold uppercase tracking-wider text-brand-muted py-1" style={`padding-left:${r.depth * 12 + 6}px`}>
+        <Icon name="cube" class="w-2.5 h-2.5" /> {r.label}
+      </div>
     ) : (
       <div
-        class={`flex items-center gap-1.5 py-1 rounded-md text-[10.5px] ${r.label === selected ? 'bg-brand-soft font-semibold text-brand-ink' : 'text-brand-ink/90'}`}
+        class={`flex items-center gap-1.5 py-1 pr-1.5 rounded-lg text-[10.5px] font-semibold ${r.label === selected ? 'bg-brand-soft' : ''}`}
         style={`padding-left:${r.depth * 12 + 6}px`}
       >
-        {r.icon && <Icon name={r.icon} class="w-3 h-3 text-brand-accent shrink-0" />}
-        <span class="truncate">{r.label}</span>
+        {r.open !== undefined && <Icon name="chevron" class="w-2.5 h-2.5 text-brand-muted rotate-90 -ml-0.5" />}
+        {r.label !== 'Alle Objekte' && <Icon name="cube" class="w-3 h-3 text-brand-muted shrink-0" />}
+        <span class="truncate flex-1">{r.label}</span>
+        {r.count && <span class="text-[9px] text-brand-muted font-normal">{r.count}</span>}
       </div>
     )
   ))}
+  {links.length > 0 && (
+    <div class="mt-2.5 pt-2.5 border-t border-brand-border">
+      <div class="text-[8.5px] font-bold uppercase tracking-[0.06em] text-brand-muted px-1 mb-1">Aufgaben</div>
+      {links.map((l) => (
+        <div class={`flex items-center gap-1.5 px-1.5 py-1 rounded-lg text-[10.5px] ${l.active ? 'bg-brand-soft font-semibold' : ''}`}>
+          <Icon name={l.icon} class="w-3 h-3 text-brand-muted" /> {l.label}
+        </div>
+      ))}
+    </div>
+  )}
 </div>
