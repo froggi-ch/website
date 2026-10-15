@@ -1,0 +1,51 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import PhoneMock from './mock/PhoneMock.astro';
+import Icon from './Icon.astro';
+
+// The three report steps on the phone, from real app screenshots. The iOS app
+// is in TestFlight, not the App Store — so no download badges here.
+const screens = [
+  { screen: '01-objekt', n: 1, title: 'Objekt', text: 'Gebäude, Wohnung oder Anlage – Schritt für Schritt durch Ihre Struktur.' },
+  { screen: '02-aktion', n: 2, title: 'Aktion', text: 'Nur die Aktionen, die zu diesem Objekt passen.' },
+  { screen: '03-details', n: 3, title: 'Details', text: 'Antippen statt tippen. Fotos und Standort direkt vom Gerät.' },
+] as const;
+
+const points = [
+  { icon: 'offline', text: 'Offline erfassen – Berichte und Fotos werden gesendet, sobald wieder Netz da ist, ohne Duplikate.' },
+  { icon: 'cloud', text: 'Die Synchronisation zeigt jederzeit, was noch auf dem Gerät wartet.' },
+  { icon: 'tasks', text: 'Aufgaben, Verlauf und Notizen wie im Browser – mit derselben Anmeldung.' },
+];
+---
+
+<section id="app" class="py-24 md:py-32 border-t border-brand-border overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <SectionHeading
+      eyebrow="App für iOS und Android"
+      title="Dieselben Formulare, auch ohne Netz."
+      lead="Im Heizungskeller, auf dem Dach oder im Zimmer am Ende des Gangs: Ihr Team erfasst in drei Schritten, ob mit Empfang oder ohne."
+    />
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 lg:gap-10 max-w-4xl mx-auto">
+      {screens.map((s, i) => (
+        <div class={`flex flex-col items-center text-center ${i === 1 ? 'sm:translate-y-8' : ''}`}>
+          <PhoneMock screen={s.screen} class="w-[220px] sm:w-full sm:max-w-[240px]" alt={`Die Froggi-App, Schritt ${s.n}: ${s.title}`} />
+          <div class="mt-6 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-brand-accent text-white text-xs font-bold flex items-center justify-center">{s.n}</span>
+            <span class="font-semibold text-brand-ink">{s.title}</span>
+          </div>
+          <p class="mt-1.5 text-sm text-brand-muted leading-relaxed max-w-[240px]">{s.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-20 grid md:grid-cols-3 gap-3 max-w-5xl mx-auto">
+      {points.map((p) => (
+        <div class="flex items-start gap-3 rounded-rail bg-white border border-brand-border p-4">
+          <span class="w-9 h-9 rounded-full bg-tone-green-bg text-tone-green flex items-center justify-center shrink-0"><Icon name={p.icon} class="w-[18px] h-[18px]" /></span>
+          <p class="text-sm text-brand-ink leading-relaxed">{p.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

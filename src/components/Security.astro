@@ -3,14 +3,14 @@ import SectionHeading from './SectionHeading.astro';
 import Icon from './Icon.astro';
 
 const pillars = [
-  { icon: 'server', title: 'Ihre Daten, Ihr Standort', text: 'Bei uns gehostet oder auf Ihrer eigenen Infrastruktur betrieben – als Container, mit getrenntem Speicher für aktive Daten und Archiv.' },
-  { icon: 'scroll', title: 'Nachvollziehbar', text: 'Berichte und Regeln sind versioniert, jede Änderung an einem Bericht wird protokolliert. Was einmal dokumentiert ist, bleibt belegbar.' },
-  { icon: 'shield', title: 'Gehärtet', text: 'Sitzungen in httpOnly-Cookies, widerrufbar bei Abmeldung und Passwortwechsel. Begrenzte Anmeldeversuche, strikte Sicherheits-Header.' },
-  { icon: 'archive', title: 'Archiv eingebaut', text: 'Ältere Berichte und Fotos wandern automatisch in ein günstigeres Archiv – bleiben aber im Verlauf auffindbar.' },
+  { icon: 'server', tone: 'bg-tone-slate-bg text-tone-slate', title: 'Ihre Daten, Ihr Standort', text: 'Bei uns gehostet oder auf Ihrer eigenen Infrastruktur betrieben – als Container, mit getrenntem Speicher für aktive Daten und Archiv.' },
+  { icon: 'scroll', tone: 'bg-tone-amber-bg text-tone-amber', title: 'Nachvollziehbar', text: 'Berichte und Regeln sind versioniert, jede Änderung an einem Bericht wird protokolliert. Was einmal dokumentiert ist, bleibt belegbar.' },
+  { icon: 'shield', tone: 'bg-tone-green-bg text-tone-green', title: 'Gehärtet', text: 'Sitzungen in httpOnly-Cookies, widerrufbar bei Abmeldung und Passwortwechsel. Begrenzte Anmeldeversuche, strikte Sicherheits-Header.' },
+  { icon: 'archive', tone: 'bg-tone-blue-bg text-tone-blue', title: 'Archiv eingebaut', text: 'Ältere Berichte und Fotos wandern automatisch in ein günstigeres Archiv – bleiben aber im Verlauf auffindbar.' },
 ];
 ---
 
-<section id="security" class="py-24 md:py-32 bg-white border-y border-brand-border">
+<section id="security" class="py-24 md:py-32 border-t border-brand-border">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <SectionHeading
       eyebrow="Sicherheit & Betrieb"
@@ -19,8 +19,8 @@ const pillars = [
     />
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {pillars.map((p) => (
-        <div class="rounded-2xl border border-brand-border bg-brand-bg p-6">
-          <Icon name={p.icon} class="w-6 h-6 text-brand-accent mb-5" />
+        <div class="rounded-rail border border-brand-border bg-white p-6">
+          <span class={`w-[42px] h-[42px] rounded-card flex items-center justify-center mb-5 ${p.tone}`}><Icon name={p.icon} class="w-5 h-5" /></span>
           <h3 class="font-semibold text-brand-ink">{p.title}</h3>
           <p class="mt-2 text-sm text-brand-muted leading-relaxed">{p.text}</p>
         </div>

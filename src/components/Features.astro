@@ -2,32 +2,45 @@
 import SectionHeading from './SectionHeading.astro';
 import Icon from './Icon.astro';
 
+// Tones as the app gives its definition icons (corev2 .tone-*). `soon` marks a
+// feature that is built but not released — never claim it as live.
 const features = [
-  { icon: 'tree', title: 'Eigene Strukturen', text: 'Liegenschaft › Wohnung, Station › Zimmer, Team › Person – Objekte und Stammdaten so verschachtelt, wie Ihre Organisation tatsächlich ist.' },
-  { icon: 'phone', title: 'App für iOS & Android', text: 'Dieselben Formulare wie im Browser, mit Kamera, Standort und Offline-Erfassung. Eine Synchronisationsleiste zeigt, was noch wartet.' },
-  { icon: 'users', title: 'Gruppen & Berechtigungen', text: 'Wer welche Objekte sieht und was bearbeiten darf, über Gruppen und eine Berechtigungsmatrix. Sichtbarkeit folgt dem Objekt.' },
-  { icon: 'key', title: 'Single Sign-on', text: 'Anmeldung über Microsoft Entra ID, Google, Okta, Keycloak oder jeden OpenID-Connect-Anbieter.' },
-  { icon: 'nfc', title: 'NFC-Anmeldung', text: 'Badge ans Gerät halten und loslegen – ideal für geteilte Tablets auf der Station oder im Hauswartsbüro.' },
-  { icon: 'globe', title: 'Mehrsprachig', text: 'Oberfläche in Deutsch, Französisch, Italienisch und Englisch. Ihre Formulare übersetzen Sie in die Sprachen, die Ihr Team spricht.' },
-  { icon: 'scroll', title: 'Änderungsprotokoll', text: 'Wer hat einen Bericht erfasst, geändert oder gelöscht – und wann. Nur anfügend, auch dann noch lesbar, wenn das Dokument längst weg ist.' },
-  { icon: 'swap', title: 'Import & Export', text: 'Ihre gesamte Konfiguration als portable Datei. Mit Probelauf vor jedem Import und ohne bestehende Berichte anzutasten.' },
-  { icon: 'code', title: 'Offene API', text: 'Alles, was die App kann, geht auch per Schnittstelle – für Auswertungen, Umsysteme und eigene Automatisierungen.' },
+  { icon: 'tree', tone: 'green', title: 'Eigene Strukturen', text: 'Liegenschaft › Wohnung, Station › Zimmer, Team › Person – Objekte und Stammdaten so verschachtelt, wie Ihre Organisation tatsächlich ist.' },
+  { icon: 'users', tone: 'blue', title: 'Gruppen & Berechtigungen', text: 'Wer welche Objekte sieht und was bearbeiten darf, über Gruppen und eine Berechtigungsmatrix. Sichtbarkeit folgt dem Objekt.' },
+  { icon: 'key', tone: 'violet', title: 'Single Sign-on', text: 'Anmeldung über Microsoft Entra ID, Google, Okta, Keycloak oder jeden OpenID-Connect-Anbieter.' },
+  { icon: 'help', tone: 'amber', title: 'Hilfe-Center & Touren', text: 'Durchsuchbare Anleitungen direkt in Froggi und geführte Touren über die echte Oberfläche – für jede neue Person im Team.' },
+  { icon: 'globe', tone: 'blue', title: 'Mehrsprachig', text: 'Oberfläche in Deutsch, Französisch, Italienisch und Englisch. Ihre Formulare übersetzen Sie in die Sprachen, die Ihr Team spricht.' },
+  { icon: 'scroll', tone: 'amber', title: 'Änderungsprotokoll', text: 'Wer hat einen Bericht erfasst, geändert oder gelöscht – und wann. Nur anfügend, auch dann noch lesbar, wenn das Dokument längst weg ist.' },
+  { icon: 'swap', tone: 'green', title: 'Import & Export', text: 'Ihre gesamte Konfiguration als portable Datei. Mit Probelauf vor jedem Import und ohne bestehende Berichte anzutasten.' },
+  { icon: 'code', tone: 'slate', title: 'Offene API', text: 'Alles, was die App kann, geht auch per Schnittstelle – für Auswertungen, Umsysteme und eigene Automatisierungen.' },
+  { icon: 'nfc', tone: 'slate', title: 'NFC-Anmeldung', soon: true, text: 'Badge ans Gerät halten und loslegen – für geteilte Tablets auf der Station oder im Hauswartsbüro.' },
 ];
+
+const tones: Record<string, string> = {
+  green: 'bg-tone-green-bg text-tone-green',
+  blue: 'bg-tone-blue-bg text-tone-blue',
+  violet: 'bg-tone-violet-bg text-tone-violet',
+  amber: 'bg-tone-amber-bg text-tone-amber',
+  slate: 'bg-tone-slate-bg text-tone-slate',
+};
 ---
 
-<section id="features" class="py-24 md:py-32">
+<section id="features" class="py-24 md:py-32 bg-white border-t border-brand-border">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <SectionHeading
       eyebrow="Funktionen"
       title="Alles, was ein Team im Feld braucht."
       lead="Vom ersten Bericht bis zur Anbindung an Ihre Umsysteme – in einer Plattform, auf jedem Gerät."
     />
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px rounded-2xl overflow-hidden border border-brand-border bg-brand-border">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
       {features.map((f) => (
-        <div class="bg-white p-7 hover:bg-[#fbfdfb] transition-colors">
-          <span class="w-10 h-10 rounded-xl bg-brand-soft text-brand-accent flex items-center justify-center mb-5">
-            <Icon name={f.icon} class="w-5 h-5" />
-          </span>
+        <div class="rounded-rail bg-brand-bg border border-brand-border p-6 hover:border-brand-sage hover:bg-white transition-colors">
+          <div class="flex items-center justify-between mb-5">
+            <span class={`w-[42px] h-[42px] rounded-card flex items-center justify-center ${tones[f.tone]}`}>
+              <Icon name={f.icon} class="w-5 h-5" />
+            </span>
+            {f.soon && <span class="px-2 py-0.5 rounded-full bg-tone-slate-bg text-tone-slate text-[0.75rem] font-semibold">Demnächst</span>}
+          </div>
           <h3 class="font-semibold text-brand-ink">{f.title}</h3>
           <p class="mt-2 text-sm text-brand-muted leading-relaxed">{f.text}</p>
         </div>

@@ -56,7 +56,7 @@ Froggi imposes no fixed form. An organisation describes its work once — what k
 
 - Each person is placed on the object tree and sees that object and everything beneath it — visibility follows the object. Permissions say what they may do.
 - **Single sign-on** via Microsoft Entra ID, Google Workspace, Okta, Keycloak or any OpenID Connect provider (Enterprise plan).
-- **NFC login — coming.** The server side is built (log in by holding a badge to a reader, for shared devices on a ward or in a caretaker's office), but neither the web app nor the mobile app has the login screen for it yet. Mention only as "demnächst". Note: the current website lists it as a feature — flag that if you touch that section.
+- **NFC login — coming.** The server side is built (log in by holding a badge to a reader, for shared devices on a ward or in a caretaker's office), but neither the web app nor the mobile app has the login screen for it yet. Mention only as "demnächst" (the website marks it so).
 
 ### Templates (live)
 
@@ -69,6 +69,19 @@ Froggi imposes no fixed form. An organisation describes its work once — what k
 - **Import & export** of the whole configuration as a portable file, with a dry run, never touching existing reports.
 - **Open API** — everything the app does, also by interface (Business and Enterprise).
 - **Audit log:** who created, changed or deleted a report, and when; append-only.
+
+### AI connection via MCP (live, Professional and up)
+
+- Every instance has a **Model Context Protocol** server: the customer connects the AI they already use (Claude, ChatGPT, an own agent) with one URL and a per-person OAuth sign-in.
+- **The AI is the user, never more** — it sees what the signed-in person sees and proposes only what they could do.
+- The report editor's tools are live: the AI reads definitions and writes changes **as the editor's draft**; a person reviews and takes it over ("Übernehmen") or discards it.
+- Admins decide who may connect and see connected apps (Settings › MCP).
+- Other read tools (reports, objects, tasks) and the in-app assistant are **planned**.
+- Voice: say "Ihre KI anbinden", never "KI-gestützt".
+
+### Help (live, web)
+
+- **Help center** with searchable articles and **guided tours** over the real UI, on every plan. In the web app; the mobile app is planned.
 
 ### Languages (live)
 
@@ -84,8 +97,8 @@ Interface in German, French, Italian and English; forms translated into whatever
 
 ## Plans and trial
 
-See `pricing.md`. In short: 30-day trial, then Start / Pro / Business / Enterprise. **coming** — not on the website yet.
+See `pricing.md`: Starter / Professional / Business / Enterprise, launch pricing on the website.
 
 ## Things Froggi is not
 
-Not a care-planning or billing system, not a property-accounting system (no rents, no ledgers), not a CAFM with maintenance contracts and spare parts, no AI features. Froggi documents work and keeps track of what's due; it sits beside those systems (export, API), not instead of them.
+Not a care-planning or billing system, not a property-accounting system (no rents, no ledgers), not a CAFM with maintenance contracts and spare parts. No built-in AI model: Froggi lets the customer's own AI connect (see MCP). Froggi documents work and keeps track of what's due; it sits beside those systems (export, API), not instead of them.

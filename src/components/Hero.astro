@@ -3,28 +3,28 @@ import TasksMock from './mock/TasksMock.astro';
 import Icon from './Icon.astro';
 
 const sectors = [
-  { label: 'Pflege & Betreuung', icon: 'heart' },
-  { label: 'Liegenschaftsverwaltung', icon: 'building' },
-  { label: 'Hauswartung & Facility', icon: 'wrench' },
-  { label: 'Reinigung & Unterhalt', icon: 'broom' },
+  { label: 'Pflege & Betreuung', icon: 'heart', tone: 'bg-tone-red-bg text-tone-red' },
+  { label: 'Liegenschaftsverwaltung', icon: 'building', tone: 'bg-tone-blue-bg text-tone-blue' },
+  { label: 'Hauswartung & Facility', icon: 'wrench', tone: 'bg-tone-amber-bg text-tone-amber' },
+  { label: 'Reinigung & Unterhalt', icon: 'sparkle', tone: 'bg-tone-violet-bg text-tone-violet' },
 ];
 ---
 
 <section class="relative overflow-hidden pt-28 md:pt-36 pb-20">
   <div
-    class="absolute inset-x-0 top-0 h-[640px] pointer-events-none"
+    class="absolute inset-x-0 top-0 h-[680px] pointer-events-none"
     style="background: radial-gradient(60% 55% at 50% 0%, #e1efe5 0%, rgba(246,249,247,0) 100%);"
   ></div>
 
   <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
     <div class="max-w-4xl mx-auto text-center">
-      <a href="#templates" class="inline-flex items-center gap-2 rounded-full border border-brand-sage/70 bg-white/70 px-3 py-1 text-xs font-medium text-brand-accent hover:bg-white transition-colors">
-        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent"></span>
-        Neu: Vorlagen-Marktplatz, Aufgaben &amp; Alarme
-        <Icon name="arrow" class="w-3.5 h-3.5" />
+      <a href="#ai" class="inline-flex items-center gap-2 rounded-full border border-brand-border bg-white pl-1 pr-3 py-1 text-[0.82rem] text-brand-ink shadow-lift hover:border-brand-sage transition-colors">
+        <span class="px-2 py-0.5 rounded-full bg-brand-soft text-brand-accent font-semibold">Neu</span>
+        Ihre KI anbinden, Hilfe-Center &amp; geführte Touren
+        <Icon name="arrow" class="w-3.5 h-3.5 text-brand-muted" />
       </a>
 
-      <h1 class="mt-6 text-[2.3rem] leading-[1.08] sm:text-6xl md:text-[4.25rem] font-bold tracking-tight text-brand-ink">
+      <h1 class="mt-7 text-[2.4rem] leading-[1.06] sm:text-6xl md:text-[4.4rem] font-bold tracking-[-0.03em] text-brand-ink">
         Dokumentieren, was&nbsp;zählt.<br />
         <span class="text-brand-accent">Sehen, was fällig&nbsp;ist.</span>
       </h1>
@@ -35,10 +35,10 @@ const sectors = [
       </p>
 
       <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-accent text-white font-semibold hover:bg-brand-accent-dark transition-colors shadow-[0_6px_20px_-6px_rgba(67,107,78,0.55)]">
+        <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-card bg-brand-accent text-white font-semibold hover:bg-brand-accent-dark transition-colors shadow-glow">
           Demo anfragen <Icon name="arrow" class="w-4 h-4" stroke={2} />
         </a>
-        <a href="#product" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-brand-border bg-white text-brand-ink font-medium hover:border-brand-sage transition-colors">
+        <a href="#product" class="inline-flex items-center gap-2 px-6 py-3 rounded-card border border-brand-border bg-white text-brand-ink font-medium hover:border-brand-sage transition-colors">
           So funktioniert's
         </a>
       </div>
@@ -49,11 +49,12 @@ const sectors = [
     </div>
 
     <div class="mt-14 text-center">
-      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-brand-muted mb-5">Gebaut für</p>
+      <p class="text-[0.74rem] font-bold uppercase tracking-[0.06em] text-brand-muted mb-5">Gebaut für</p>
       <div class="flex flex-wrap justify-center gap-2.5">
         {sectors.map((s) => (
-          <span class="inline-flex items-center gap-2 rounded-full bg-white border border-brand-border px-4 py-2 text-sm text-brand-ink">
-            <Icon name={s.icon} class="w-4 h-4 text-brand-accent" /> {s.label}
+          <span class="inline-flex items-center gap-2.5 rounded-card bg-white border border-brand-border pl-1.5 pr-4 py-1.5 text-[0.94rem] text-brand-ink">
+            <span class={`w-7 h-7 rounded-lg flex items-center justify-center ${s.tone}`}><Icon name={s.icon} class="w-4 h-4" /></span>
+            {s.label}
           </span>
         ))}
       </div>

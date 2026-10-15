@@ -7,8 +7,10 @@ import Icon from '../Icon.astro';
 export interface Props {
   active?: 'Erfassen' | 'Verlauf' | 'Aufgaben' | 'Reporteditor' | 'Einstellungen';
   class?: string;
+  /** Show the signed-in user at the right — only where the frame is wide. */
+  user?: boolean;
 }
-const { active, class: className = '' } = Astro.props;
+const { active, class: className = '', user = false } = Astro.props;
 const tabs = ['Erfassen', 'Verlauf', 'Aufgaben', 'Reporteditor', 'Einstellungen'];
 ---
 
@@ -28,9 +30,9 @@ const tabs = ['Erfassen', 'Verlauf', 'Aufgaben', 'Reporteditor', 'Einstellungen'
         <span class={`px-2.5 py-1 rounded-lg text-[11px] whitespace-nowrap ${t === active ? 'bg-brand-soft text-brand-accent font-semibold' : 'text-brand-ink'} ${t === 'Reporteditor' || t === 'Einstellungen' ? 'hidden sm:inline' : ''}`}>{t}</span>
       ))}
     </span>
-    <span class="ml-auto hidden lg:inline-flex items-center gap-1.5 text-[11px] text-brand-muted">
+    {user && <span class="ml-auto hidden lg:inline-flex items-center gap-1.5 text-[11px] text-brand-muted">
       <Icon name="user" class="w-3.5 h-3.5" /> m.keller
-    </span>
+    </span>}
   </div>
   <div class="bg-brand-bg">
     <slot />

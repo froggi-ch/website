@@ -2,60 +2,72 @@
 import AppWindow from './AppWindow.astro';
 import Icon from '../Icon.astro';
 
+// The report editor as v2 draws it: the action's field rows (corev2
+// .field-row-card) and the draft bar of changes not yet taken over.
 const tree = [
-  { label: 'Unterhalt', depth: 0, kind: 'Kategorie' },
-  { label: 'Störungsmeldung', depth: 1, kind: 'Aktion', active: true },
-  { label: 'Reinigungskontrolle', depth: 1, kind: 'Aktion' },
-  { label: 'Vermietung', depth: 0, kind: 'Kategorie' },
-  { label: 'Wohnungsübergabe', depth: 1, kind: 'Aktion' },
-  { label: 'Wohnungsabnahme', depth: 1, kind: 'Aktion' },
+  { label: 'Unterhalt', depth: 0, icon: 'wrench', tone: 'bg-tone-red-bg text-tone-red' },
+  { label: 'Störungsmeldung', depth: 1, active: true },
+  { label: 'Reinigungskontrolle', depth: 1 },
+  { label: 'Vermietung', depth: 0, icon: 'door', tone: 'bg-tone-blue-bg text-tone-blue' },
+  { label: 'Wohnungsübergabe', depth: 1 },
+  { label: 'Wohnungsabnahme', depth: 1 },
 ];
 
 const fields = [
-  { label: 'Art der Störung', type: 'Auswahl', icon: 'check' },
-  { label: 'Anlagendruck (bar)', type: 'Zahl', icon: 'thermo', rule: true },
-  { label: 'Fotos', type: 'Bild', icon: 'camera', rule: true },
+  { label: 'Art der Störung', req: true, hint: 'Druckverlust · Kein Warmwasser · Geräusche', type: 'Einfachauswahl', icon: 'overdue' },
+  { label: 'Anlagendruck (bar)', hint: 'sichtbar, wenn Art der Störung = Druckverlust', rule: true, type: 'Zahl', icon: 'sliders' },
+  { label: 'Kontrolliert', hint: 'Ausdehnungsgefäss · Sicherheitsventil · Leitungen', type: 'Auswahlliste', icon: 'tasks' },
+  { label: 'Fotos', type: 'Bild', icon: 'camera' },
   { label: 'Standort', type: 'Standort', icon: 'pin' },
   { label: 'Bemerkung', type: 'Freitext', icon: 'editor' },
 ];
 ---
 
 <AppWindow active="Reporteditor">
-  <div class="grid sm:grid-cols-[150px_1fr] gap-3 p-3">
-    <div class="hidden sm:block rounded-xl bg-white border border-brand-border p-2">
+  <div class="grid sm:grid-cols-[160px_1fr] gap-3 p-3.5">
+    <div class="hidden sm:block rounded-rail bg-white border border-brand-border p-2">
+      <div class="text-[8.5px] font-bold uppercase tracking-[0.06em] text-brand-muted px-1 mb-1">Kategorien</div>
       {tree.map((t) => (
         <div
-          class={`py-1 rounded-md text-[10.5px] ${t.depth === 0 ? 'font-semibold text-brand-ink mt-1' : ''} ${t.active ? 'bg-brand-soft text-brand-accent font-semibold' : ''}`}
-          style={`padding-left:${t.depth * 12 + 6}px`}
-        >{t.label}</div>
+          class={`flex items-center gap-1.5 py-1 rounded-lg text-[10.5px] ${t.depth === 0 ? 'font-semibold mt-1' : ''} ${t.active ? 'bg-brand-soft font-semibold' : ''}`}
+          style={`padding-left:${t.depth * 14 + 4}px`}
+        >
+          {t.icon && <span class={`w-4 h-4 rounded flex items-center justify-center ${t.tone}`}><Icon name={t.icon} class="w-2.5 h-2.5" /></span>}
+          {t.label}
+        </div>
       ))}
     </div>
+
     <div class="min-w-0">
-      <div class="flex items-center gap-2 mb-2">
-        <span class="text-[13px] font-bold">Störungsmeldung</span>
-        <span class="text-[9px] px-1.5 py-0.5 rounded bg-brand-soft text-brand-accent font-semibold">Revision 4</span>
+      <div class="flex items-center gap-2 rounded-card bg-tone-amber-bg border border-[#f0dcbb] px-2.5 py-1.5 mb-2.5 text-[10px]">
+        <Icon name="draft" class="w-3.5 h-3.5 text-tone-amber" />
+        <span class="font-semibold text-tone-amber flex-1 truncate">2 Änderungen nicht übernommen</span>
+        <span class="hidden xl:inline px-2 py-0.5 rounded-md border border-tone-amber/40 text-tone-amber">Verwerfen</span>
+        <span class="px-2 py-0.5 rounded-md bg-brand-accent text-white font-semibold">Übernehmen</span>
       </div>
-      <div class="space-y-1.5">
+      <div class="flex items-start justify-between mb-2">
+        <div>
+          <div class="text-[12px] font-bold">Felder</div>
+          <div class="text-[9.5px] text-brand-muted">Störungsmeldung · Revision 4</div>
+        </div>
+        <span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg border border-brand-accent/60 text-brand-accent text-[9.5px] font-semibold"><Icon name="plus" class="w-2.5 h-2.5" stroke={2.4} />Eigenschaft hinzufügen</span>
+      </div>
+      <div class="space-y-1">
         {fields.map((f) => (
-          <div class="rounded-lg bg-white border border-brand-border px-2.5 py-1.5">
-            <div class="flex items-center gap-2">
-              <Icon name={f.icon} class="w-3.5 h-3.5 text-brand-accent" />
-              <span class="text-[10.5px] font-medium flex-1 truncate">{f.label}</span>
-              <span class="text-[9px] text-brand-muted">{f.type}</span>
+          <div class="flex items-center gap-2 rounded-card bg-white border border-brand-border px-2.5 py-1.5">
+            <Icon name={f.icon} class="w-3.5 h-3.5 text-brand-muted shrink-0" />
+            <div class="min-w-0 flex-1 leading-tight">
+              <div class="text-[10.5px] font-semibold truncate">{f.label}{f.req && ' *'}</div>
+              {f.hint && (
+                <div class={`text-[9px] truncate flex items-center gap-1 ${f.rule ? 'text-brand-accent' : 'text-brand-muted'}`}>
+                  {f.rule && <Icon name="eye" class="w-2.5 h-2.5 shrink-0" />}{f.hint}
+                </div>
+              )}
             </div>
-            {f.rule && (
-              <div class="mt-1 pl-[22px] flex items-center gap-1 text-[9px] text-brand-muted">
-                <Icon name="eye" class="w-3 h-3" /> sichtbar, wenn <span class="text-brand-ink font-medium">Art der Störung = Druckverlust</span>
-              </div>
-            )}
+            <span class="text-[9px] text-brand-muted whitespace-nowrap">{f.type}</span>
+            <Icon name="chevron" class="w-3 h-3 text-brand-muted" />
           </div>
         ))}
-      </div>
-      <div class="mt-2 flex gap-1 text-[9px] text-brand-muted">
-        <span class="px-1.5 py-0.5 rounded border border-brand-border bg-white">DE</span>
-        <span class="px-1.5 py-0.5 rounded border border-brand-border bg-white">FR</span>
-        <span class="px-1.5 py-0.5 rounded border border-brand-border bg-white">IT</span>
-        <span class="px-1.5 py-0.5 rounded border border-brand-border bg-white">EN</span>
       </div>
     </div>
   </div>

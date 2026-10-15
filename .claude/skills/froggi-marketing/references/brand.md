@@ -7,7 +7,7 @@ A jumping frog — the idea behind "Mach den Sprung". Files:
 - `public/froggi-frog.svg` (this repo) — the mark used on the website.
 - `../corev2/branding/` — `froggi-frog.svg` and app icons (`froggi-icon-bold`, `-cream`, `-white`, as SVG and PNG).
 
-The mark sits beside the word "Froggi" set in Inter Semibold. Don't redraw, recolour or rotate the frog; on dark backgrounds use the white icon.
+The mark sits beside the word "Froggi" set bold in accent-dark (`#244733`), as in the app's top bar. Don't redraw, recolour or rotate the frog; on dark backgrounds use the white icon.
 
 ## Colours
 
@@ -29,8 +29,8 @@ Definition-icon tones used in product screens: green `#2f6b45`, amber `#97590c`,
 
 ## Type
 
-Inter (Google Fonts), weights 400/500/600/700. Headlines 600–700 with slight negative tracking; body 400. No second typeface.
+The app's system stack (`-apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`) — no web font, so the website and product screens read as one product (Froggi v2, October 2026). Headlines 700 with negative tracking (−0.02 to −0.03em); body 400. No second typeface.
 
 ## Look
 
-Calm, light, lots of white space, rounded cards (radius ~12–14 px) with a soft shadow, thin borders. Product screenshots and device mockups carry the visuals — real screens, not stock photos of people at laptops. Line icons, 24 px grid, round caps, 1.8 stroke (`src/components/Icon.astro`).
+Calm, light, lots of white space, the v2 shapes: cards 12 px, rails and tiles 16 px, thin borders, soft shadow; icons sit on pale tone tiles (`tone-*` in `tailwind.config.mjs`), counters on round tone discs. Product screenshots and device mockups carry the visuals — real screens, not stock photos of people at laptops. Line icons, 24 px grid, round caps, 1.8 stroke (`src/components/Icon.astro`).

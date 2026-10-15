@@ -10,8 +10,8 @@ const field =
   <div class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-[1fr_1.1fr] gap-12 md:gap-16">
     <div>
       <img src="/froggi-frog.svg" alt="" width="64" height="64" class="mb-6" />
-      <span class="inline-block text-brand-accent text-xs font-semibold uppercase tracking-[0.16em] mb-3">Kontakt</span>
-      <h2 class="text-3xl md:text-[2.5rem] md:leading-[1.15] font-bold tracking-tight text-brand-ink">Mach den Sprung.</h2>
+      <span class="inline-block px-2.5 py-0.5 rounded-full text-[0.78rem] font-semibold mb-4 bg-brand-soft text-brand-accent">Kontakt</span>
+      <h2 class="text-3xl md:text-[2.5rem] md:leading-[1.15] font-bold tracking-[-0.02em] text-brand-ink">Mach den Sprung.</h2>
       <p class="mt-4 text-lg text-brand-muted leading-relaxed">
         Wir zeigen Ihnen Froggi mit Ihren eigenen Abläufen – online oder vor Ort.
       </p>
@@ -21,7 +21,7 @@ const field =
       </p>
     </div>
 
-    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="rounded-2xl bg-brand-bg border border-brand-border p-6 sm:p-8 grid sm:grid-cols-2 gap-4">
+    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="rounded-rail bg-brand-bg border border-brand-border p-6 sm:p-8 grid sm:grid-cols-2 gap-4">
       <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
       <input type="hidden" name="subject" value="Neue Anfrage über froggi.ch" />
       <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
@@ -41,7 +41,7 @@ const field =
         <label for="message" class="block text-sm font-medium text-brand-ink mb-1.5">Nachricht <span class="text-brand-accent">*</span></label>
         <textarea id="message" name="message" required rows="4" placeholder="Was möchten Sie dokumentieren, und wie viele Personen arbeiten damit?" class={`${field} resize-none`}></textarea>
       </div>
-      <button type="submit" class="sm:col-span-2 w-full py-3 rounded-xl bg-brand-accent text-white font-semibold text-sm hover:bg-brand-accent-dark transition-colors">
+      <button type="submit" class="sm:col-span-2 w-full py-3 rounded-card bg-brand-accent text-white font-semibold text-sm hover:bg-brand-accent-dark transition-colors">
         Nachricht senden
       </button>
       <p id="contact-status" class="sm:col-span-2 text-sm text-center hidden" role="status"></p>

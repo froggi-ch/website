@@ -1,31 +1,26 @@
 # Plans and prices
 
-**Status: coming.** Decided on 10 October 2026 and built on the `feat/pricing-trial` branch of corev2, but not yet live and not yet on the website (the website still shows the old Basic/Pro/Enterprise plans). Every piece that quotes these prices needs the delivery note "Preise gelten ab Einführung der neuen Pläne" until that changes — or ask whether they are live.
+**Status:** proposed launch pricing (15 October 2026), shown on the website as "Einführungspreise". It replaces both the old Basic/Pro/Enterprise catalog and the Start/Pro/Business plan on corev2's `feat/pricing-trial` branch. The license server in corev2 main still has the old catalog — check before claiming a limit is enforced.
 
-All prices CHF per month, excl. VAT. Annual billing: 2 months free.
+All prices CHF per month, excl. VAT.
 
-| | Testphase | Start | Pro | Business | Enterprise |
-|---|---|---|---|---|---|
-| Price / month | 30 Tage kostenlos | 39 | 99 | 299 | ab 690 |
-| Price / year | – | 390 | 990 | 2'990 | ab 6'900 |
-| Objects | 25 | 25 | 250 | 1'500 | unbegrenzt |
-| Users | 5 | 5 | 25 | unbegrenzt | unbegrenzt |
-| Storage | 2 GB | 5 GB | 25 GB | 100 GB | nach Vereinbarung |
-| Reports | unbegrenzt | unbegrenzt | unbegrenzt | unbegrenzt | unbegrenzt |
-| Reminders & alerts | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Templates (marketplace), import/export, NFC login* | ✓ | – | ✓ | ✓ | ✓ |
-| Archive, API | – | – | – | ✓ | ✓ |
-| Single sign-on, dedicated database, SLA, choice of hosting | – | – | – | – | ✓ |
+| | Starter | Professional | Business | Enterprise |
+|---|---|---|---|---|
+| Price / month | CHF 39 | CHF 99 | CHF 249 | Auf Anfrage |
+| Objects | bis 100 | bis 1'000 | bis 5'000 | individuell |
+| Users | 3 | unbegrenzt | unbegrenzt | unbegrenzt |
 
-\* NFC login itself is **coming** (see product.md) — don't list it as a plan feature until it is live.
+- **Starter:** eine konfigurierbare Struktur, grundlegende Objektstufen, Standard-Berichte und -Felder, 3 Benutzer.
+- **Professional:** eigene Objekthierarchien, konfigurierbare Objektstufen und Felder, eigene Erfassungsabläufe, Konfiguration mit Ihrer KI (MCP), unbegrenzte Benutzer. The recommended plan.
+- **Business:** mehrere Strukturen und Objektstufen, erweiterte Automatisierung und Erinnerungen, Auswertungen über das ganze Portfolio, Änderungsprotokoll und Schnittstellen, grösseres KI-Kontingent.
+- **Enterprise:** grosse Portfolios, höhere Objektlimiten, persönlicher Support und individuelle Integrationen.
 
-**Add-ons:** +10 GB storage for CHF 5/month (Start, Pro, Business); +10 objects for CHF 15/month (Start only, up to 3 packs).
+("Object grades" in the source list is rendered as **Objektstufen** — the levels of a structure, e.g. Liegenschaft › Mieteinheit.)
 
 ## How to talk about it
 
-- **Trial:** 30 days with the Pro features, then the instance becomes read-only until a plan is chosen — data is never deleted on the spot. Good line: "30 Tage alles ausprobieren, ohne Risiko."
-- **Upgrading** happens in the app, data stays untouched — the website's line "Ein Wechsel auf einen grösseren Plan geht direkt in der App" still holds.
-- **Objects** are what is being documented (a flat, a resident, a lift) — every level counts, so a building with 8 flats and a lift is 10 objects. Explain this when a sector reader could misjudge their plan.
-- **Unlimited reports on every plan** — documenting is never metered; worth saying, it's a real difference.
-- **Enterprise** is quoted ("ab CHF 690"); route to a conversation, not a price.
-- Do **not** mention the credit-card question, hosting costs, margins or anything internal.
+- **Upgrading** happens in the app, data stays untouched: "Ein Wechsel auf einen grösseren Plan geht direkt in der App."
+- **Objects** are what is being documented (a flat, a resident, a lift) — every level counts. Explain this when a sector reader could misjudge their plan.
+- **Enterprise** is quoted, not priced; route to a conversation.
+- No trial is part of this pricing — don't promise "30 Tage kostenlos" unless told it is back.
+- Do **not** mention hosting costs, margins or anything internal.

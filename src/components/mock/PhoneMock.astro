@@ -1,51 +1,18 @@
 ---
-import Icon from '../Icon.astro';
-
-// The Flutter app's task list, offline, with the sync tray holding two reports.
-const groups = [
-  { label: 'Überfällig', tone: 'text-red-600', items: [{ t: 'Druck kontrollieren', o: 'Heizung – Gaskessel' }] },
-  { label: 'Heute', tone: 'text-amber-700', items: [{ t: 'Treppenhausreinigung', o: 'Treppenhaus A' }, { t: 'Wohnungsabnahme', o: 'Whg. 302' }] },
-  { label: 'Morgen', tone: 'text-brand-muted', items: [{ t: 'Rasen mähen', o: 'Bahnhofstrasse 12' }] },
-];
+// A device frame around a real screenshot of the Flutter app (from
+// marketing/app-store/raw, downscaled into public/screens). Real screens, not
+// a drawing, so the phone can never drift from what the app shows.
+export interface Props {
+  screen?: '01-objekt' | '02-aktion' | '03-details' | '04-verlauf' | '05-aufgaben';
+  alt?: string;
+  class?: string;
+}
+const { screen = '05-aufgaben', alt = '', class: className = 'w-[240px]' } = Astro.props;
 ---
 
-<div class="w-[230px] rounded-[34px] bg-brand-ink p-2 shadow-window select-none" aria-hidden="true">
-  <div class="rounded-[27px] bg-brand-bg overflow-hidden h-[440px] flex flex-col">
-    <div class="flex justify-between items-center px-5 pt-2.5 pb-1 text-[9px] font-semibold text-brand-ink">
-      <span>9:41</span>
-      <span class="w-14 h-4 rounded-full bg-brand-ink"></span>
-      <span class="flex items-center gap-0.5 text-brand-muted"><Icon name="offline" class="w-3 h-3" /></span>
-    </div>
-    <div class="flex items-center justify-between px-4 py-2 bg-white border-b border-brand-border">
-      <span class="text-[13px] font-bold">Aufgaben</span>
-      <span class="relative text-brand-accent">
-        <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"/></svg>
-        <span class="absolute -top-1 -right-1.5 min-w-[14px] h-[14px] rounded-full bg-amber-500 text-white text-[8px] font-bold flex items-center justify-center">2</span>
-      </span>
-    </div>
-    <div class="mx-3 mt-2.5 rounded-lg bg-amber-50 border border-amber-200 px-2.5 py-1.5 text-[9px] text-amber-800 leading-snug">
-      Offline · 2 Berichte warten und werden gesendet, sobald wieder Verbindung besteht.
-    </div>
-    <div class="flex-1 px-3 py-2 space-y-2 overflow-hidden">
-      {groups.map((g) => (
-        <div>
-          <div class={`text-[9px] font-semibold uppercase tracking-wider mb-1 ${g.tone}`}>{g.label}</div>
-          <div class="space-y-1">
-            {g.items.map((i) => (
-              <div class="rounded-lg bg-white border border-brand-border px-2.5 py-1.5">
-                <div class="text-[10.5px] font-semibold">{i.t}</div>
-                <div class="text-[9px] text-brand-muted">{i.o}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-    <div class="grid grid-cols-4 border-t border-brand-border bg-white py-2 text-[8px] text-brand-muted">
-      <div class="flex flex-col items-center gap-0.5"><Icon name="clipboard" class="w-4 h-4" />Erfassen</div>
-      <div class="flex flex-col items-center gap-0.5 text-brand-accent font-semibold"><Icon name="tasks" class="w-4 h-4" />Aufgaben</div>
-      <div class="flex flex-col items-center gap-0.5"><Icon name="history" class="w-4 h-4" />Verlauf</div>
-      <div class="flex flex-col items-center gap-0.5"><Icon name="users" class="w-4 h-4" />Profil</div>
-    </div>
+<div class={`rounded-[38px] bg-brand-ink p-[7px] shadow-window select-none ${className}`}>
+  <div class="relative rounded-[31px] overflow-hidden bg-brand-bg aspect-[1320/2868]">
+    <img src={`/screens/${screen}.jpg`} alt={alt} width="660" height="1434" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+    <span class="absolute top-[1.6%] left-1/2 -translate-x-1/2 w-[30%] h-[3.2%] rounded-full bg-brand-ink"></span>
   </div>
 </div>

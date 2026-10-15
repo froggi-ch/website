@@ -1,0 +1,79 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+
+// The MCP server (corev2 docs/requirements/mcp.md): the report editor's tools
+// write the editor's draft, and a person takes it over. Plan: Professional+.
+const points = [
+  { icon: 'shield', title: 'Die KI ist der Benutzer – nie mehr.', text: 'Sie sieht nur, was die angemeldete Person sieht, und schlägt nur vor, was diese Person auch selbst tun dürfte.' },
+  { icon: 'draft', title: 'Jede Änderung ist ein Entwurf.', text: 'Neue Aktionen und Felder landen im Reporteditor als Entwurf. Sie sehen sie an, übernehmen oder verwerfen.' },
+  { icon: 'users', title: 'Sie behalten die Kontrolle.', text: 'Administratoren legen fest, wer KI-Apps verbinden darf, und sehen jederzeit, welche Apps verbunden sind.' },
+];
+
+const changes = [
+  ['Aktion', 'Jahreswartung', 'in Unterhalt'],
+  ['Feld', 'Wartungsdatum', 'Datum'],
+  ['Feld', 'Prüfpunkte', 'Auswahlliste'],
+  ['Feld', 'Fotos', 'Bild'],
+];
+---
+
+<section id="ai" class="py-24 md:py-32 bg-brand-ink text-white relative overflow-hidden">
+  <div class="absolute -left-40 -bottom-40 w-[560px] h-[560px] rounded-full opacity-[0.08]" style="background: radial-gradient(circle, #a2cdab, transparent 70%);"></div>
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-[1fr_1.05fr] gap-12 md:gap-16 items-center">
+    <div>
+      <SectionHeading
+        align="left"
+        dark
+        eyebrow="Neu · KI-Anbindung über MCP"
+        title="Ihre KI kennt Ihre Formulare."
+        lead="Verbinden Sie die KI, die Sie bereits nutzen – Claude, ChatGPT oder einen eigenen Agenten – über das Model Context Protocol mit Froggi. Sie erklärt Ihre Definitionen und entwirft neue Aktionen und Felder. Übernehmen tut ein Mensch."
+      />
+      <ul class="space-y-5">
+        {points.map((p) => (
+          <li class="flex gap-3.5">
+            <span class="w-9 h-9 rounded-full bg-white/10 text-brand-sage flex items-center justify-center shrink-0"><Icon name={p.icon} class="w-[18px] h-[18px]" /></span>
+            <div>
+              <div class="font-semibold">{p.title}</div>
+              <p class="mt-1 text-sm text-white/70 leading-relaxed">{p.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-8 text-sm text-white/60">Eine Adresse pro Instanz, Anmeldung pro Person. Ab dem Plan Professional.</p>
+    </div>
+
+    <div class="space-y-3 select-none" aria-hidden="true">
+      <div class="rounded-rail bg-white/[0.06] border border-white/10 p-4 space-y-3">
+        <div class="flex items-center gap-2 text-xs text-white/60"><Icon name="plug" class="w-3.5 h-3.5" /> Ihr KI-Assistent · verbunden mit Froggi</div>
+        <div class="ml-auto max-w-[85%] rounded-card rounded-br-sm bg-brand-accent px-3.5 py-2.5 text-sm leading-relaxed">
+          Lege für die Heizung eine Aktion «Jahreswartung» an – mit Datum, Prüfpunkten und Fotos.
+        </div>
+        <div class="max-w-[90%] rounded-card rounded-bl-sm bg-white/10 px-3.5 py-2.5 text-sm leading-relaxed text-white/90">
+          Erledigt: Die Aktion «Jahreswartung» liegt mit drei Feldern als Entwurf im Reporteditor. Bitte prüfen und übernehmen.
+        </div>
+      </div>
+
+      <div class="rounded-rail bg-white text-brand-ink p-4 shadow-2xl">
+        <div class="flex items-center gap-2 rounded-card bg-tone-amber-bg border border-[#f0dcbb] px-3 py-2 text-sm">
+          <Icon name="draft" class="w-4 h-4 text-tone-amber" />
+          <span class="font-semibold text-tone-amber flex-1">4 Änderungen nicht übernommen</span>
+        </div>
+        <ul class="mt-3 divide-y divide-brand-border">
+          {changes.map(([kind, name, detail]) => (
+            <li class="flex items-center gap-2.5 py-2 text-sm">
+              <span class="w-5 h-5 rounded-full bg-tone-green-bg text-tone-green flex items-center justify-center"><Icon name="plus" class="w-3 h-3" stroke={2.4} /></span>
+              <span class="text-brand-muted w-12">{kind}</span>
+              <span class="font-semibold flex-1">{name}</span>
+              <span class="text-xs text-brand-muted">{detail}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="flex justify-end gap-2 mt-3">
+          <span class="px-3.5 py-1.5 rounded-lg border border-brand-border text-sm text-brand-ink">Verwerfen</span>
+          <span class="px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-sm font-semibold">Übernehmen</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

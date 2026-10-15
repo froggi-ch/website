@@ -2,51 +2,68 @@
 import SectionHeading from './SectionHeading.astro';
 import Icon from './Icon.astro';
 
-// Tiers and their contents mirror the license server's plan catalog
-// (corev2 dev/docker-compose.yml, Catalog__Plans__*). Prices are on request.
+// Launch pricing as proposed in October 2026 (CHF per month, excl. VAT).
+// Keep in step with .claude/skills/froggi-marketing/references/pricing.md.
 const plans = [
   {
-    name: 'Basic',
-    tagline: 'Zum Ausprobieren und für kleine Teams.',
-    price: 'Kostenlos',
-    features: ['Bis 10 Objekte', 'Bis 3 Benutzer', 'Web & App, offline', 'Erinnerungen & Alarme'],
-    cta: 'Kostenlos starten',
+    name: 'Starter',
+    tagline: 'Für ein Team mit einer klaren Struktur.',
+    price: "CHF 39",
+    limit: 'Bis 100 Objekte',
+    features: ['Eine konfigurierbare Struktur', 'Grundlegende Objektstufen', 'Standard-Berichte und -Felder', '3 Benutzer'],
+    cta: 'Demo anfragen',
   },
   {
-    name: 'Pro',
-    tagline: 'Für eine wachsende Einrichtung oder Verwaltung.',
-    price: 'Auf Anfrage',
-    features: ['Bis 100 Objekte', 'Alles aus Basic', 'Vorlagen-Marktplatz', 'Import & Export', 'NFC-Anmeldung'],
+    name: 'Professional',
+    tagline: 'Für Ihre eigenen Abläufe – ohne Grenzen beim Team.',
+    price: "CHF 99",
+    limit: "Bis 1'000 Objekte",
+    features: ['Eigene Objekthierarchien', 'Konfigurierbare Objektstufen und Felder', 'Eigene Erfassungsabläufe', 'Konfiguration mit Ihrer KI (MCP)', 'Unbegrenzte Benutzer'],
     cta: 'Demo anfragen',
     highlight: true,
   },
   {
+    name: 'Business',
+    tagline: 'Für Portfolios mit mehreren Strukturen.',
+    price: "CHF 249",
+    limit: "Bis 5'000 Objekte",
+    features: ['Mehrere Strukturen und Objektstufen', 'Erweiterte Automatisierung und Erinnerungen', 'Auswertungen über das ganze Portfolio', 'Änderungsprotokoll und Schnittstellen', 'Grösseres KI-Kontingent'],
+    cta: 'Demo anfragen',
+  },
+  {
     name: 'Enterprise',
-    tagline: 'Für Organisationen mit mehreren Standorten.',
+    tagline: 'Grosse Portfolios, höhere Objektlimiten, persönlicher Support und individuelle Integrationen.',
     price: 'Auf Anfrage',
-    features: ['Unbegrenzte Objekte & Benutzer', 'Alles aus Pro', 'Single Sign-on', 'API-Zugang', 'Archiv-Speicher', 'Eigenes Hosting möglich'],
+    limit: 'Individuell',
+    features: [],
     cta: 'Kontakt aufnehmen',
   },
 ];
 ---
 
-<section id="plans" class="py-24 md:py-32">
+<section id="plans" class="py-24 md:py-32 bg-white border-t border-brand-border">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <SectionHeading
-      eyebrow="Pläne"
+      eyebrow="Preise"
       title="Klein anfangen, mitwachsen."
       lead="Ein Wechsel auf einen grösseren Plan geht direkt in der App – und Ihre Daten bleiben bei jedem Wechsel unangetastet."
     />
-    <div class="grid md:grid-cols-3 gap-4 items-stretch">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
       {plans.map((p) => (
-        <div class={`relative rounded-2xl p-7 flex flex-col ${p.highlight ? 'bg-white border-2 border-brand-accent shadow-window' : 'bg-white border border-brand-border'}`}>
+        <div class={`relative rounded-rail p-6 flex flex-col ${p.highlight ? 'bg-white border-2 border-brand-accent shadow-window' : 'bg-brand-bg border border-brand-border'}`}>
           {p.highlight && (
-            <span class="absolute -top-3 left-7 px-2.5 py-0.5 rounded-full bg-brand-accent text-white text-xs font-semibold">Beliebt</span>
+            <span class="absolute -top-3 left-6 px-2.5 py-0.5 rounded-full bg-brand-accent text-white text-xs font-semibold">Empfohlen</span>
           )}
           <h3 class="text-lg font-bold text-brand-ink">{p.name}</h3>
-          <p class="mt-1 text-sm text-brand-muted">{p.tagline}</p>
-          <div class="mt-6 text-2xl font-bold text-brand-ink">{p.price}</div>
-          <ul class="mt-6 space-y-2.5 flex-1">
+          <p class="mt-1 text-sm text-brand-muted leading-relaxed min-h-[2.75rem]">{p.tagline}</p>
+          <div class="mt-5 flex items-baseline gap-1">
+            <span class="text-[1.9rem] font-bold tracking-[-0.02em] text-brand-ink">{p.price}</span>
+            {p.price.startsWith('CHF') && <span class="text-sm text-brand-muted">/ Monat</span>}
+          </div>
+          <span class="mt-3 self-start inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-soft text-brand-accent text-[0.8rem] font-semibold">
+            <Icon name="cube" class="w-3.5 h-3.5" /> {p.limit}
+          </span>
+          <ul class="mt-5 space-y-2.5 flex-1">
             {p.features.map((f) => (
               <li class="flex gap-2.5 text-sm text-brand-ink">
                 <Icon name="check" class="w-4 h-4 text-brand-accent mt-0.5 shrink-0" stroke={2.2} /> {f}
@@ -55,10 +72,13 @@ const plans = [
           </ul>
           <a
             href="#contact"
-            class={`mt-8 inline-flex justify-center px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${p.highlight ? 'bg-brand-accent text-white hover:bg-brand-accent-dark' : 'border border-brand-border text-brand-ink hover:border-brand-sage'}`}
+            class={`mt-7 inline-flex justify-center px-4 py-2.5 rounded-card text-sm font-semibold transition-colors ${p.highlight ? 'bg-brand-accent text-white hover:bg-brand-accent-dark' : 'bg-white border border-brand-border text-brand-ink hover:border-brand-sage'}`}
           >{p.cta}</a>
         </div>
       ))}
     </div>
+    <p class="mt-6 text-center text-sm text-brand-muted">
+      Einführungspreise in CHF pro Monat, exkl. MWST.
+    </p>
   </div>
 </section>
