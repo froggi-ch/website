@@ -1,14 +1,19 @@
 ---
 import Icon from '../Icon.astro';
+import { plan, price, objectLimit } from '../../lib/plans';
 
 // The four plans in one line each; each card opens its plan on /preise, where
 // the detail and the FAQ live.
-const plans = [
-  { name: 'Starter', price: 'CHF 39', limit: 'bis 100 Objekte' },
-  { name: 'Professional', price: 'CHF 99', limit: "bis 1'000 Objekte", highlight: true },
-  { name: 'Business', price: 'CHF 249', limit: "bis 5'000 Objekte" },
-  { name: 'Enterprise', price: 'Auf Anfrage', limit: 'individuell' },
-];
+const plans = ['starter', 'pro', 'business', 'enterprise'].map((id) => {
+  const p = plan(id);
+  const limit = objectLimit(p);
+  return {
+    name: p.name,
+    price: price(p),
+    limit: limit.charAt(0).toLowerCase() + limit.slice(1),
+    highlight: p.recommended ?? false,
+  };
+});
 ---
 
 <section class="py-24 md:py-28 border-t border-brand-border">

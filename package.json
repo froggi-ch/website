@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "prebuild": "[ -f ../corev2/branding/froggi-frog.svg ] && cp ../corev2/branding/froggi-frog.svg public/froggi-frog.svg || true",
+    "prebuild": "[ -f ../corev2/branding/froggi-frog.svg ] && cp ../corev2/branding/froggi-frog.svg public/froggi-frog.svg || true && ([ -f ../corev2/backend/LicenseServer/Catalog/plans.json ] && cp ../corev2/backend/LicenseServer/Catalog/plans.json src/data/plans.json || true)",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview"

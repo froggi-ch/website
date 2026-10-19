@@ -1,44 +1,52 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 import Icon from './Icon.astro';
+import { plan, price, objectLimit, users } from '../lib/plans';
 
-// Launch pricing as proposed in October 2026 (CHF per month, excl. VAT).
-// Keep in step with .claude/skills/froggi-marketing/references/pricing.md.
-const plans = [
+// Launch pricing (October 2026). Price, object limit and users come from
+// plans.json; the wording is the website's. Keep in step with
+// .claude/skills/froggi-marketing/references/pricing.md.
+const copy = [
   {
-    name: 'Starter',
+    id: 'starter',
     tagline: 'Für ein Team mit einer klaren Struktur.',
-    price: "CHF 39",
-    limit: 'Bis 100 Objekte',
-    features: ['Eine konfigurierbare Struktur', 'Grundlegende Objektstufen', 'Standard-Berichte und -Felder', '3 Benutzer'],
+    features: ['Eine konfigurierbare Struktur', 'Grundlegende Objektstufen', 'Standard-Berichte und -Felder'],
+    showUsers: true,
     cta: 'Demo anfragen',
   },
   {
-    name: 'Professional',
+    id: 'pro',
     tagline: 'Für Ihre eigenen Abläufe – ohne Grenzen beim Team.',
-    price: "CHF 99",
-    limit: "Bis 1'000 Objekte",
-    features: ['Eigene Objekthierarchien', 'Konfigurierbare Objektstufen und Felder', 'Eigene Erfassungsabläufe', 'Konfiguration mit Ihrer KI (MCP)', 'Unbegrenzte Benutzer'],
+    features: ['Eigene Objekthierarchien', 'Konfigurierbare Objektstufen und Felder', 'Eigene Erfassungsabläufe', 'Konfiguration mit Ihrer KI (MCP)'],
+    showUsers: true,
     cta: 'Demo anfragen',
-    highlight: true,
   },
   {
-    name: 'Business',
+    id: 'business',
     tagline: 'Für Portfolios mit mehreren Strukturen.',
-    price: "CHF 249",
-    limit: "Bis 5'000 Objekte",
     features: ['Mehrere Strukturen und Objektstufen', 'Erweiterte Automatisierung und Erinnerungen', 'Auswertungen über das ganze Portfolio', 'Änderungsprotokoll und Schnittstellen', 'Grösseres KI-Kontingent'],
     cta: 'Demo anfragen',
   },
   {
-    name: 'Enterprise',
+    id: 'enterprise',
     tagline: 'Grosse Portfolios, höhere Objektlimiten, persönlicher Support und individuelle Integrationen.',
-    price: 'Auf Anfrage',
-    limit: 'Individuell',
     features: [],
     cta: 'Kontakt aufnehmen',
   },
 ];
+
+const plans = copy.map((c) => {
+  const p = plan(c.id);
+  return {
+    name: p.name,
+    tagline: c.tagline,
+    price: price(p),
+    limit: objectLimit(p),
+    features: c.showUsers ? [...c.features, users(p)] : c.features,
+    cta: c.cta,
+    highlight: p.recommended ?? false,
+  };
+});
 
 // Opens its own page: clears the fixed nav, heading becomes the h1.
 const { first = false } = Astro.props as { first?: boolean };

@@ -1,0 +1,52 @@
+{
+  "currency": "CHF",
+  "plans": [
+    {
+      "id": "basic",
+      "name": "Basic",
+      "description": "Free tier",
+      "priceMonthly": 0,
+      "limits": { "objects.max": 10, "users.max": 3, "structures.max": 1 },
+      "flags": ["reminders", "alerts"]
+    },
+    {
+      "id": "starter",
+      "name": "Starter",
+      "description": "One structure, up to 100 objects",
+      "priceMonthly": 39,
+      "limits": { "objects.max": 100, "users.max": 3, "structures.max": 1 },
+      "flags": ["reminders", "alerts", "template_library"]
+    },
+    {
+      "id": "pro",
+      "name": "Professional",
+      "description": "Own hierarchies, up to 1000 objects",
+      "priceMonthly": 99,
+      "recommended": true,
+      "limits": { "objects.max": 1000, "structures.max": 1 },
+      "flags": ["reminders", "alerts", "template_library", "import_export", "nfc_login", "mcp_access"]
+    },
+    {
+      "id": "business",
+      "name": "Business",
+      "description": "Several structures, up to 5000 objects",
+      "priceMonthly": 249,
+      "limits": { "objects.max": 5000 },
+      "flags": [
+        "reminders", "alerts", "template_library", "import_export", "nfc_login", "mcp_access",
+        "api_access", "archive_tier"
+      ]
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise",
+      "description": "Unlimited, all features",
+      "priceMonthly": null,
+      "limits": {},
+      "flags": [
+        "reminders", "alerts", "template_library", "import_export", "nfc_login", "mcp_access",
+        "api_access", "archive_tier", "sso"
+      ]
+    }
+  ]
+}

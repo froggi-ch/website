@@ -5,11 +5,14 @@ import Plans from '../components/Plans.astro';
 import PricingFaq from '../components/PricingFaq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Footer from '../components/Footer.astro';
+import { plan, price } from '../lib/plans';
+
+const [starter, pro, business] = ['starter', 'pro', 'business'].map((id) => price(plan(id)));
 ---
 
 <Base
   title="Preise — Froggi"
-  description="Starter ab CHF 39, Professional CHF 99, Business CHF 249 pro Monat, Enterprise auf Anfrage. Einführungspreise, exkl. MWST."
+  description={`Starter ab ${starter}, Professional ${pro}, Business ${business} pro Monat, Enterprise auf Anfrage. Einführungspreise, exkl. MWST.`}
 >
   <Nav />
   <main id="inhalt">
