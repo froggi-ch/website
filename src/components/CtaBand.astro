@@ -10,7 +10,7 @@ export interface Props {
 const {
   title = 'Mach den Sprung.',
   text = 'Wir zeigen Ihnen Froggi mit Ihren eigenen Abläufen – online oder vor Ort.',
-  secondary = { label: 'Preise ansehen', href: '/preise' },
+  secondary = { label: 'Preise ansehen', href: '/documentation/preise' },
 } = Astro.props;
 ---
 
@@ -24,7 +24,7 @@ const {
         <p class="mt-2 text-white/75 leading-relaxed max-w-xl">{text}</p>
       </div>
       <div class="relative flex flex-col sm:flex-row gap-3 shrink-0">
-        <a href="/kontakt" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-card bg-white text-brand-accent-dark font-semibold hover:bg-brand-soft transition-colors">
+        <a href="/documentation/kontakt" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-card bg-white text-brand-accent-dark font-semibold hover:bg-brand-soft transition-colors">
           Demo anfragen <Icon name="arrow" class="w-4 h-4" stroke={2} />
         </a>
         <a href={secondary.href} class="inline-flex items-center justify-center px-5 py-3 rounded-card border border-white/30 text-white font-medium hover:bg-white/10 transition-colors">

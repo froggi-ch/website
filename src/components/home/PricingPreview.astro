@@ -25,7 +25,7 @@ const plans = ['starter', 'pro', 'business', 'enterprise'].map((id) => {
         Ein Objekt ist alles, was Sie dokumentieren – eine Liegenschaft, eine Wohnung, eine Anlage.
         Ein Wechsel auf einen grösseren Plan geht direkt in der App.
       </p>
-      <a href="/preise" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent hover:underline">
+      <a href="/documentation/preise" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent hover:underline">
         Alle Pläne und was als Objekt zählt <Icon name="arrow" class="w-4 h-4" stroke={2} />
       </a>
     </div>
@@ -33,7 +33,7 @@ const plans = ['starter', 'pro', 'business', 'enterprise'].map((id) => {
       {plans.map((p) => (
         <li>
           <a
-            href={`/preise#plan-${p.name.toLowerCase()}`}
+            href={`/documentation/preise#plan-${p.name.toLowerCase()}`}
             class={`group block h-full rounded-rail p-5 bg-white transition hover:shadow-lift ${p.highlight ? 'border-2 border-brand-accent' : 'border border-brand-border hover:border-brand-sage'}`}
           >
             <div class="flex items-center justify-between">

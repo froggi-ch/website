@@ -1,12 +1,12 @@
 ---
-import Base from '../../layouts/Base.astro';
-import Nav from '../../components/Nav.astro';
-import Icon from '../../components/Icon.astro';
-import SectionHeading from '../../components/SectionHeading.astro';
-import PhoneMock from '../../components/mock/PhoneMock.astro';
-import Walkthrough from '../../components/Walkthrough.astro';
-import CtaBand from '../../components/CtaBand.astro';
-import Footer from '../../components/Footer.astro';
+import Base from '../../../layouts/Base.astro';
+import Nav from '../../../components/Nav.astro';
+import Icon from '../../../components/Icon.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import PhoneMock from '../../../components/mock/PhoneMock.astro';
+import Walkthrough from '../../../components/Walkthrough.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import Footer from '../../../components/Footer.astro';
 
 // Every action named here is in corev2/templates/immobilienbewirtschaftung.json.
 // That template ships no reminder or alarm rules: those are set up per
@@ -82,7 +82,7 @@ const faq = [
             ))}
           </ul>
           <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href="/kontakt" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-card bg-brand-accent text-white font-semibold hover:bg-brand-accent-dark transition-colors shadow-glow">
+            <a href="/documentation/kontakt" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-card bg-brand-accent text-white font-semibold hover:bg-brand-accent-dark transition-colors shadow-glow">
               Demo anfragen <Icon name="arrow" class="w-4 h-4" stroke={2} />
             </a>
             <a href="#demo" class="inline-flex items-center justify-center px-6 py-3 rounded-card border border-brand-border bg-white text-brand-ink font-medium hover:border-brand-sage transition-colors">
@@ -167,7 +167,7 @@ const faq = [
             Jede Ebene zählt: Eine Liegenschaft mit acht Wohnungen, Treppenhaus, Waschküche und Heizung sind
             <strong class="text-brand-ink">zwölf Objekte</strong>. Der Plan Starter umfasst bis 100 Objekte.
           </p>
-          <a href="/preise" class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent hover:underline">
+          <a href="/documentation/preise" class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent hover:underline">
             Alle Pläne vergleichen <Icon name="arrow" class="w-4 h-4" stroke={2} />
           </a>
         </div>

@@ -1,30 +1,119 @@
 ---
 import Base from '../layouts/Base.astro';
-import Nav from '../components/Nav.astro';
-import Hero from '../components/Hero.astro';
-import Problem from '../components/home/Problem.astro';
-import Steps from '../components/home/Steps.astro';
-import Walkthrough from '../components/Walkthrough.astro';
-import Industries from '../components/home/Industries.astro';
-import Differentiators from '../components/home/Differentiators.astro';
-import PricingPreview from '../components/home/PricingPreview.astro';
-import Trust from '../components/home/Trust.astro';
-import CtaBand from '../components/CtaBand.astro';
-import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+
+// froggi.ch's front door: the brand's two products side by side. Each product has its
+// own header and footer under its path (/documentation, /timo); this page only points
+// the way. The two products address different readers (teams: "Sie", freelancers:
+// "du"), so the copy here stays neutral.
+const year = new Date().getFullYear();
+
+const products = [
+  {
+    name: 'Froggi Dokumentation',
+    href: '/documentation',
+    logo: '/froggi-frog.svg',
+    logoClass: '',
+    tagline: 'Dokumentation für Teams im Einsatz',
+    text: 'Kontrollen, Störungen und erledigte Arbeit direkt am Objekt erfassen – im Browser oder offline auf dem Handy. Mit Verlauf und Aufgaben pro Objekt.',
+    points: ['Eigene Formulare und Rapporte', 'Mobile App mit Offline-Modus', 'Für Hauswartung, Unterhalt, Pflege'],
+    image: '/screens/01-objekt.jpg',
+    imageAlt: 'Froggi auf dem Handy: ein Objekt mit Verlauf und fälligen Aufgaben',
+    cta: 'Zur Dokumentation',
+  },
+  {
+    name: 'timo',
+    href: '/timo',
+    logo: '/timo/icon.png',
+    logoClass: 'rounded-[10px]',
+    tagline: 'Zeit & Rechnungen für Selbständige',
+    text: 'Zeiterfassung mit Timer und Widget, Monatsrechnungen mit Swiss QR-Zahlteil und eine einfache Buchhaltung. Für iPhone, iPad und Mac, ohne Konto.',
+    points: ['Timer, Widget und Dynamic Island', 'Swiss QR-Rechnung auf Knopfdruck', 'Daten bleiben im eigenen iCloud'],
+    image: '/timo/2-time.jpg',
+    imageAlt: 'timo auf dem iPhone: laufender Timer mit Kunde, Projekt und Notiz',
+    cta: 'Zu timo',
+  },
+];
 ---
 
-<Base>
-  <Nav />
-  <main id="inhalt">
-    <Hero />
-    <Problem />
-    <Steps />
-    <Walkthrough />
-    <Industries />
-    <Differentiators />
-    <PricingPreview />
-    <Trust />
-    <CtaBand />
+<Base
+  title="froggi – Software aus der Schweiz"
+  description="froggi macht Software für die Arbeit vor Ort: Froggi Dokumentation für Teams im Einsatz und timo, die Zeiterfassung mit QR-Rechnung für Selbständige."
+>
+  <header class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-[54px] flex items-center justify-between gap-6">
+      <a href="/" class="flex items-center gap-2 text-[1.1rem] font-bold text-brand-accent-dark rounded-lg">
+        <img src="/froggi-frog.svg" alt="" width="26" height="26" />
+        froggi
+      </a>
+      <nav aria-label="Produkte">
+        <ul class="flex items-center gap-1">
+          {products.map((p) => (
+            <li><a href={p.href} class="px-3 py-1.5 rounded-lg text-[0.94rem] text-brand-ink hover:bg-brand-soft hover:text-brand-accent transition-colors">{p.name === 'timo' ? 'timo' : 'Dokumentation'}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inhalt" class="relative overflow-hidden pt-[54px]">
+    <div
+      class="absolute inset-x-0 top-0 h-[560px] pointer-events-none"
+      style="background: radial-gradient(60% 55% at 50% 0%, #e1efe5 0%, rgba(246,249,247,0) 100%);"
+    ></div>
+
+    <section class="relative px-4 sm:px-6 pt-16 sm:pt-24 pb-10 text-center">
+      <img src="/froggi-frog.svg" alt="" width="64" height="64" class="mx-auto" />
+      <h1 class="mt-6 text-[2.2rem] leading-[1.1] sm:text-5xl font-bold tracking-[-0.03em] text-brand-ink">
+        Software für die Arbeit,<br class="hidden sm:inline" /> <span class="text-brand-accent">die draussen passiert.</span>
+      </h1>
+      <p class="mt-5 text-lg text-brand-muted leading-relaxed max-w-xl mx-auto">
+        Zwei Apps aus der Schweiz: eine für Teams, die festhalten, was vor Ort erledigt wurde, und eine für Selbständige, die ihre Zeit verrechnen.
+      </p>
+    </section>
+
+    <section aria-label="Produkte" class="relative px-4 sm:px-6 pb-20 sm:pb-28">
+      <div class="max-w-5xl mx-auto grid gap-6 md:grid-cols-2">
+        {products.map((p) => (
+          <a href={p.href} class="group flex flex-col rounded-rail bg-white border border-brand-border shadow-lift hover:border-brand-sage hover:shadow-window transition-all overflow-hidden">
+            <div class="p-6 sm:p-8 flex-1">
+              <div class="flex items-center gap-3">
+                <img src={p.logo} alt="" width="40" height="40" class={p.logoClass} />
+                <div>
+                  <h2 class="text-xl font-bold text-brand-ink">{p.name}</h2>
+                  <p class="text-sm text-brand-muted">{p.tagline}</p>
+                </div>
+              </div>
+              <p class="mt-5 text-[0.95rem] text-brand-muted leading-relaxed">{p.text}</p>
+              <ul class="mt-5 space-y-2">
+                {p.points.map((pt) => (
+                  <li class="flex items-center gap-2.5 text-sm text-brand-ink">
+                    <Icon name="check" class="w-4 h-4 text-brand-accent shrink-0" stroke={2.2} />
+                    {pt}
+                  </li>
+                ))}
+              </ul>
+              <span class="mt-7 inline-flex items-center gap-2 font-semibold text-brand-accent">
+                {p.cta}
+                <Icon name="arrow" class="w-4 h-4 transition-transform group-hover:translate-x-0.5" stroke={2} />
+              </span>
+            </div>
+            <div class="h-44 sm:h-52 bg-brand-soft border-t border-brand-border flex justify-center items-start overflow-hidden px-6 pt-6">
+              <img src={p.image} alt={p.imageAlt} width="1000" height="2173" loading="lazy" class="w-[46%] max-w-[200px] h-auto rounded-t-[22px] border border-b-0 border-brand-border shadow-window" />
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
   </main>
-  <Footer />
+
+  <footer class="px-4 sm:px-6 border-t border-brand-border bg-white">
+    <div class="max-w-6xl mx-auto py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm">
+      <span class="text-brand-muted">&copy; {year} froggi · Schweiz · <a href="mailto:hello@froggi.ch" class="text-brand-ink hover:text-brand-accent">hello@froggi.ch</a></span>
+      <ul class="flex flex-wrap gap-x-5 gap-y-2">
+        <li><a href="/documentation/legal" class="text-brand-ink hover:text-brand-accent">Impressum Froggi Dokumentation</a></li>
+        <li><a href="/timo/legal" class="text-brand-ink hover:text-brand-accent">Impressum timo</a></li>
+      </ul>
+    </div>
+  </footer>
 </Base>

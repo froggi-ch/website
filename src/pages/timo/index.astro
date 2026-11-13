@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
+import TimoNav from '../../components/timo/TimoNav.astro';
+import TimoFooter from '../../components/timo/TimoFooter.astro';
 
 // timo is a separate app from the Froggi platform, published by J.Huser IT Services.
 // This page is its App Store marketing and support URL; keep the prices and limits in
@@ -71,10 +71,11 @@ const faq = [
 ---
 
 <Base
+  icon="/timo/icon.png"
   title="timo – Zeit & Rechnungen"
   description="timo ist die Zeiterfassung mit Swiss QR-Rechnung für Selbständige in der Schweiz. Für iPhone, iPad und Mac – ohne Konto, ohne Tracking."
 >
-  <Nav />
+  <TimoNav />
   <main id="inhalt" class="pt-[54px]">
     <!-- Hero -->
     <section class="px-4 sm:px-6 bg-white border-b border-brand-border">
@@ -98,7 +99,7 @@ const faq = [
     </section>
 
     <!-- Features -->
-    <section class="px-4 sm:px-6">
+    <section id="funktionen" class="px-4 sm:px-6">
       <div class="max-w-6xl mx-auto py-16 sm:py-20">
         <h2 class="text-3xl font-bold text-brand-ink">Was timo kann</h2>
         <div class="mt-10 grid gap-6 md:grid-cols-3">
@@ -182,5 +183,5 @@ const faq = [
       </div>
     </section>
   </main>
-  <Footer />
+  <TimoFooter />
 </Base>

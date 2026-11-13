@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
+import TimoNav from '../../components/timo/TimoNav.astro';
+import TimoFooter from '../../components/timo/TimoFooter.astro';
 
 // timo's imprint and privacy policy, separate from Froggi's /legal. Linked from the app
 // (paywall) and from App Store Connect as the privacy policy URL: keep the path /timo/legal
@@ -70,10 +70,11 @@ const sections = [
 ---
 
 <Base
+  icon="/timo/icon.png"
   title="Impressum & Datenschutz – timo"
   description="Impressum und Datenschutzerklärung der App timo: keine Datenerhebung, kein Tracking, Daten auf deinen Geräten und in deinem privaten iCloud."
 >
-  <Nav />
+  <TimoNav />
   <main id="inhalt" class="pt-[54px]">
     <div class="max-w-3xl mx-auto px-6 py-24">
       <a href="/timo" class="inline-flex items-center gap-2 text-sm text-brand-accent hover:underline">
@@ -109,5 +110,5 @@ const sections = [
       ))}
     </div>
   </main>
-  <Footer />
+  <TimoFooter />
 </Base>

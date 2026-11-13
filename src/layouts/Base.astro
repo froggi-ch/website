@@ -2,12 +2,16 @@
 export interface Props {
   title?: string;
   description?: string;
+  /** Favicon and og:image; timo's pages use the app icon. */
+  icon?: string;
 }
 
 const {
   title = 'Froggi — Dokumentation für Teams im Einsatz',
   description = 'Froggi ist die Dokumentationsplattform für Pflege, Liegenschaften und Unterhalt: eigene Formulare, Erfassung im Web und offline auf dem Handy, Verlauf und Aufgaben pro Objekt.',
+  icon = '/froggi-frog.svg',
 } = Astro.props;
+const iconType = icon.endsWith('.svg') ? 'image/svg+xml' : 'image/png';
 ---
 
 <!doctype html>
@@ -22,9 +26,9 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/froggi-frog.svg" />
+    <meta property="og:image" content={icon} />
 
-    <link rel="icon" type="image/svg+xml" href="/froggi-frog.svg" />
+    <link rel="icon" type={iconType} href={icon} />
 
     <style is:global>
       /* The app's own stack (corev2 web/src/styles.css): no web font. */

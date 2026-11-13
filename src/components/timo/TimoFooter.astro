@@ -1,0 +1,21 @@
+---
+// timo's footer: its provider and legal page, not the Froggi platform's link columns.
+const year = new Date().getFullYear();
+---
+
+<footer class="px-4 sm:px-6 border-t border-brand-border bg-white">
+  <div class="max-w-6xl mx-auto py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm">
+    <a href="/timo" class="inline-flex items-center gap-2 rounded-lg">
+      <img src="/timo/icon.png" alt="" width="24" height="24" class="rounded-md" />
+      <span class="font-semibold text-brand-ink">timo – Zeit &amp; Rechnungen</span>
+    </a>
+    <ul class="flex flex-wrap gap-x-5 gap-y-2">
+      <li><a href="/timo#support" class="text-brand-ink hover:text-brand-accent">Hilfe &amp; Kontakt</a></li>
+      <li><a href="/timo/legal" class="text-brand-ink hover:text-brand-accent">Impressum &amp; Datenschutz</a></li>
+      <li><a href="/" class="text-brand-ink hover:text-brand-accent">froggi.ch</a></li>
+    </ul>
+  </div>
+  <div class="max-w-6xl mx-auto py-5 border-t border-brand-border text-xs text-brand-muted">
+    &copy; {year} J.Huser IT Services · Glarus, Schweiz
+  </div>
+</footer>

@@ -1,11 +1,11 @@
 ---
-import Base from '../layouts/Base.astro';
-import Nav from '../components/Nav.astro';
-import Plans from '../components/Plans.astro';
-import PricingFaq from '../components/PricingFaq.astro';
-import CtaBand from '../components/CtaBand.astro';
-import Footer from '../components/Footer.astro';
-import { plan, price } from '../lib/plans';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Plans from '../../components/Plans.astro';
+import PricingFaq from '../../components/PricingFaq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Footer from '../../components/Footer.astro';
+import { plan, price } from '../../lib/plans';
 
 const [starter, pro, business] = ['starter', 'pro', 'business'].map((id) => price(plan(id)));
 ---
@@ -21,7 +21,7 @@ const [starter, pro, business] = ['starter', 'pro', 'business'].map((id) => pric
     <CtaBand
       title="Welcher Plan passt?"
       text="Wir rechnen mit Ihnen durch, wie viele Objekte Sie haben – und zeigen Froggi mit Ihren eigenen Abläufen."
-      secondary={{ label: 'Alle Funktionen', href: '/funktionen' }}
+      secondary={{ label: 'Alle Funktionen', href: '/documentation/funktionen' }}
     />
   </main>
   <Footer />

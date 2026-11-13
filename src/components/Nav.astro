@@ -11,21 +11,21 @@ type Group = { label: string; base: string[]; items: Item[] };
 const groups: Group[] = [
   {
     label: 'Produkt',
-    base: ['/produkt', '/funktionen', '/integrationen'],
+    base: ['/documentation/produkt', '/documentation/funktionen', '/documentation/integrationen'],
     items: [
-      { label: 'Übersicht', href: '/produkt', text: 'Reporteditor, Erfassen, Verlauf, Aufgaben', icon: 'clipboard' },
-      { label: 'Mobile App & Offline', href: '/produkt#app', text: 'Erfassen, auch ohne Netz', icon: 'offline' },
-      { label: 'Aufgaben & Erinnerungen', href: '/produkt#aufgaben', text: 'Was fällig ist, auf einen Blick', icon: 'tasks' },
-      { label: 'Funktionen & Sicherheit', href: '/funktionen', text: 'Strukturen, Rechte, Vorlagen, Betrieb', icon: 'shield' },
-      { label: 'Integrationen & KI', href: '/integrationen', text: 'API, Single Sign-on, MCP', icon: 'plug' },
+      { label: 'Übersicht', href: '/documentation/produkt', text: 'Reporteditor, Erfassen, Verlauf, Aufgaben', icon: 'clipboard' },
+      { label: 'Mobile App & Offline', href: '/documentation/produkt#app', text: 'Erfassen, auch ohne Netz', icon: 'offline' },
+      { label: 'Aufgaben & Erinnerungen', href: '/documentation/produkt#aufgaben', text: 'Was fällig ist, auf einen Blick', icon: 'tasks' },
+      { label: 'Funktionen & Sicherheit', href: '/documentation/funktionen', text: 'Strukturen, Rechte, Vorlagen, Betrieb', icon: 'shield' },
+      { label: 'Integrationen & KI', href: '/documentation/integrationen', text: 'API, Single Sign-on, MCP', icon: 'plug' },
     ],
   },
   {
     label: 'Branchen',
-    base: ['/branchen'],
+    base: ['/documentation/branchen'],
     items: [
-      { label: 'Immobilienverwaltung & Hauswartung', href: '/branchen/hauswartung', text: 'Kontrollgänge, Unterhalt, Mieterwechsel', icon: 'building' },
-      { label: 'Weitere Einsatzbereiche', href: '/#branchen', text: 'Reinigung, Pflege und mehr', icon: 'tree' },
+      { label: 'Immobilienverwaltung & Hauswartung', href: '/documentation/branchen/hauswartung', text: 'Kontrollgänge, Unterhalt, Mieterwechsel', icon: 'building' },
+      { label: 'Weitere Einsatzbereiche', href: '/documentation#branchen', text: 'Reinigung, Pflege und mehr', icon: 'tree' },
     ],
   },
 ];
@@ -39,7 +39,7 @@ const off = 'text-brand-ink hover:bg-brand-soft hover:text-brand-accent';
 
 <nav aria-label="Hauptnavigation" class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-border">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 h-[54px] flex items-center justify-between gap-6">
-    <a href="/" class="flex items-center gap-2 text-[1.1rem] font-bold text-brand-accent-dark rounded-lg">
+    <a href="/documentation" class="flex items-center gap-2 text-[1.1rem] font-bold text-brand-accent-dark rounded-lg">
       <img src="/froggi-frog.svg" alt="" width="26" height="26" />
       Froggi
     </a>
@@ -71,12 +71,12 @@ const off = 'text-brand-ink hover:bg-brand-soft hover:text-brand-accent';
         </li>
       ))}
       <li>
-        <a href="/preise" aria-current={path === '/preise' ? 'page' : undefined} class={`${pill} ${path === '/preise' ? on : off}`}>Preise</a>
+        <a href="/documentation/preise" aria-current={path === '/documentation/preise' ? 'page' : undefined} class={`${pill} ${path === '/documentation/preise' ? on : off}`}>Preise</a>
       </li>
     </ul>
 
     <a
-      href="/kontakt"
+      href="/documentation/kontakt"
       class="hidden md:inline-flex items-center px-4 py-1.5 rounded-lg bg-brand-accent text-white text-[0.94rem] font-medium hover:bg-brand-accent-dark transition-colors"
     >
       Demo anfragen
@@ -105,8 +105,8 @@ const off = 'text-brand-ink hover:bg-brand-soft hover:text-brand-accent';
         ))}
       </div>
     ))}
-    <a href="/preise" class={`block mt-4 py-2 px-2 rounded-lg text-[0.95rem] ${path === '/preise' ? on : 'font-medium text-brand-ink'}`}>Preise</a>
-    <a href="/kontakt" class="mt-4 flex justify-center px-4 py-2.5 rounded-lg bg-brand-accent text-white text-sm font-semibold">
+    <a href="/documentation/preise" class={`block mt-4 py-2 px-2 rounded-lg text-[0.95rem] ${path === '/documentation/preise' ? on : 'font-medium text-brand-ink'}`}>Preise</a>
+    <a href="/documentation/kontakt" class="mt-4 flex justify-center px-4 py-2.5 rounded-lg bg-brand-accent text-white text-sm font-semibold">
       Demo anfragen
     </a>
   </div>
