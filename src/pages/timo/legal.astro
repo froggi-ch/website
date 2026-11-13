@@ -1,0 +1,113 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+// timo's imprint and privacy policy, separate from Froggi's /legal. Linked from the app
+// (paywall) and from App Store Connect as the privacy policy URL: keep the path /timo/legal
+// and the #datenschutz anchor. Update the date and the text whenever the app starts
+// handling data differently (new sync, analytics, network services).
+const sections = [
+  {
+    title: 'Kurz gesagt',
+    body: [
+      'timo erhebt keine Daten über dich. Es gibt kein Konto, keine Analyse, kein Tracking und keine Werbung. Was du in timo erfasst, liegt auf deinen Geräten und – wenn du iCloud nutzt – in deinem privaten iCloud-Speicher. Wir als Anbieter haben darauf keinen Zugriff.',
+    ],
+  },
+  {
+    title: 'Verantwortlich',
+    body: [
+      'J.Huser IT Services, Janis Huser (Angaben siehe Impressum oben).',
+    ],
+  },
+  {
+    title: 'Daten in der App',
+    body: [
+      'Kunden, Leistungen, Zeiteinträge, Rechnungen, Buchungen, Belege, dein Firmenprofil und dein Logo speichert timo in einer Datenbank auf deinem Gerät. Diese Daten werden nicht an uns oder an Dritte übermittelt.',
+      '<strong class="text-brand-ink">iCloud:</strong> Wenn du auf deinem Gerät mit einem Apple-Konto angemeldet bist und iCloud eingeschaltet hast, gleicht timo die Daten über die private iCloud-Datenbank deines Apple-Kontos (CloudKit) mit deinen anderen Geräten ab. Die Daten liegen dann bei Apple; es gilt die <a href="https://www.apple.com/legal/privacy/" class="text-brand-accent hover:underline">Datenschutzrichtlinie von Apple</a>. Wir können diese Daten nicht einsehen.',
+      '<strong class="text-brand-ink">Widget und Live-Aktivität:</strong> Der laufende Timer wird für das Widget und den Sperrbildschirm auf deinem Gerät zwischengespeichert. Auch das verlässt dein Gerät nicht.',
+    ],
+  },
+  {
+    title: 'Kontakte, Fotos und Kamera',
+    body: [
+      'timo liest nur die Kontakte, die du selbst auswählst oder mit timo teilst, und legt daraus einen Kunden an. Auf dem Mac fragt timo vorher um Erlaubnis, deine Kontakte anzuzeigen.',
+      'Fotos und die Kamera nutzt timo nur, wenn du ein Logo oder einen Beleg hinzufügst. Das Bild wird in timo gespeichert und nirgends hochgeladen (ausser in dein iCloud, siehe oben).',
+    ],
+  },
+  {
+    title: 'Rechnungen versenden',
+    body: [
+      'Wenn du eine Rechnung per E-Mail, WhatsApp oder «Teilen» versendest, öffnet timo die entsprechende App deines Geräts mit dem PDF. Der Versand läuft über diese App und deinen Anbieter; timo selbst überträgt nichts.',
+    ],
+  },
+  {
+    title: 'Käufe (timo Pro)',
+    body: [
+      'Käufe und Abos von timo Pro wickelt Apple über den App Store ab. timo erhält von Apple nur die Bestätigung, ob Pro für dein Apple-Konto aktiv ist; Name, Zahlungsmittel oder andere Angaben zu dir erhalten wir nicht. Von Apple bekommen wir zusammengefasste, anonyme Verkaufszahlen.',
+    ],
+  },
+  {
+    title: 'Support-Anfragen',
+    body: [
+      'Wenn du uns schreibst, verwenden wir deine E-Mail-Adresse und deine Nachricht nur, um dir zu antworten, und löschen sie, wenn sie dafür nicht mehr nötig sind.',
+    ],
+  },
+  {
+    title: 'Diese Website',
+    body: [
+      'froggi.ch wird über GitHub Pages (GitHub Inc., USA) ausgeliefert. Dabei werden technisch nötige Angaben wie deine IP-Adresse kurzzeitig in Server-Protokollen verarbeitet. Diese Seite setzt keine Cookies und kein Tracking ein.',
+    ],
+  },
+  {
+    title: 'Deine Rechte und Löschung',
+    body: [
+      'Alle Daten in timo kannst du in der App selbst einsehen, ändern und exportieren (PDF, CSV). Unter Einstellungen → Daten zurücksetzen löschst du alles – mit iCloud-Sync auch in iCloud und auf deinen anderen Geräten. Wenn du timo löschst, entfernt dein Gerät die lokalen Daten; die iCloud-Daten verwaltest du in den iCloud-Einstellungen deines Apple-Kontos.',
+      'Nach dem Schweizer Datenschutzgesetz kannst du jederzeit Auskunft verlangen, welche Daten wir über dich bearbeiten – ausser einer allfälligen Support-E-Mail sind das keine. Schreib dazu an die oben genannte Adresse.',
+    ],
+  },
+];
+---
+
+<Base
+  title="Impressum & Datenschutz – timo"
+  description="Impressum und Datenschutzerklärung der App timo: keine Datenerhebung, kein Tracking, Daten auf deinen Geräten und in deinem privaten iCloud."
+>
+  <Nav />
+  <main id="inhalt" class="pt-[54px]">
+    <div class="max-w-3xl mx-auto px-6 py-24">
+      <a href="/timo" class="inline-flex items-center gap-2 text-sm text-brand-accent hover:underline">
+        <img src="/timo/icon.png" alt="" width="24" height="24" class="rounded-md" />
+        timo – Zeit &amp; Rechnungen
+      </a>
+      <h1 class="mt-4 text-3xl sm:text-4xl font-bold text-brand-text hyphens-auto break-words">Impressum &amp; Datenschutz</h1>
+      <p class="mt-4 text-brand-muted">Gilt für die App timo auf iPhone, iPad und Mac. Stand: November 2026.</p>
+
+      <section id="impressum" class="mt-12">
+        <h2 class="text-xl font-semibold text-brand-text mb-4 pb-2 border-b border-brand-border">Impressum</h2>
+        <div class="text-brand-muted text-sm leading-relaxed space-y-1">
+          <p class="text-brand-text font-medium">J.Huser IT Services</p>
+          <p>Janis Huser</p>
+          <p>Abläschstrasse 66, 8750 Glarus, Schweiz</p>
+          <p>UID: CHE-299.352.957</p>
+          <p>E-Mail: <a href="mailto:hello@froggi.ch" class="text-brand-accent hover:underline">hello@froggi.ch</a></p>
+        </div>
+        <p class="mt-4 text-brand-muted text-sm leading-relaxed">
+          timo ist eine App von J.Huser IT Services und läuft unabhängig von der Plattform Froggi. Für die Nutzung von timo gilt die <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" class="text-brand-accent hover:underline">Standard-Lizenzvereinbarung von Apple (EULA)</a>.
+        </p>
+      </section>
+
+      <h2 id="datenschutz" class="mt-16 text-2xl font-bold text-brand-text hyphens-auto break-words">Datenschutzerklärung</h2>
+
+      {sections.map((s) => (
+        <section class="mt-10">
+          <h3 class="text-xl font-semibold text-brand-text mb-4 pb-2 border-b border-brand-border">{s.title}</h3>
+          <div class="text-brand-muted text-sm leading-relaxed space-y-4">
+            {s.body.map((p) => <p set:html={p} />)}
+          </div>
+        </section>
+      ))}
+    </div>
+  </main>
+  <Footer />
+</Base>
